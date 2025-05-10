@@ -10,13 +10,13 @@ export const environment = {
 
 
 
-    apiUrlRentalmanagementms1: 'http://rental_backend.railway.internal:8080/api/',
-    loginUrl: 'http://rental_backend.railway.internal:8080/',
-    registerUrl: 'http://rental_backend.railway.internal:8080/register',
-    apiUrl: 'http://rental_backend.railway.internal:8080/',
+    apiUrlRentalmanagementms1: 'http://rental_backend.railway.internal/api/',
+    loginUrl: 'http://rental_backend.railway.internal/',
+    registerUrl: 'http://rental_backend.railway.internal/register',
+    apiUrl: 'http://rental_backend.railway.internal/',
 
 
-    stripeUrl: "http://rental_backend.railway.internal:8080/api/payment/create-payment-intent/",
+    stripeUrl: "http://rental_backend.railway.internal/api/payment/create-payment-intent/",
     stripePublicKey: "pk_test_51PVbvFRxVNBDrAcwfSz21b6EtPSpl6Fw3gUoKpIGWZN5whhSfS67W4hbtk95OMF1JSpxgYPyp9AmkNOAPLNFR7St00tDXFRjuV",
 
 
