@@ -22,7 +22,7 @@ RUN npm run build
 FROM nginx:latest
 
 # Set the environment variable for the profile (default to prod)
-ARG PROFILE=localhost
+ARG PROFILE=prod
 ENV PROFILE=${PROFILE}
 RUN mkdir -p /etc/nginx/ssl
 
