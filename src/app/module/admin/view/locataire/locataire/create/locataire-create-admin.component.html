@@ -1,0 +1,110 @@
+<div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded-lg">
+        <div class="border-b p-4 flex justify-between items-center bg-blue-200 text-white">
+            <h2 class="text-xl font-semibold">{{'locataire.tabPan' | translate}}</h2>
+            <button (click)="cancel()" class="text-white hover:bg-blue-600 p-2 rounded-md">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+        <div class="p-4">
+            <p-tabView>
+                <p-tabPanel header="{{'locataire.tabPan' | translate}}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="3">{{'locataire.nom' | translate}}<span class="text-red-500">*</span></label>
+                            <input type="text" pInputText placeholder="{{'locataire.nom' | translate}}" id="3" [(ngModel)]="item.nom"
+                                   [ngClass]="{'ng-invalid ng-dirty' : !validLocataireNom}" />
+                            <small class="text-red-500" *ngIf='!validLocataireNom'>Nom is obligatory.</small>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="4">{{'locataire.prenom' | translate}}<span class="text-red-500">*</span></label>
+                            <input type="text" pInputText placeholder="{{'locataire.prenom' | translate}}" id="4" [(ngModel)]="item.prenom"
+                                   [ngClass]="{'ng-invalid ng-dirty' : !validLocatairePrenom}" />
+                            <small class="text-red-500" *ngIf='!validLocatairePrenom'>Prenom is obligatory.</small>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="telephone">{{'locataire.telephone' | translate}}<span class="text-red-500">*</span></label>
+                            <input type="text" pInputText placeholder="{{'locataire.telephone' | translate}}" id="telephone" [(ngModel)]="item.telephone" />
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="5">{{'locataire.typeLocataire' | translate}}</label>
+                            <p-dropdown class="w-full" appendTo="body" [options]="typeLocataires" [(ngModel)]="item.typeLocataire" id="5"
+                                        [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        optionLabel="label" placeholder="{{'locataire.typeLocataire' | translate}}">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="8">{{'location.local' | translate}}</label>
+                            <p-dropdown class="w-full" appendTo="body" (onChange)="onLocalChange($event.value)" [options]="locals"
+                                        [(ngModel)]="location.local" id="8" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="label" placeholder="{{'location.local' | translate}}">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="3">{{'location.dateDebut' | translate}}</label>
+                            <p-calendar class="w-full"
+                                        appendTo="body"
+                                        id="dateDebut"
+                                        [showTime]="true"
+                                        [showSeconds]="false"
+                                        placeholder="{{'location.dateDebut' | translate}}"
+                                        [(ngModel)]="location.dateDebut"
+                                        dateFormat="{{dateFormat}}"
+                                        [disabledDates]="disabledDates"
+                                        (onSelect)="checkDateConflict()">
+                            </p-calendar>
+                            <small class="text-yellow-600" *ngIf="dateConflictWarning">{{dateConflictWarning}}</small>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="4">{{'location.dateFin' | translate}}</label>
+                            <p-calendar class="w-full"
+                                        appendTo="body"
+                                        id="dateFin"
+                                        [showTime]="true"
+                                        [showSeconds]="false"
+                                        placeholder="{{'location.dateFin' | translate}}"
+                                        [(ngModel)]="location.dateFin"
+                                        dateFormat="{{dateFormat}}"
+                                        [minDate]="location.dateDebut"
+                                        (onSelect)="checkDateConflict()">
+                            </p-calendar>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="5">{{'location.loyer' | translate}}</label>
+                            <p-inputNumber  id="5" placeholder="{{'location.loyer' | translate}}" [(ngModel)]="location.local.prix">
+                            </p-inputNumber>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="6">{{'location.caution' | translate}}</label>
+                            <p-inputNumber id="6" placeholder="{{'location.caution' | translate}}" [(ngModel)]="location.caution">
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+
+        <div class="flex justify-end space-x-3 p-4 border-t">
+            <p-button (click)="save()" icon="pi pi-check"
+                      label="{{'validate' | translate}}"
+                      styleClass="p-button-primary"
+                      [disabled]="dateConflictError">
+            </p-button>
+
+            <p-button (click)="cancel()" icon="pi pi-times"
+                      label="{{'cancel' | translate}}"
+                      styleClass="p-button-secondary">
+            </p-button>
+        </div>
+    </div>
+</div>

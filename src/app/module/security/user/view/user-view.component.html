@@ -1,0 +1,152 @@
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}"
+          header="{{'user.tabPan' | translate}}"
+          [modal]="true" styleClass="p-fluid"
+          [maximizable]="true" [draggable]="false" [resizable]="false">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'user.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                    <!-- Email -->
+                    <div class="flex flex-col gap-2">
+                        <label for="3" class="text-sm font-semibold">
+                            {{'user.email' | translate}}
+                        </label>
+                        <input pInputText id="3" type="text" [(ngModel)]="item.email"
+                               placeholder="{{'user.email' | translate}}"
+                               class=" bg-gray-100 cursor-not-allowed" disabled>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="flex flex-col gap-2">
+                        <label for="6" class="text-sm font-semibold">
+                            {{'user.username' | translate}}
+                        </label>
+                        <input pInputText id="6" type="text" [(ngModel)]="item.username"
+                               placeholder="{{'user.username' | translate}}"
+                               class="bg-gray-100 cursor-not-allowed" disabled>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="flex flex-col gap-2">
+                        <label for="7" class="text-sm font-semibold">
+                            {{'user.password' | translate}}
+                        </label>
+                        <input pPassword id="7" [(ngModel)]="item.password"
+                               placeholder="{{'user.password' | translate}}"
+                               class="bg-gray-100 cursor-not-allowed" disabled>
+                    </div>
+
+                    <!-- Role Selection -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold">Role</label>
+                        <p-multiSelect [options]="roleUsers" [(ngModel)]="item.roleUsers"
+                                       itemSize="30" [virtualScroll]="true"
+                                       class="w-full"
+                                       defaultLabel="Select un role" optionLabel="role.authority"
+                                       display="chip" disabled>
+                        </p-multiSelect>
+                    </div>
+
+                    <!-- Credentials Non Expired -->
+                    <div class="flex flex-col gap-2">
+                        <label for="1" class="text-sm font-semibold">
+                            {{'user.credentialsNonExpired' | translate}}
+                        </label>
+                        <p-inputSwitch id="1" [(ngModel)]="item.credentialsNonExpired" disabled></p-inputSwitch>
+                    </div>
+
+                    <!-- Enabled -->
+                    <div class="flex flex-col gap-2">
+                        <label for="2" class="text-sm font-semibold">
+                            {{'user.enabled' | translate}}
+                        </label>
+                        <p-inputSwitch id="2" [(ngModel)]="item.enabled" disabled></p-inputSwitch>
+                    </div>
+
+                    <!-- Account Non Expired -->
+                    <div class="flex flex-col gap-2">
+                        <label for="4" class="text-sm font-semibold">
+                            {{'user.accountNonExpired' | translate}}
+                        </label>
+                        <p-inputSwitch id="4" [(ngModel)]="item.accountNonExpired" disabled></p-inputSwitch>
+                    </div>
+
+                    <!-- Account Non Locked -->
+                    <div class="flex flex-col gap-2">
+                        <label for="5" class="text-sm font-semibold">
+                            {{'user.accountNonLocked' | translate}}
+                        </label>
+                        <p-inputSwitch id="5" [(ngModel)]="item.accountNonLocked" disabled></p-inputSwitch>
+                    </div>
+
+                    <!-- Password Changed -->
+                    <div class="flex flex-col gap-2">
+                        <label for="8" class="text-sm font-semibold">
+                            {{'user.passwordChanged' | translate}}
+                        </label>
+                        <p-inputSwitch id="8" [(ngModel)]="item.passwordChanged" disabled></p-inputSwitch>
+                    </div>
+
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="{{'user.modelPermissionUsers' | translate}}">
+                <p-table [value]="item.modelPermissionUsers" sortField="modelPermission.reference"
+                         sortMode="single" dataKey="modelPermission.reference" rowGroupMode="subheader"
+                         groupRowsBy="modelPermission.reference" [tableStyle]="{'min-width': '70rem'}">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Model Permission</th>
+                            <th>Action Permission</th>
+                            <th>
+                                <div class="flex items-center gap-2">
+                                    <p-inputSwitch id="75" disabled></p-inputSwitch>
+                                    <label for="75">Value</label>
+                                </div>
+                            </th>
+                            <th>Sub Attribute</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="groupheader" let-p let-expanded="expanded">
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" pButton pRipple [pRowToggler]="p"
+                                        class="p-button-text p-button-rounded p-button-plain mr-2"
+                                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <span class="font-bold ml-2">{{p.modelPermission?.reference}}</span>
+                            </td>
+                            <td colspan="2">
+                                <p-inputSwitch id="16" [(ngModel)]="p.modelPermission.globalValue" disabled></p-inputSwitch>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="rowexpansion" let-p>
+                        <tr>
+                            <td></td>
+                            <td>{{p.actionPermission?.reference}}</td>
+                            <td><p-inputSwitch id="10" [(ngModel)]="p.value" disabled></p-inputSwitch></td>
+                            <td>{{p.subAttribute}}</td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </p-tabPanel>
+
+        </p-tabView>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-end space-x-3 p-4">
+            <button (click)="hideViewDialog()"
+                    class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                <i class="pi pi-times"></i> {{'cancel' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+</p-dialog>

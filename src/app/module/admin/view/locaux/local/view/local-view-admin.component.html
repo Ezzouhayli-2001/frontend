@@ -1,0 +1,141 @@
+<p-dialog [(visible)]="viewDialog" [style]="{width: '85vw', maxWidth: '1200px'}" header="{{'local.tabPan' | translate}}" closable="false" [modal]="true" styleClass="p-fluid local-view-dialog">
+    <ng-template pTemplate="header">
+        <div class="flex align-items-center">
+            <i class="pi pi-home text-primary text-xl mr-2"></i>
+            <span class="font-semibold text-lg">{{'local.tabPan' | translate}}</span>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'Informations du local' | translate}}">
+                <div class="grid" *ngIf="item">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <h5 class="mb-3 font-medium">
+                                <i class="pi pi-info-circle mr-2"></i>
+                                Informations du local
+                            </h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                                <div class="flex flex-col gap-2">
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="2">{{'local.label' | translate}}</label>
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'local.label' | translate}}" id="2" [ngModel]="item.label">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="3">{{'local.adresse' | translate}}</label>
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'local.adresse' | translate}}" id="3" [ngModel]="item.adresse">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="5">{{'local.typeLocal' | translate}}</label>
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'local.typeLocal' | translate}}" id="5" [ngModel]="item.typeLocal?.label">
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="7">{{'local.statutLocal' | translate}}</label>
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'local.statutLocal' | translate}}" id="7" [ngModel]="item.statutLocal?.label">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between gap-2">
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="superficie">{{'local.superficie' | translate}}</label>
+                                        <p-inputNumber id="superficie" [disabled]="true" placeholder="{{'local.superficie' | translate}}" [ngModel]="item.superficie"></p-inputNumber>
+                                    </div>
+
+                                    <div class="field">
+                                        <label class="text-sm font-semibold" for="8">{{'local.prix' | translate}}</label>
+                                        <p-inputNumber id="8" [disabled]="true" placeholder="{{'local.prix' | translate}}" [ngModel]="item.prix"></p-inputNumber>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'local.dateCreation' | translate}}</label>
+                                    <p-calendar  class="w-full" appendTo="body"  [showTime]="true" [showSeconds]="false" placeholder="{{'local.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                                dateFormat="{{dateFormat}}"  >
+                                    </p-calendar>
+
+                                </div>
+
+                                <!--  <div class="flex flex-col gap-2">
+                                      <label class="text-sm font-semibold" for="description">{{'local.description' | translate}}</label>
+                                      <textarea [readOnly]="true" id="description" pTextarea rows="5" cols="30" placeholder="{{'local.description' | translate}}"  [(ngModel)]="item.description"
+                                      ></textarea>
+
+                                  </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="{{'Historique de local' | translate}}">
+                <div class="grid" *ngIf="item">
+                    <!-- Historique des locations -->
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- Search Criteria Panel -->
+                            <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                                <h5 class="m-0 font-medium">
+                                    <i class="pi pi-history mr-2"></i>
+                                    Historique des local
+                                </h5>
+                                <div class="flex align-items-center gap-2">
+                                    <p-splitButton label="Exporter" icon="pi pi-download" [model]="localExcelPdfButons" styleClass="p-button-outlined"></p-splitButton>
+                                </div>
+                            </div>
+                            <p-table [value]="item.locations" styleClass="p-datatable-sm" [paginator]="true" [rows]="5"
+                                     [showCurrentPageReport]="false" responsiveLayout="scroll">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Locataire</th>
+                                        <th>Type de Locataire</th>
+                                        <th>Local</th>
+                                        <th>Date de début</th>
+                                        <th>Date de fin</th>
+                                        <th>Loyer</th>
+                                        <th>Caution</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-location>
+                                    <tr>
+                                        <td>{{location.locataire?.nom}} {{location.locataire?.prenom}}</td>
+                                        <td>{{location.locataire?.typeLocataire.label}}</td>
+                                        <td>{{item?.label}}</td>
+                                        <td>{{location.dateDebut | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{location.dateFin | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{location.loyer | currency:'MAD ':'symbol':'1.2-2'}}</td>
+                                        <td>{{location.caution | currency:'MAD ':'symbol':'1.2-2'}}</td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="7" class="text-center p-4">
+                                            <i class="pi pi-info-circle text-primary mr-2"></i>
+                                            Aucun historique disponible pour ce local
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+        </p-tabView>
+
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-end">
+            <button pButton pRipple type="button" icon="pi pi-times" label="Fermer"
+                    class="p-button-outlined" (click)="hideViewDialog()"></button>
+        </div>
+    </ng-template>
+</p-dialog>

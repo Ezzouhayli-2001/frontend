@@ -1,0 +1,35 @@
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}"
+          header="{{'role.tabPan' | translate}}"
+          [modal]="true" styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'role.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                    <!-- Authority -->
+                    <div class="flex flex-col gap-2">
+                        <label for="1" class="text-sm font-semibold">
+                            {{'role.authority' | translate}}
+                        </label>
+                        <input pInputText id="1" type="text" [(ngModel)]="item.authority"
+                               [disabled]="true"
+                               placeholder="{{'role.authority' | translate}}"
+                               class=" bg-gray-100">
+                    </div>
+
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-end space-x-3 p-4">
+            <button (click)="hideViewDialog()"
+                    class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                <i class="pi pi-times"></i> {{'cancel' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+</p-dialog>

@@ -1,0 +1,203 @@
+<p-dialog [(visible)]="viewDialog" closable="false" [style]="{width: '70vw'}" header="{{'caisse.tabPan' | translate}}" [modal]="true" styleClass="p-fluid banque-view-dialog">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'caisse.tabPan' | translate}}">
+                <div class="grid" *ngIf="compte">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                                <h5 class="mb-3 font-medium">
+                                    <i class="pi pi-info-circle mr-2"></i>
+                                    Informations de la Caisse
+                                </h5>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-semibold" for="1">{{'Nom de Compte' | translate}}</label>
+                                        <input  type="text" pInputText [disabled]="true" placeholder="{{'Nom' | translate}}" autofocus  id="1" [ngModel]="compte.code">
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-semibold" for="1">{{'compte.solde' | translate}}</label>
+                                        <p-inputNumber id="1" [disabled]="true" placeholder="{{'compte.solde' | translate}}" [ngModel]="compte.solde"></p-inputNumber>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-semibold" for="2">{{'compte.debit' | translate}}</label>
+                                        <p-inputNumber id="2" [disabled]="true" placeholder="{{'compte.debit' | translate}}" [ngModel]="compte.debit"></p-inputNumber>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-semibold" for="3">{{'compte.credit' | translate}}</label>
+                                        <p-inputNumber id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="compte.credit"></p-inputNumber>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-semibold" for="6">{{'compte.dateCreation' | translate}}</label>
+                                        <p-calendar class="w-full" id="6" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'compte.dateCreation' | translate}}"  [ngModel]="compte.dateCreation" dateFormat="{{dateFormat}}"></p-calendar>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="{{'Historique des transactions' | translate}}">
+                <div class="grid" *ngIf="compte">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                                <h5 class="m-0 font-medium">
+                                    <i class="pi pi-history mr-2"></i>
+                                    Historique des transactions
+                                </h5>
+                                <div class="flex align-items-center gap-2">
+                                    <button pButton pRipple label="Recherche" icon="pi pi-search" class="p-button-outlined" (click)="showTransactionSearch()"></button>
+                                    <p-splitButton label="Exporter" icon="pi pi-download" [model]="transactionExcelPdfButons" styleClass="p-button-outlined"></p-splitButton>
+                                </div>
+                            </div>
+
+                            <!-- Search Criteria Panel -->
+                            <p-panel *ngIf="transactionFindByCriteriaShow" [showHeader]="false" styleClass="mb-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                                    <div class="field  flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Date Min' | translate}}</label>
+                                        <p-calendar class="w-full" [(ngModel)]="transactionCriteria.dateFrom" dateFormat="{{dateFormat}}"></p-calendar>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Date Max' | translate}}</label>
+                                        <p-calendar class="w-full" [(ngModel)]="transactionCriteria.dateTo" dateFormat="{{dateFormat}}"></p-calendar>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Montant Min' | translate}}</label>
+                                        <p-inputNumber class="w-full" [(ngModel)]="transactionCriteria.montantMin"></p-inputNumber>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Montant Max' | translate}}</label>
+                                        <p-inputNumber class="w-full" [(ngModel)]="transactionCriteria.montantMax"></p-inputNumber>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Description' | translate}}</label>
+                                        <input class="w-full" type="text" pInputText [(ngModel)]="transactionCriteria.description">
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Type transaction' | translate}}</label>
+                                        <p-dropdown [options]="typeTransactions" [(ngModel)]="transactionCriteria.typeTransaction"
+                                                    optionLabel="label" placeholder="Sélectionner" [showClear]="true" class="w-full"></p-dropdown>
+                                    </div>
+                                    <div class="field flex flex-col gap-2">
+                                        <label class="text-sm font-medium">{{'Mode paiement' | translate}}</label>
+                                        <p-dropdown [options]="modePaiements" [(ngModel)]="transactionCriteria.modePaiement"
+                                                    optionLabel="label" placeholder="Sélectionner" [showClear]="true" class="w-full"></p-dropdown>
+                                    </div>
+                                    <div class="flex justify-content-end">
+                                        <div class="flex gap-2">
+                                            <button pButton pRipple label="Rechercher" icon="pi pi-search" class="p-button-primary" (click)="findPaginatedTransactions()"></button>
+                                            <button pButton pRipple label="Réinitialiser" icon="pi pi-times" class="p-button-outlined" (click)="resetTransactionCriteria()"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-panel>
+
+                            <!-- Transaction Table -->
+                            <p-table [value]="transactions" styleClass="p-datatable-sm" [paginator]="true" [rows]="5"
+                                     [showCurrentPageReport]="true" currentPageReportTemplate="{{'Affichage de {first} à {last} sur {totalRecords} éléments' | translate}}"
+                                     [rowsPerPageOptions]="[5,10,25,50]" responsiveLayout="scroll">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Credit</th>
+                                        <th>Debit</th>
+                                        <th>Description</th>
+                                        <th>Type transaction</th>
+                                        <th>Mode paiement</th>
+                                        <th>Compte source</th>
+                                        <th>Compte destination</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-transaction>
+                                    <tr>
+                                        <td>{{transaction.date | date: dateFormatColumn}}</td>
+                                        <td class="text-green-500 font-medium">
+                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Credit'">
+                                                {{transaction.montant }}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Credit'">
+                                                ---
+                                            </ng-container>
+                                        </td>
+                                        <td class="text-red-500 font-medium">
+                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Debit'">
+                                                {{transaction.montant }}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Debit'">
+                                                ---
+                                            </ng-container>
+                                        </td>
+                                        <td>{{transaction.description | slice:0:50}}</td>
+                                        <td>
+                                            <p-tag [severity]="transaction.typeTransaction?.code"
+                                                   [value]="transaction.typeTransaction?.label" [rounded]="true"></p-tag>
+                                        </td>
+                                        <td>
+                                            <p-tag  [severity]="transaction.modePaiement?.style"
+                                                    [value]="transaction.modePaiement?.label" [rounded]="true"></p-tag>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
+                                                {{transaction.compteSource?.code}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
+                                                {{transaction.compteSource?.code}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
+                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
+                                                {{transaction.compteDestination?.code}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
+                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
+                                                {{transaction.compteDestination?.code}}
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="footer" >
+                                    <tr class="text-center bg-blue-700-400">
+                                        <td colspan="1" class="text-left font-bold">Total:</td>
+                                        <td class="text-green-500 font-bold">{{totalCredits }}</td>
+                                        <td class="text-orange-500 font-bold">{{totalDebits }}</td>
+                                        <td colspan="5"></td>
+                                    </tr>
+
+                                    <tr class="text-center bg-gray-400">
+                                        <td colspan="1" class="text-left font-bold">Solde :</td>
+                                        <td class="text-orange-500 font-bold w-2">{{totalCredits - totalDebits }}</td>
+                                        <td colspan="5"></td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage">
+                                    <tr>
+                                        <td colspan="8" class="text-center p-4">
+                                            <i class="pi pi-info-circle text-primary mr-2"></i>
+                                            Aucune transaction disponible pour cette banque
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="flex justify-end p-4">
+            <div>
+                <button class="border border-gray-400 font-semibold py-2 px-4 rounded shadow" (click)="hideViewDialog()">
+                    <i class="pi pi-times"></i> Annuler
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,67 @@
+    <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'statutLocal.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'statutLocal.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'statutLocal.indexation' | translate}}</label>
+                                    <p-inputNumber  id="1" placeholder="{{'statutLocal.indexation' | translate}}" [(ngModel)]="item.indexation"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'statutLocal.code' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'statutLocal.code' | translate}}" id="2" [(ngModel)]="item.code"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validStatutLocalCode}"  />
+                                    <small class="text-red-500" *ngIf='!validStatutLocalCode'>Code is obligatory.</small>
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'statutLocal.label' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'statutLocal.label' | translate}}" id="3" [(ngModel)]="item.label"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validStatutLocalLabel}"  />
+                                    <small class="text-red-500" *ngIf='!validStatutLocalLabel'>Label is obligatory.</small>
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="4">{{'statutLocal.style' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'statutLocal.style' | translate}}" id="4" [(ngModel)]="item.style"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validStatutLocalStyle}"  />
+                                    <small class="text-red-500" *ngIf='!validStatutLocalStyle'>Style is obligatory.</small>
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="5">{{'statutLocal.color' | translate}}</label>
+                                    <input type="text" pInputText  placeholder="{{'statutLocal.color' | translate}}" id="5" [(ngModel)]="item.color"
+                                            />
+                                    
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button label="{{'validate' | translate}}"   (click)="save()"  class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideCreateDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

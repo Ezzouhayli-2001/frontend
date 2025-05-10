@@ -1,0 +1,76 @@
+    <p-dialog [(visible)]="editDialog" closable="false" [style]="{width: '70vw'}" header="{{'locataire.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'locataire.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                               <!-- <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'locataire.code' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'locataire.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validLocataireCode}"  />
+                                    <small class="text-red-500" *ngIf='!validLocataireCode'>Code is obligatory.</small>
+                                </div>-->
+
+
+                             <!--   <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'locataire.libelle' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'locataire.libelle' | translate}}" id="2" [(ngModel)]="item.libelle"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validLocataireLibelle}"  />
+                                    <small class="text-red-500" *ngIf='!validLocataireLibelle'>Libelle is obligatory.</small>
+                                </div>-->
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'locataire.nom' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'locataire.nom' | translate}}" id="3" [(ngModel)]="item.nom"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validLocataireNom}"  />
+                                    <small class="text-red-500" *ngIf='!validLocataireNom'>Nom is obligatory.</small>
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="4">{{'locataire.prenom' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'locataire.prenom' | translate}}" id="4" [(ngModel)]="item.prenom"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validLocatairePrenom}"  />
+                                    <small class="text-red-500" *ngIf='!validLocatairePrenom'>Prenom is obligatory.</small>
+                                </div>
+
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="5">{{'locataire.typeLocataire' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="typeLocataires" [(ngModel)]="item.typeLocataire" id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'locataire.typeLocataire' | translate}}"  >
+                                </p-dropdown>
+
+                            </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="6">{{'locataire.dateCreation' | translate}}</label>
+                                    <p-calendar class="w-full" appendTo="body" id="6"  [showTime]="true" [showSeconds]="false" placeholder="{{'locataire.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                                dateFormat="{{dateFormat}}"  >
+                                    </p-calendar>
+
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

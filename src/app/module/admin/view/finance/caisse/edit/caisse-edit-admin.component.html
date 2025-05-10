@@ -1,0 +1,51 @@
+    <p-dialog [(visible)]="editDialog" closable="false" [style]="{width: '70vw'}" header="{{'caisse.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'caisse.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                               <!-- <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'caisse.code' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'caisse.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validCaisseCode}"  />
+                                    <small class="text-red-500" *ngIf='!validCaisseCode'>Code is obligatory.</small>
+                                </div>-->
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'caisse.libelle' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'caisse.libelle' | translate}}" id="2" [(ngModel)]="item.libelle"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validCaisseLibelle}"  />
+                                    <small class="text-red-500" *ngIf='!validCaisseLibelle'>Libelle is obligatory.</small>
+                                </div>
+
+
+                               <!-- <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'caisse.solde' | translate}}</label>
+                                    <p-inputNumber  id="3" placeholder="{{'caisse.solde' | translate}}" [(ngModel)]="item.solde"  >
+                                    </p-inputNumber>
+
+                                </div>-->
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

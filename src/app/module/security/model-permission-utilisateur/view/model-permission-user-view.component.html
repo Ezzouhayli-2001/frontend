@@ -1,0 +1,78 @@
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}"
+          header="{{'modelPermissionUser.tabPan' | translate}}"
+          [modal]="true" styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'modelPermissionUser.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                    <!-- Action Permission -->
+                    <div class="flex flex-col gap-2">
+                        <label for="1" class="text-sm font-semibold">
+                            {{'modelPermissionUser.actionPermission' | translate}}
+                        </label>
+                        <input pInputText id="1" type="text" [disabled]="true"
+                               [(ngModel)]="item.actionPermission.reference"
+                               placeholder="{{'modelPermissionUser.actionPermission' | translate}}"
+                               class="bg-gray-100">
+                    </div>
+
+                    <!-- Model Permission -->
+                    <div class="flex flex-col gap-2">
+                        <label for="2" class="text-sm font-semibold">
+                            {{'modelPermissionUser.modelPermission' | translate}}
+                        </label>
+                        <input pInputText id="2" type="text" [disabled]="true"
+                               [(ngModel)]="item.modelPermission.reference"
+                               placeholder="{{'modelPermissionUser.modelPermission' | translate}}"
+                               class="bg-gray-100">
+                    </div>
+
+                    <!-- Value Switch -->
+                    <div class="flex flex-col gap-2">
+                        <label for="3" class="text-sm font-semibold">
+                            {{'modelPermissionUser.value' | translate}}
+                        </label>
+                        <p-inputSwitch id="3" [disabled]="true"
+                                       [(ngModel)]="item.value">
+                        </p-inputSwitch>
+                    </div>
+
+                    <!-- User -->
+                    <div class="flex flex-col gap-2">
+                        <label for="4" class="text-sm font-semibold">
+                            {{'modelPermissionUser.user' | translate}}
+                        </label>
+                        <input pInputText id="4" type="text" [disabled]="true"
+                               [(ngModel)]="item.user.email"
+                               placeholder="{{'modelPermissionUser.user' | translate}}"
+                               class="bg-gray-100">
+                    </div>
+
+                    <!-- Sub Attribute -->
+                    <div class="flex flex-col gap-2">
+                        <label for="5" class="text-sm font-semibold">
+                            {{'modelPermissionUser.subAttribute' | translate}}
+                        </label>
+                        <input pInputText id="5" type="text" [disabled]="true"
+                               [(ngModel)]="item.subAttribute"
+                               placeholder="{{'modelPermissionUser.subAttribute' | translate}}"
+                               class="bg-gray-100">
+                    </div>
+
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-end p-4">
+            <button (click)="hideViewDialog()"
+                    class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                <i class="pi pi-times"></i> {{'cancel' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+</p-dialog>

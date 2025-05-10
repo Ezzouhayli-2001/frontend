@@ -1,0 +1,64 @@
+<p-dialog [(visible)]="editDialog" closable="false" [style]="{width: '70vw'}" header="{{'local.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'local.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="4">{{'local.label' | translate}}</label>
+                        <input type="text" pInputText placeholder="{{'local.label' | translate}}" id="4" [(ngModel)]="item.label" />
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="2">{{'local.adresse' | translate}}</label>
+                        <input type="text" pInputText placeholder="{{'local.adresse' | translate}}" id="2" [(ngModel)]="item.adresse" />
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="10">{{'local.typeLocal' | translate}}</label>
+                        <p-dropdown class="w-full" appendTo="body" [options]="typeLocals" [(ngModel)]="item.typeLocal" id="10"
+                                    [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                    optionLabel="label" placeholder="{{'local.typeLocal' | translate}}">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="9">{{'local.statutLocal' | translate}}</label>
+                        <p-dropdown class="w-full" appendTo="body" [options]="statutLocals" [(ngModel)]="item.statutLocal" id="9"
+                                    [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                    optionLabel="label" placeholder="{{'local.statutLocal' | translate}}">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="6">{{'local.prix' | translate}}</label>
+                        <p-inputNumber id="6" placeholder="{{'local.prix' | translate}}" [(ngModel)]="item.prix">
+                        </p-inputNumber>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="7">{{'local.description' | translate}}</label>
+                        <textarea id="7" pTextarea rows="5" cols="30" placeholder="{{'local.description' | translate}}"
+                                  [(ngModel)]="item.description"></textarea>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

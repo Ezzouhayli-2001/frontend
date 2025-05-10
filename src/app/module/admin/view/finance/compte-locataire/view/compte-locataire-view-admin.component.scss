@@ -1,0 +1,103 @@
+:host ::ng-deep {
+    .compte-locataire-view-dialog {
+        .p-dialog-content {
+            padding: 0;
+        }
+        .field {
+            margin-bottom: 1rem;
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: #555;
+            }
+
+            input, textarea {
+                width: 100%;
+                background-color: #f9f9f9;
+            }
+        }
+
+        .p-tabview {
+            .p-tabview-nav {
+                background: #f8f9fa;
+                border-bottom: 1px solid #dee2e6;
+                padding: 0 1rem;
+
+                li {
+                    .p-tabview-nav-link {
+                        padding: 1rem;
+                        font-weight: 600;
+
+                        &:not(.p-disabled):focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+
+            .p-tabview-panels {
+                padding: 1.5rem;
+            }
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1.25rem;
+
+            h5 {
+                color: #495057;
+                border-bottom: 1px solid #e9ecef;
+                padding-bottom: 0.75rem;
+            }
+        }
+
+        .p-inputnumber {
+            .p-inputnumber-input {
+                width: 100%;
+            }
+        }
+
+        .p-datatable {
+            .p-datatable-header {
+                background-color: #f8f9fa;
+                border: 1px solid #e9ecef;
+            }
+
+            th {
+                background-color: #f8f9fa;
+                color: #495057;
+                font-weight: 600;
+                padding: 0.75rem 1rem;
+            }
+
+            td {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        .p-button {
+            &.p-button-outlined {
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .compte-locataire-view-dialog {
+            .p-tabview {
+                .p-tabview-panels {
+                    padding: 1rem;
+                }
+            }
+
+            .card {
+                padding: 1rem;
+            }
+        }
+    }
+}

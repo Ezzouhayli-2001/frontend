@@ -1,0 +1,73 @@
+
+<div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded-lg">
+        <div class="border-b p-4 flex justify-between items-center bg-blue-200 text-white">
+            <h2 class="text-xl font-semibold">{{'banque.tabPan' | translate}}</h2>
+            <button (click)="cancel()" class="text-white hover:bg-blue-600 p-2 rounded-md">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+        <div class="p-4">
+            <p-tabView>
+                <p-tabPanel header="{{'banque.tabPan' | translate}}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                        <!--<div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="1">{{'banque.code' | translate}}<span class="text-red-500">*</span></label>
+                            <input type="text" pInputText  placeholder="{{'banque.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                   [ngClass]="{'ng-invalid ng-dirty' : !validBanqueCode}"  />
+                            <small class="text-red-500" *ngIf='!validBanqueCode'>Code is obligatory.</small>
+                        </div>
+
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="2">{{'banque.label' | translate}}</label>
+                            <input type="text" pInputText  placeholder="{{'banque.label' | translate}}" id="2" [(ngModel)]="item.label"
+                            />
+
+                        </div>-->
+
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="3">{{'banque.nom' | translate}}</label>
+                            <input type="text" pInputText  placeholder="{{'banque.nom' | translate}}" id="3" [(ngModel)]="item.nom"
+                            />
+
+                        </div>
+
+
+                       <!-- <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="4">{{'banque.numeroCompte' | translate}}</label>
+                            <input type="text" pInputText  placeholder="{{'banque.numeroCompte' | translate}}" id="4" [(ngModel)]="item.numeroCompte"
+                            />
+
+                        </div>-->
+
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="5">{{'banque.solde' | translate}}</label>
+                            <p-inputNumber  id="5" placeholder="{{'banque.solde' | translate}}" [(ngModel)]="item.solde"  >
+                            </p-inputNumber>
+
+                        </div>
+
+                    </div>
+                </p-tabPanel>
+
+            </p-tabView>
+        </div>
+
+        <div class="flex justify-end space-x-3 p-4 border-t">
+            <p-button (click)="save()" icon="pi pi-check"
+                      label="{{'validate' | translate}}"
+                      styleClass="p-button-primary">
+            </p-button>
+
+            <p-button (click)="cancel()" icon="pi pi-times"
+                      label="{{'cancel' | translate}}"
+                      styleClass="p-button-secondary">
+            </p-button>
+        </div>
+    </div>
+</div>

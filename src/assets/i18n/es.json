@@ -1,0 +1,362 @@
+{
+"from-to": "Elementos de {first} a {last} (total {totalRecords})",
+    "new": "Nuevo",
+    "search": "Buscar",
+    "export": "Exportar",
+    "import": "Importar",
+    "validate": "Validar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "next": "Siguiente",
+    "yes": "Sí",
+    "no": "No",
+    "actions": "Acciones",
+    "confirm": "Confirmar",
+    "creation": "Creación",
+    "list": "Lista",
+    "nom": "Nombre",
+    "Données personnelles" : "Datos personales",
+    "Username" : "Nombre de usuario",
+    "Télephone" : "Teléfono",
+    "Nouveau Mot de passe" : "Nueva contraseña",
+    "Confirmer votre Mot de passe" : "Confirmar contraseña",
+    "Mot de passe" : "Contraseña",
+    "prenom":"Nombre de Pila",
+    "Changer": "Cambiar",
+	
+	"actionPermission": {
+    "reference": "Referencia",
+    "libelle": "Etiqueta",
+    "actionPermission": "Permiso de acción",
+    "tabPan": "Permiso de acción",
+    "header": "Lista de permisos de acción",
+    "deleteActionPermissionConfirmationMessage": "¿Estás seguro de que quieres eliminar el permiso de acción",
+    "deleteActionPermissionsConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+"modelPermissionUser": {
+    "actionPermission": "Permiso de acción",
+    "actionPermissionPlaceHolder": "Seleccionar un permiso de acción",
+    "actionPermissionPlaceHolderFilter": "Buscar por permiso de acción",
+    "modelPermission": "Permiso de modelo",
+    "modelPermissionPlaceHolder": "Seleccionar un permiso de modelo",
+    "modelPermissionPlaceHolderFilter": "Buscar por permiso de modelo",
+    "value": "Valor",
+    "user": "Usuario",
+    "userPlaceHolder": "Seleccionar un usuario",
+    "userPlaceHolderFilter": "Buscar por usuario",
+    "subAttribute": "Subatributo",
+    "modelPermissionUser": "Permiso de modelo de usuario",
+    "tabPan": "Permiso de modelo de usuario",
+    "header": "Lista de permisos de modelo de usuario",
+    "deleteModelPermissionUserConfirmationMessage": "¿Estás seguro de que quieres eliminar el permiso de modelo de usuario",
+    "deleteModelPermissionUsersConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+"role": {
+    "authority": "Autoridad",
+    "role": "Rol",
+    "tabPan": "Rol",
+    "header": "Lista de roles",
+    "deleteRoleConfirmationMessage": "¿Estás seguro de que quieres eliminar el rol",
+    "deleteRolesConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+"roleUser": {
+    "role": "Rol",
+    "rolePlaceHolder": "Seleccionar un rol",
+    "rolePlaceHolderFilter": "Buscar por rol",
+    "user": "Usuario",
+    "userPlaceHolder": "Seleccionar un usuario",
+    "userPlaceHolderFilter": "Buscar por usuario",
+    "roleUser": "Usuario de rol",
+    "tabPan": "Usuario de rol",
+    "header": "Lista de usuarios de rol",
+    "deleteRoleUserConfirmationMessage": "¿Estás seguro de que quieres eliminar el usuario de rol",
+    "deleteRoleUsersConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+"user": {
+    "credentialsNonExpired": "Credenciales no expiradas",
+    "enabled": "Habilitado",
+    "email": "Correo electrónico",
+    "accountNonExpired": "Cuenta no expirada",
+    "accountNonLocked": "Cuenta no bloqueada",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "passwordChanged": "Contraseña cambiada",
+    "modelPermissionUsers": "Usuarios de permiso de modelo",
+    "roleUsers": "Usuarios de rol",
+    "RoleUsersPlaceHolder": "Seleccionar múltiples roles",
+    "user": "Usuario",
+    "tabPan": "Usuario",
+    "header": "Lista de usuarios",
+    "deleteUserConfirmationMessage": "¿Estás seguro de que quieres eliminar el usuario",
+    "deleteUsersConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+"modelPermission": {
+    "reference": "Referencia",
+    "libelle": "Etiqueta",
+    "modelPermission": "Permiso de modelo",
+    "tabPan": "Permiso de modelo",
+    "header": "Lista de permisos de modelo",
+    "deleteModelPermissionConfirmationMessage": "¿Estás seguro de que quieres eliminar el permiso de modelo",
+    "deleteModelPermissionsConfirmationMessage": "¿Estás seguro de que quieres eliminar los elementos seleccionados?"
+},
+
+
+
+    "statutLocal":{
+        "indexation": "Indexation",
+        "indexationMin": "Indexation Min",
+        "indexationMax": "Indexation Max",
+        "code": "Code",
+        "label": "Label",
+        "style": "Style",
+        "color": "Color",
+        "statutLocal": "Statut local",
+        "tabPan": "Statut local",
+        "header": "Liste des statut locals",
+        "deleteStatutLocalConfirmationMessage": "Are you sure you want to delete statut local",
+        "deleteStatutLocalsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "locataire":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "nom": "Nom",
+        "prenom": "Prenom",
+        "typeLocataire": "Type locataire",
+        "typeLocatairePlaceHolder": "Select a Type locataire",
+        "typeLocatairePlaceHolderFilter": "Search by Type locataire",
+        "dateCreation": "Date creation",
+        "dateCreationMin": "Date creation Min",
+        "dateCreationMax": "Date creation Max",
+        "locataire": "Locataire",
+        "tabPan": "Locataire",
+        "header": "Liste des locataires",
+        "deleteLocataireConfirmationMessage": "Are you sure you want to delete locataire",
+        "deleteLocatairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "typeLocataire":{
+        "indexation": "Indexation",
+        "indexationMin": "Indexation Min",
+        "indexationMax": "Indexation Max",
+        "code": "Code",
+        "label": "Label",
+        "style": "Style",
+        "color": "Color",
+        "typeLocataire": "Type locataire",
+        "tabPan": "Type locataire",
+        "header": "Liste des type locataires",
+        "deleteTypeLocataireConfirmationMessage": "Are you sure you want to delete type locataire",
+        "deleteTypeLocatairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "location":{
+        "code": "Code",
+        "locataire": "Locataire",
+        "locatairePlaceHolder": "Select a Locataire",
+        "locatairePlaceHolderFilter": "Search by Locataire",
+        "compte": "Compte",
+        "comptePlaceHolder": "Select a Compte",
+        "comptePlaceHolderFilter": "Search by Compte",
+        "compteLocataire": "Compte locataire",
+        "compteLocatairePlaceHolder": "Select a Compte locataire",
+        "compteLocatairePlaceHolderFilter": "Search by Compte locataire",
+        "transaction": "Transaction",
+        "transactionPlaceHolder": "Select a Transaction",
+        "transactionPlaceHolderFilter": "Search by Transaction",
+        "typeLocataire": "Type locataire",
+        "typeLocatairePlaceHolder": "Select a Type locataire",
+        "typeLocatairePlaceHolderFilter": "Search by Type locataire",
+        "typePaiement": "Type paiement",
+        "typePaiementPlaceHolder": "Select a Type paiement",
+        "typePaiementPlaceHolderFilter": "Search by Type paiement",
+        "dateCreation": "Date creation",
+        "dateCreationMin": "Date creation Min",
+        "dateCreationMax": "Date creation Max",
+        "location": "Location",
+        "tabPan": "Location",
+        "header": "Liste des locations",
+        "deleteLocationConfirmationMessage": "Are you sure you want to delete location",
+        "deleteLocationsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "modePaiement":{
+        "indexation": "Indexation",
+        "indexationMin": "Indexation Min",
+        "indexationMax": "Indexation Max",
+        "code": "Code",
+        "label": "Label",
+        "style": "Style",
+        "color": "Color",
+        "modePaiement": "Mode paiement",
+        "tabPan": "Mode paiement",
+        "header": "Liste des mode paiements",
+        "deleteModePaiementConfirmationMessage": "Are you sure you want to delete mode paiement",
+        "deleteModePaiementsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "caisse":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "solde": "Solde",
+        "soldeMin": "Solde Min",
+        "soldeMax": "Solde Max",
+        "caisse": "Caisse",
+        "tabPan": "Caisse",
+        "header": "Liste des caisses",
+        "deleteCaisseConfirmationMessage": "Are you sure you want to delete caisse",
+        "deleteCaissesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "transaction":{
+        "date": "Date",
+        "dateMin": "Date Min",
+        "dateMax": "Date Max",
+        "montant": "Montant",
+        "montantMin": "Montant Min",
+        "montantMax": "Montant Max",
+        "description": "Description",
+        "modePaiement": "Mode paiement",
+        "modePaiementPlaceHolder": "Select a Mode paiement",
+        "modePaiementPlaceHolderFilter": "Search by Mode paiement",
+        "typePaiement": "Type paiement",
+        "typePaiementPlaceHolder": "Select a Type paiement",
+        "typePaiementPlaceHolderFilter": "Search by Type paiement",
+        "compteSource": "Compte source",
+        "compteSourcePlaceHolder": "Select a Compte source",
+        "compteSourcePlaceHolderFilter": "Search by Compte source",
+        "compteDestination": "Compte destination",
+        "compteDestinationPlaceHolder": "Select a Compte destination",
+        "compteDestinationPlaceHolderFilter": "Search by Compte destination",
+        "transaction": "Transaction",
+        "tabPan": "Transaction",
+        "header": "Liste des transactions",
+        "deleteTransactionConfirmationMessage": "Are you sure you want to delete transaction",
+        "deleteTransactionsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "banque":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "solde": "Solde",
+        "soldeMin": "Solde Min",
+        "soldeMax": "Solde Max",
+        "banque": "Banque",
+        "tabPan": "Banque",
+        "header": "Liste des banques",
+        "deleteBanqueConfirmationMessage": "Are you sure you want to delete banque",
+        "deleteBanquesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "typePaiement":{
+        "indexation": "Indexation",
+        "indexationMin": "Indexation Min",
+        "indexationMax": "Indexation Max",
+        "code": "Code",
+        "label": "Label",
+        "style": "Style",
+        "color": "Color",
+        "typePaiement": "Type paiement",
+        "tabPan": "Type paiement",
+        "header": "Liste des type paiements",
+        "deleteTypePaiementConfirmationMessage": "Are you sure you want to delete type paiement",
+        "deleteTypePaiementsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "local":{
+        "code": "Code",
+        "label": "Label",
+        "adresse": "Adresse",
+        "description": "Description",
+        "typeLocataire": "Type locataire",
+        "typeLocatairePlaceHolder": "Select a Type locataire",
+        "typeLocatairePlaceHolderFilter": "Search by Type locataire",
+        "locataire": "Locataire",
+        "locatairePlaceHolder": "Select a Locataire",
+        "locatairePlaceHolderFilter": "Search by Locataire",
+        "statutLocal": "Statut local",
+        "statutLocalPlaceHolder": "Select a Statut local",
+        "statutLocalPlaceHolderFilter": "Search by Statut local",
+        "montantMensuel": "Montant mensuel",
+        "montantMensuelMin": "Montant mensuel Min",
+        "montantMensuelMax": "Montant mensuel Max",
+        "local": "Local",
+        "tabPan": "Local",
+        "header": "Liste des locals",
+        "deleteLocalConfirmationMessage": "Are you sure you want to delete local",
+        "deleteLocalsConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "compte":{
+        "rib": "Rib",
+        "banque": "Banque",
+        "banquePlaceHolder": "Select a Banque",
+        "banquePlaceHolderFilter": "Search by Banque",
+        "solde": "Solde",
+        "soldeMin": "Solde Min",
+        "soldeMax": "Solde Max",
+        "compte": "Compte",
+        "tabPan": "Compte",
+        "header": "Liste des comptes",
+        "deleteCompteConfirmationMessage": "Are you sure you want to delete compte",
+        "deleteComptesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "charge":{
+        "code": "Code",
+        "libelle": "Libelle",
+        "montant": "Montant",
+        "montantMin": "Montant Min",
+        "montantMax": "Montant Max",
+        "date": "Date",
+        "dateMin": "Date Min",
+        "dateMax": "Date Max",
+        "typePaiement": "Type paiement",
+        "typePaiementPlaceHolder": "Select a Type paiement",
+        "typePaiementPlaceHolderFilter": "Search by Type paiement",
+        "compte": "Compte",
+        "comptePlaceHolder": "Select a Compte",
+        "comptePlaceHolderFilter": "Search by Compte",
+        "description": "Description",
+        "charge": "Charge",
+        "tabPan": "Charge",
+        "header": "Liste des charges",
+        "deleteChargeConfirmationMessage": "Are you sure you want to delete charge",
+        "deleteChargesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+
+    "compteLocataire":{
+        "rib": "Rib",
+        "banque": "Banque",
+        "banquePlaceHolder": "Select a Banque",
+        "banquePlaceHolderFilter": "Search by Banque",
+        "solde": "Solde",
+        "soldeMin": "Solde Min",
+        "soldeMax": "Solde Max",
+        "locataire": "Locataire",
+        "locatairePlaceHolder": "Select a Locataire",
+        "locatairePlaceHolderFilter": "Search by Locataire",
+        "compteLocataire": "Compte locataire",
+        "tabPan": "Compte locataire",
+        "header": "Liste des compte locataires",
+        "deleteCompteLocataireConfirmationMessage": "Are you sure you want to delete compte locataire",
+        "deleteCompteLocatairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
+
+"appName": "GED"
+}
+
+

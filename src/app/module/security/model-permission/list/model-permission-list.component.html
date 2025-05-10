@@ -1,0 +1,126 @@
+<div class="grid" *ngIf="listActionIsValid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate('ModelPermission')" *ngIf="createActionIsValid"></button>
+<!--                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>-->
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-secondary" [model]="excelPdfButons"></p-splitButton>                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <!-- Search Filters -->
+            <div *ngIf="findByCriteriaShow" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-surface rounded-lg">
+
+                <!-- Reference Field -->
+                <div class="flex flex-col gap-2">
+                    <label for="1" class="text-sm font-semibold">{{'modelPermission.reference' | translate}}</label>
+                    <input pInputText id="1" type="text" [(ngModel)]="criteria.referenceLike"
+                           placeholder="{{'modelPermission.reference' | translate}}">
+                </div>
+
+                <!-- Libelle Field -->
+                <div class="flex flex-col gap-2">
+                    <label for="2" class="text-sm font-semibold">{{'modelPermission.libelle' | translate}}</label>
+                    <input pInputText id="2" type="text" [(ngModel)]="criteria.libelleLike"
+                           placeholder="{{'modelPermission.libelle' | translate}}">
+                </div>
+
+                <!-- Validate Button Aligned to the Right -->
+                <div class="col-span-full flex justify-end mt-4">
+                    <button pButton class="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-700" (click)="findPaginatedByCriteria()">
+                        <i class="pi pi-sort-amount-down"></i> {{'validate' | translate}}
+                    </button>
+                </div>
+            </div>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['reference', 'libelle']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-col md:flex-row justify-between items-center p-2 gap-4">
+                        <h5 class="text-center md:text-left">{{'modelPermission.header' | translate}}</h5>
+                        <span class="relative w-full md:w-auto">
+                            <p-iconfield iconPosition="left" class="w-full md:w-auto">
+                                <p-inputicon class="pi pi-search" />
+                                <input pInputText type="text" placeholder="{{'searchInput' | translate}}"
+                                       (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                       class="w-full md:w-72 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-300" />
+                            </p-iconfield>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                        <th pSortableColumn="reference">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'modelPermission.reference' | translate}}</span>
+                                <p-sortIcon field="reference"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.reference" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="libelle">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'modelPermission.libelle' | translate}}</span>
+                                <p-sortIcon field="libelle"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.libelle" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+
+                        <td>{{element.reference}}</td>
+
+
+                        <td>{{element.libelle}}</td>
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'model permission' : 'model permissions' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-model-permission-create  *ngIf="createDialog && createActionIsValid"></app-model-permission-create>
+        <app-model-permission-edit  *ngIf="editDialog && editActionIsValid"></app-model-permission-edit>
+        <app-model-permission-view  *ngIf="viewDialog && viewActionIsValid"></app-model-permission-view>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
+<p-card header="Permission not allowed" *ngIf="!listActionIsValid">
+    <p class="m-0">
+        You don't have permission to access !
+    </p>
+</p-card>

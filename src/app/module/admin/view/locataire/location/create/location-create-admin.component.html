@@ -1,0 +1,92 @@
+    <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'location.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'location.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'location.code' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'location.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validLocationCode}"  />
+                                    <small class="text-red-500" *ngIf='!validLocationCode'>Code is obligatory.</small>
+                                </div>
+
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="2">{{'location.locataire' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="locataires" [(ngModel)]="item.locataire" id="2" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="libelle" placeholder="{{'location.locataire' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="3">{{'location.compte' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="comptes" [(ngModel)]="item.compte" id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'location.compte' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="4">{{'location.compteLocataire' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="compteLocataires" [(ngModel)]="item.compteLocataire" id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'location.compteLocataire' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="5">{{'location.transaction' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="transactions" [(ngModel)]="item.transaction" id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'location.transaction' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="6">{{'location.typeLocataire' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="typeLocataires" [(ngModel)]="item.typeLocataire" id="6" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'location.typeLocataire' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="7">{{'location.typePaiement' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="typePaiements" [(ngModel)]="item.typePaiement" id="7" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'location.typePaiement' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="8">{{'location.dateCreation' | translate}}</label>
+                                    <p-calendar class="w-full" appendTo="body" id="8"  [showTime]="true" [showSeconds]="false" placeholder="{{'location.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                                dateFormat="{{dateFormat}}"  >
+                                    </p-calendar>
+                                    
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button label="{{'validate' | translate}}"   (click)="save()"  class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideCreateDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

@@ -1,0 +1,107 @@
+<p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}"
+          header="{{'modelPermissionUser.tabPan' | translate}}"
+          [modal]="true" styleClass="p-fluid"
+          [maximizable]="true" [draggable]="false" [resizable]="false">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'modelPermissionUser.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                    <!-- Action Permission -->
+                    <div class="flex flex-col gap-2">
+                        <label for="1" class="text-sm font-semibold">
+                            {{'modelPermissionUser.actionPermission' | translate}}
+                        </label>
+                        <div class="flex gap-2">
+                            <p-dropdown appendTo="body" [options]="actionPermissions" [(ngModel)]="item.actionPermission"
+                                        id="1" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="reference"
+                                        placeholder="{{'modelPermissionUser.actionPermission' | translate}}"
+                                        class="w-full">
+                            </p-dropdown>
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreateActionPermission('ActionPermission')"
+                                    class="p-button-success">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Model Permission -->
+                    <div class="flex flex-col gap-2">
+                        <label for="2" class="text-sm font-semibold">
+                            {{'modelPermissionUser.modelPermission' | translate}}
+                        </label>
+                        <div class="flex gap-2">
+                            <p-dropdown appendTo="body" [options]="modelPermissions" [(ngModel)]="item.modelPermission"
+                                        id="2" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="reference"
+                                        placeholder="{{'modelPermissionUser.modelPermission' | translate}}"
+                                        class="w-full">
+                            </p-dropdown>
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreateModelPermission('ModelPermission')"
+                                    class="p-button-success">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Value Switch -->
+                    <div class="flex flex-col gap-2">
+                        <label for="3" class="text-sm font-semibold">
+                            {{'modelPermissionUser.value' | translate}}
+                        </label>
+                        <p-inputSwitch id="3" [(ngModel)]="item.value"></p-inputSwitch>
+                    </div>
+
+                    <!-- User -->
+                    <div class="flex flex-col gap-2">
+                        <label for="4" class="text-sm font-semibold">
+                            {{'modelPermissionUser.user' | translate}}
+                        </label>
+                        <div class="flex gap-2">
+                            <p-dropdown appendTo="body" [options]="users" [(ngModel)]="item.user"
+                                        id="4" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="email"
+                                        placeholder="{{'modelPermissionUser.user' | translate}}"
+                                        class="w-full">
+                            </p-dropdown>
+                            <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreateUser('User')"
+                                    class="p-button-success">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Sub Attribute -->
+                    <div class="flex flex-col gap-2">
+                        <label for="5" class="text-sm font-semibold">
+                            {{'modelPermissionUser.subAttribute' | translate}}
+                        </label>
+                        <input pInputText id="5" type="text" [(ngModel)]="item.subAttribute"
+                               placeholder="{{'modelPermissionUser.subAttribute' | translate}}">
+                    </div>
+
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="flex justify-end space-x-3 p-4">
+            <button (click)="hideEditDialog()"
+                    class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                <i class="pi pi-times"></i> {{'cancel' | translate}}
+            </button>
+            <button (click)="edit()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+        </div>
+    </ng-template>
+
+    <app-action-permission-create></app-action-permission-create>
+    <app-model-permission-create></app-model-permission-create>
+    <app-user-create></app-user-create>
+
+</p-dialog>

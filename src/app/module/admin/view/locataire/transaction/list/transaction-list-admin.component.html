@@ -1,0 +1,223 @@
+<div class="grid"  *ngIf="listActionIsValid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate()" *ngIf="createActionIsValid"></button>
+<!--                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>-->
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-secondary" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <div *ngIf="findByCriteriaShow" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-surface rounded-lg">
+
+
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="1-1">{{'transaction.dateMin' | translate}}</label>
+                                <p-calendar class="w-full" [(ngModel)]="criteria.dateFrom"
+                                            id="1-1" dateFormat="dd-MM-yy"  [showIcon]="true"  class="p-fluid"></p-calendar>
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label  class="text-sm font-semibold" for="1-2">{{'transaction.dateMax' | translate}}</label>
+                                <p-calendar class="w-full" [(ngModel)]="criteria.dateTo"
+                                            id="1-2" dateFormat="dd-MM-yy"  [showIcon]="true" class="p-fluid"></p-calendar>
+                            </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label  class="text-sm font-semibold" for="2-1">{{'transaction.montantMin' | translate}}</label>
+                                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.montantMin" id="2-1"></p-inputNumber>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label  class="text-sm font-semibold" for="2-2">{{'transaction.montantMax' | translate}}</label>
+                                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.montantMax" id="2-2"></p-inputNumber>
+                                </div>
+                            <div class="flex flex-col gap-2">
+                                <label  class="text-sm font-semibold" for="3">{{'transaction.description' | translate}}</label>
+                                <input  pInputText id="3" type="text"  [(ngModel)]="criteria.descriptionLike">
+                            </div>
+                        <div class="flex flex-col gap-2">
+                            <label  class="text-sm font-semibold" for="4-2">{{'transaction.modePaiement' | translate}}</label>
+                                <p-dropdown [options]="modePaiements" [(ngModel)]="criteria.modePaiement" id="4" [filter]="true" class="w-full"
+                                            [showClear]="true"  placeholder="{{'transaction.modePaiement' | translate}}" optionLabel="label">
+                                </p-dropdown>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label  class="text-sm font-semibold" for="5-2">{{'transaction.typePaiement' | translate}}</label>
+                                <p-dropdown [options]="typePaiements" [(ngModel)]="criteria.typePaiement" id="5" [filter]="true" class="w-full"
+                                            [showClear]="true"  placeholder="{{'transaction.typePaiement' | translate}}" optionLabel="label">
+                                </p-dropdown>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label  class="text-sm font-semibold" for="6-2">{{'transaction.compteSource' | translate}}</label>
+                                <p-dropdown [options]="compteSources" [(ngModel)]="criteria.compteSource" id="6" [filter]="true" class="w-full"
+                                            [showClear]="true"  placeholder="{{'transaction.compteSource' | translate}}" optionLabel="id">
+                                </p-dropdown>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label  class="text-sm font-semibold" for="7-2">{{'transaction.compteDestination' | translate}}</label>
+                                <p-dropdown [options]="compteDestinations" [(ngModel)]="criteria.compteDestination" id="7" [filter]="true" class="w-full"
+                                            [showClear]="true"  placeholder="{{'transaction.compteDestination' | translate}}" optionLabel="id">
+                                </p-dropdown>
+                        </div>
+
+                <div class="col-span-full flex justify-end mt-4">
+                    <button pButton pRipple label="{{'validate' | translate}}" class="px-4 py-2 rounded-md" (click)="findPaginatedByCriteria()">
+                        <i class="pi pi-sort-amount-down"></i> {{'validate' | translate}}
+                    </button>
+                </div>
+            </div>
+
+                <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                         [globalFilterFields]="['date', 'montant', 'description', 'modePaiementlabel', 'typePaiementlabel', 'compteSourceid', 'compteDestinationid']" [(selection)]="selections"
+                         [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                         currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-col md:flex-row justify-between items-center p-2 gap-4">
+                            <h5 class="text-center md:text-left">{{'transaction.header' | translate}}</h5>
+                            <span class="relative w-full md:w-auto">
+                            <p-iconfield iconPosition="left" class="w-full md:w-auto">
+							  <p-inputicon class="pi pi-search" />
+                              <input pInputText type="text" placeholder="{{'searchInput' | translate}}"
+                                     (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                     class="w-full md:w-72 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-300" />
+                            </p-iconfield>
+						</span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+
+                        <th pSortableColumn="date">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.date' | translate}}</span>
+                                <p-sortIcon field="date"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="montant">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.montant' | translate}}</span>
+                                <p-sortIcon field="montant"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="description">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.description' | translate}}</span>
+                                <p-sortIcon field="description"></p-sortIcon>
+                                <p-columnFilter type="text" field="element.description" display="menu" class="ml-auto"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="modePaiement">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.modePaiement' | translate}}</span>
+                                <p-sortIcon field="modePaiement"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="typePaiement">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.typePaiement' | translate}}</span>
+                                <p-sortIcon field="typePaiement"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="compteSource">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.compteSource' | translate}}</span>
+                                <p-sortIcon field="compteSource"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="compteDestination">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span class="mr-2">{{'transaction.compteDestination' | translate}}</span>
+                                <p-sortIcon field="compteDestination"></p-sortIcon>
+                            </div>
+                        </th>
+
+                            <th>Actions</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-element>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                            </td>
+
+                        <td>{{element.date | date :'dd/MM/yyyy HH:mm' }}</td>
+
+
+                        <td>{{element.montant}}</td>
+
+
+                        <td>{{element.description}}</td>
+
+
+                        <td>
+                            <p-tag severity="{{element.modePaiement?.code}}" value="{{element.modePaiement?.label}}" [rounded]="true" />
+                        </td>
+
+
+                        <td>
+                            <p-tag severity="{{element.typePaiement?.code}}" value="{{element.typePaiement?.label}}" [rounded]="true" />
+                        </td>
+
+
+                        <td>{{element.compteSource?.id}}</td>
+
+
+                        <td>{{element.compteDestination?.id}}</td>
+
+                            <td>
+                                <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
+                                <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
+                                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
+<!--
+                                <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
+-->                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="summary">
+                        <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                        <div class="p-d-flex p-ai-center p-jc-between">
+                            En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'transaction' : 'transactions' : 0 }}.
+                        </div>
+                    </ng-template>
+                </p-table>
+
+
+        </div>
+
+            <app-transaction-create-admin  *ngIf="createDialog  && createActionIsValid"></app-transaction-create-admin>
+            <app-transaction-edit-admin  *ngIf="editDialog  && editActionIsValid"></app-transaction-edit-admin>
+        <app-transaction-view-admin  *ngIf="viewDialog  && viewActionIsValid"></app-transaction-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
+
+<p-card header="Permission not allowed" *ngIf="!listActionIsValid">
+    <p class="m-0">
+        You don't have permission to access !
+    </p>
+</p-card>

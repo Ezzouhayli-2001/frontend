@@ -1,0 +1,67 @@
+    <p-dialog [(visible)]="editDialog" closable="false" [style]="{width: '70vw'}" header="{{'banque.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'banque.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                              <!--  <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'banque.code' | translate}}<span class="text-red-500">*</span></label>
+                                    <input type="text" pInputText  placeholder="{{'banque.code' | translate}}" id="1" [(ngModel)]="item.code"
+                                           [ngClass]="{'ng-invalid ng-dirty' : !validBanqueCode}"  />
+                                    <small class="text-red-500" *ngIf='!validBanqueCode'>Code is obligatory.</small>
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'banque.label' | translate}}</label>
+                                    <input type="text" pInputText  placeholder="{{'banque.label' | translate}}" id="2" [(ngModel)]="item.label"
+                                            />
+
+                                </div>-->
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'banque.nom' | translate}}</label>
+                                    <input type="text" pInputText  placeholder="{{'banque.nom' | translate}}" id="3" [(ngModel)]="item.nom"
+                                            />
+
+                                </div>
+
+
+                               <!-- <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="4">{{'banque.numeroCompte' | translate}}</label>
+                                    <input type="text" pInputText  placeholder="{{'banque.numeroCompte' | translate}}" id="4" [(ngModel)]="item.numeroCompte"
+                                            />
+
+                                </div>
+
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="5">{{'banque.solde' | translate}}</label>
+                                    <p-inputNumber  id="5" placeholder="{{'banque.solde' | translate}}" [(ngModel)]="item.solde"  >
+                                    </p-inputNumber>
+
+                                </div>-->
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

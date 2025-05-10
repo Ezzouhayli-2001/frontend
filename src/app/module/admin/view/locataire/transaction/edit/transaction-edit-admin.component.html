@@ -1,0 +1,83 @@
+    <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'transaction.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'transaction.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'transaction.date' | translate}}</label>
+                                    <p-calendar class="w-full" appendTo="body" id="1"  [showTime]="true" [showSeconds]="false" placeholder="{{'transaction.date' | translate}}"  [(ngModel)]="item.date"
+                                                dateFormat="{{dateFormat}}"  >
+                                    </p-calendar>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'transaction.montant' | translate}}</label>
+                                    <p-inputNumber  id="2" placeholder="{{'transaction.montant' | translate}}" [(ngModel)]="item.montant"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'transaction.description' | translate}}</label>
+                                    <input type="text" pInputText  placeholder="{{'transaction.description' | translate}}" id="3" [(ngModel)]="item.description"
+                                            />
+                                    
+                                </div>
+
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="4">{{'transaction.modePaiement' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="modePaiements" [(ngModel)]="item.modePaiement" id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'transaction.modePaiement' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="5">{{'transaction.typePaiement' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="typePaiements" [(ngModel)]="item.typePaiement" id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'transaction.typePaiement' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="6">{{'transaction.compteSource' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="compteSources" [(ngModel)]="item.compteSource" id="6" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'transaction.compteSource' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="7">{{'transaction.compteDestination' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="compteDestinations" [(ngModel)]="item.compteDestination" id="7" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'transaction.compteDestination' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

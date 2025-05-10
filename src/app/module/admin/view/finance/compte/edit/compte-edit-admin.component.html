@@ -1,0 +1,166 @@
+    <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'compte.tabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="{{'compte.tabPan' | translate}}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="1">{{'compte.solde' | translate}}</label>
+                                    <p-inputNumber  id="1" placeholder="{{'compte.solde' | translate}}" [(ngModel)]="item.solde"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="2">{{'compte.debit' | translate}}</label>
+                                    <p-inputNumber  id="2" placeholder="{{'compte.debit' | translate}}" [(ngModel)]="item.debit"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="3">{{'compte.credit' | translate}}</label>
+                                    <p-inputNumber  id="3" placeholder="{{'compte.credit' | translate}}" [(ngModel)]="item.credit"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="4">{{'compte.numeroCompte' | translate}}</label>
+                                    <p-inputNumber  id="4" placeholder="{{'compte.numeroCompte' | translate}}" [(ngModel)]="item.numeroCompte"  >
+                                    </p-inputNumber>
+                                    
+                                </div>
+
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-sm font-semibold" for="6">{{'compte.dateCreation' | translate}}</label>
+                                    <p-calendar class="w-full" appendTo="body" id="6"  [showTime]="true" [showSeconds]="false" placeholder="{{'compte.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                                dateFormat="{{dateFormat}}"  >
+                                    </p-calendar>
+                                    
+                                </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-semibold" for="7">{{'compte.banque' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="banques" [(ngModel)]="item.banque" id="7" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="label" placeholder="{{'compte.banque' | translate}}"  >
+                                </p-dropdown>
+                                
+                            </div>
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="{{'compte.transactions' | translate}}">
+                        <p-tabView [(activeIndex)]="activeTab">
+                            <p-tabPanel header="Création">
+
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+
+
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold" for="1">Date</label>
+                                                    <p-calendar class="w-full" appendTo="body" id="1"  [showTime]="true" [showSeconds]="false" placeholder="Date" [(ngModel)]="transactionsElement.date"
+                                                                dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
+                                                    
+                                                </div>
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold" for="2">Montant</label>
+                                                    <p-inputNumber id="montant" placeholder="Montant"  [(ngModel)]="transactionsElement.montant"></p-inputNumber>
+                                                    
+                                                </div>
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold" for="3">Description</label>
+                                                    <input type="text" pInputText placeholder="Description"
+                                                           id="3" [(ngModel)]="transactionsElement.description" autofocus   >
+                                                    
+                                                </div>
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold">Type transaction</label>
+                                                    <p-dropdown class="w-full"  appendTo="body"  [options]="typeTransactions" [(ngModel)]="transactionsElement.typeTransaction"
+                                                                id="4"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="label"
+                                                                placeholder="Type transaction"  >
+                                                    </p-dropdown>
+                                                    
+                                                </div>
+
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold">Mode paiement</label>
+                                                    <p-dropdown class="w-full"  appendTo="body"  [options]="modePaiements" [(ngModel)]="transactionsElement.modePaiement"
+                                                                id="5"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="label"
+                                                                placeholder="Mode paiement"  >
+                                                    </p-dropdown>
+                                                    
+                                                </div>
+
+                                                <div class="flex flex-col gap-2">
+                                                    <label class="text-sm font-semibold">Type paiement</label>
+                                                    <p-dropdown class="w-full"  appendTo="body"  [options]="typePaiements" [(ngModel)]="transactionsElement.typePaiement"
+                                                                id="6"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="label"
+                                                                placeholder="Type paiement"  >
+                                                    </p-dropdown>
+                                                    
+                                                </div>
+
+                                    <div class="flex justify-end md:col-span-3">
+                                        <button pButton type="button" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700" (click)="addTransactions()">
+                                            <i class="pi pi-plus"></i> OK
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </p-tabPanel>
+                            <p-tabPanel header="Liste {{item.transactions?.length > 0 ? '(' + item.transactions?.length + ')' : ''}}">
+                                <div class="card p-4">
+                                    <p-table [value]="item.transactions" [scrollable]="true" scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Date</th>
+                                                            <th>Montant</th>
+                                                            <th>Description</th>
+                                                            <th>Type transaction</th>
+                                                            <th>Mode paiement</th>
+                                                            <th>Type paiement</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p let-i="rowIndex">
+                                            <tr>
+                                                            <td>{{p.date | date: dateFormatColumn}}</td>
+                                                            <td>{{p.montant}}</td>
+                                                            <td>{{p.description}}</td>
+                                                        <td>{{p.typeTransaction?.label}}</td>
+                                                        <td>{{p.modePaiement?.label}}</td>
+                                                        <td>{{p.typePaiement?.label}}</td>
+                                                <td>
+                                                    <p-button (click)="deleteTransactions(p,i)" pButton type="button" icon="pi pi-times" severity="danger"  [rounded]="true"  class="mr-2"></p-button>
+                                                    <p-button (click)="editTransactions(p,i)" pButton type="button" icon="pi pi-pencil" severity="success"  [rounded]="true" class="mr-2"></p-button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+
+                            </p-tabPanel>
+                        </p-tabView>
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+</ng-template>
+
+<ng-template pTemplate="footer" >
+    <div class="flex justify-end space-x-3 p-4">
+
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-primary" label="{{'validate' | translate}}"  (click)="edit()">
+                <i class="pi pi-check"></i> {{'validate' | translate}}
+            </button>
+
+                <button (click)="hideEditDialog()" class="border border-gray-400 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-md">
+                    <i class="pi pi-times"></i> {{'cancel' | translate}}
+                </button>
+
+    </div>
+</ng-template>
+
+    </p-dialog>

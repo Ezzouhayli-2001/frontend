@@ -1,0 +1,144 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@use './tailwind.css';
+@use './assets/layout/layout.scss';
+@use 'primeicons/primeicons.css';
+@use './assets/demo/demo.scss';
+
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+
+/* Ajoutez ceci à votre fichier CSS global ou dans un style scoped */
+.border-info { border-color: #2196F3 !important; }
+.border-light { border-color: #e9ecef !important; }
+.border-secondary { border-color: #6c757d !important; }
+.border-success { border-color: #4caf50 !important; }
+.border-primary { border-color: #3f51b5 !important; }
+.border-warning { border-color: #ff9800 !important; }
+.border-danger { border-color: #f44336 !important; }
+:root {
+    --surface-ground: #f8f9fa;
+    --surface-card: #ffffff;
+    --primary-color: #007bff;
+    --primary-lighter-color: #93C5FD;
+    --success-color: #22C55E;
+    --warning-color: #F59E0B;
+    --danger-color: #EF4444;
+    --primary-start-color: #08a3f9;
+    --primary-end-color: #5c5fd6;
+    --primary-gradient: linear-gradient(135deg, var(--primary-start-color) 0%, var(--primary-end-color) 100%);
+    --primary-light: #e6f4ff;
+    --primary-text: #ffffff;
+    --primary-shadow: rgba(8, 163, 249, 0.2);
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+
+}
+
+.p-datepicker {
+    width: 100% !important;
+}
+
+.p-dialog-content {
+    padding: 0;
+}
+
+.p-tabview {
+    .p-tabview-nav {
+        background: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0 1rem;
+
+        li {
+            .p-tabview-nav-link {
+                padding: 1rem;
+                font-weight: 600;
+
+                &:not(.p-disabled):focus {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    .p-tabview-panels {
+        padding: 1.5rem;
+    }
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+
+    h5 {
+        color: #495057;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 0.75rem;
+    }
+}
+
+.field {
+    margin-bottom: 1rem;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #555;
+    }
+
+    input, textarea {
+        width: 100%;
+        background-color: #f9f9f9;
+    }
+}
+
+.p-datatable {
+    .p-datatable-header {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+    }
+
+    td {
+        padding: 0.75rem 1rem;
+    }
+
+    .text-green-500 {
+        color: #4CAF50;
+    }
+
+    .text-red-500 {
+        color: #F44336;
+    }
+}
+
+.p-button {
+    &.p-button-outlined {
+        &:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .banque-view-dialog {
+        .p-tabview {
+            .p-tabview-panels {
+                padding: 1rem;
+            }
+        }
+
+        .card {
+            padding: 1rem;
+        }
+    }
+}
