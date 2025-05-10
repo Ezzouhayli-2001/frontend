@@ -26,10 +26,8 @@ ARG PROFILE=prod
 ENV PROFILE=${PROFILE}
 RUN mkdir -p /etc/nginx/ssl
 
-
 # Copy the built output from the build stage
 COPY --from=build /app/dist/sakai-ng /usr/share/nginx/html
-
 
 # Copy the Nginx configuration and SSL certificates based on the profile
 COPY src/zyn/nginx/${PROFILE}/nginx.conf /etc/nginx/nginx.conf
@@ -38,7 +36,8 @@ COPY src/zyn/nginx/${PROFILE}/default.conf /etc/nginx/conf.d/default.conf
 COPY src/zyn/ssl/${PROFILE}/cert.pem /etc/nginx/ssl/cert.pem
 COPY src/zyn/ssl/${PROFILE}/key.pem /etc/nginx/ssl/key.pem
 
-EXPOSE 80
+# Exposer les ports HTTP et HTTPS
+EXPOSE 80 443
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
