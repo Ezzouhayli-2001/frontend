@@ -133,9 +133,9 @@ export class ReglementCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.initCode();
-        this.item.location = this.locationService.items.find(e => e.local.code === this.local.code&&e.locataire.code === this.locataire.code);
-        this.item.banque = this.compte.banque;
         this.item.caisse = this.compte.caisse;
+        this.item.banque = this.compte.banque;
+        this.item.location = this.locationService.items.find(e => e.local.code === this.local.code&&e.locataire.code === this.locataire.code);
         this.validateForm();
         if (this.errorMessages.length === 0) {
             this.saveWithShowOption(false);
@@ -145,7 +145,9 @@ export class ReglementCreateAdminComponent  implements OnInit {
     }
 
     public saveWithShowOption(showList: boolean) {
+        console.log(this.item);
         this.service.save().subscribe(item => {
+
             if (item != null) {
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
