@@ -47,6 +47,27 @@
         "deleteReglementConfirmationMessage": "Are you sure you want to delete reglement",
         "deleteReglementsConfirmationMessage": "Are you sure you want to delete the selected elements"
     },
+    "CompteLocataire": {
+        "solde": "Solde",
+        "local": "Local",
+        "soldeMin": "Solde Min",
+        "soldeMax": "Solde Max",
+        "debit": "Debit",
+        "debitMin": "Debit Min",
+        "debitMax": "Debit Max",
+        "credit": "Credit",
+        "creditMin": "Credit Min",
+        "creditMax": "Credit Max",
+        "locataire": "Locataire",
+        "locatairePlaceHolder": "Select a Locataire",
+        "locatairePlaceHolderFilter": "Search by Locataire",
+        "transactions": "Transactions",
+        "CompteInstantanee": "Compte locataire",
+        "tabPan": "Compte locataire",
+        "header": "Liste des compte locataires",
+        "deleteCompteInstantaneeConfirmationMessage": "Are you sure you want to delete compte locataire",
+        "deleteCompteInstantaneesConfirmationMessage": "Are you sure you want to delete the selected elements"
+    },
 
     "modelPermissionUser":{
         "actionPermission": "Action permission",

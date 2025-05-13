@@ -10,13 +10,13 @@ export const environment = {
 
 
 
-    apiUrlRentalmanagementms1: 'https://bank-ms.onrender.com/api/',
-    loginUrl: 'https://bank-ms.onrender.com/',
-    registerUrl: 'https://bank-ms.onrender.com/register',
-    apiUrl: 'https://bank-ms.onrender.com/',
+    apiUrlRentalmanagementms1: 'http://localhost:8036/api/',
+    loginUrl: 'http://localhost:8036/',
+    registerUrl: 'http://localhost:8036/register',
+    apiUrl: 'http://localhost:8036/',
 
 
-    stripeUrl: "https://bank-ms.onrender.com/api/payment/create-payment-intent/",
+    stripeUrl: "http://localhost:8036/api/payment/create-payment-intent/",
     stripePublicKey: "pk_test_51PVbvFRxVNBDrAcwfSz21b6EtPSpl6Fw3gUoKpIGWZN5whhSfS67W4hbtk95OMF1JSpxgYPyp9AmkNOAPLNFR7St00tDXFRjuV",
 
 
