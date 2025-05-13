@@ -17,7 +17,7 @@
                                 <p-dropdown class="w-full"  appendTo="body"  [options]="locataires" [(ngModel)]="item.locataire" id="2" [filter]="true" filterMatchMode="contains"
                                             [showClear]="true" optionLabel="libelle" placeholder="{{'location.locataire' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -25,15 +25,15 @@
                                 <p-dropdown class="w-full"  appendTo="body"  [options]="comptes" [(ngModel)]="item.compte" id="3" [filter]="true" filterMatchMode="contains"
                                             [showClear]="true" optionLabel="id" placeholder="{{'location.compte' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                             <div class="flex flex-col gap-2">
-                                <label class="text-sm font-semibold" for="4">{{'location.compteLocataire' | translate}}</label>
-                                <p-dropdown class="w-full"  appendTo="body"  [options]="compteLocataires" [(ngModel)]="item.compteLocataire" id="4" [filter]="true" filterMatchMode="contains"
-                                            [showClear]="true" optionLabel="id" placeholder="{{'location.compteLocataire' | translate}}"  >
+                                <label class="text-sm font-semibold" for="4">{{'location.CompteInstantanee' | translate}}</label>
+                                <p-dropdown class="w-full"  appendTo="body"  [options]="CompteInstantanees" [(ngModel)]="item.CompteInstantanee" id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" optionLabel="id" placeholder="{{'location.CompteInstantanee' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -41,7 +41,7 @@
                                 <p-dropdown class="w-full"  appendTo="body"  [options]="transactions" [(ngModel)]="item.transaction" id="5" [filter]="true" filterMatchMode="contains"
                                             [showClear]="true" optionLabel="id" placeholder="{{'location.transaction' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -49,7 +49,7 @@
                                 <p-dropdown class="w-full"  appendTo="body"  [options]="typeLocataires" [(ngModel)]="item.typeLocataire" id="6" [filter]="true" filterMatchMode="contains"
                                             [showClear]="true" optionLabel="label" placeholder="{{'location.typeLocataire' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -57,7 +57,7 @@
                                 <p-dropdown class="w-full"  appendTo="body"  [options]="typePaiements" [(ngModel)]="item.typePaiement" id="7" [filter]="true" filterMatchMode="contains"
                                             [showClear]="true" optionLabel="label" placeholder="{{'location.typePaiement' | translate}}"  >
                                 </p-dropdown>
-                                
+
                             </div>
 
                                 <div class="flex flex-col gap-2">
@@ -65,7 +65,7 @@
                                     <p-calendar class="w-full" appendTo="body" id="8"  [showTime]="true" [showSeconds]="false" placeholder="{{'location.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
                                                 dateFormat="{{dateFormat}}"  >
                                     </p-calendar>
-                                    
+
                                 </div>
 
                 </div>

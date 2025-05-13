@@ -1,0 +1,265 @@
+<div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded-lg">
+        <div class="border-b p-4 flex justify-between items-center bg-blue-200 text-white">
+            <h2 class="text-xl font-semibold">{{'Relevé Général' | translate}}</h2>
+        </div>
+
+        <div class="p-4">
+            <div class="grid">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <h5 class="mb-3 font-medium">
+                            <i class="pi pi-info-circle mr-2"></i>
+                            Résumé des Comptes
+                        </h5>
+
+                        <div class="grid">
+                            <!-- Résumé visuel avec des graphiques -->
+                         <!--   <div class="col-12 md:col-5">
+                                <p-chart type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+                            </div>-->
+
+                            <!-- Cartes des totaux -->
+                            <div class="col-12">
+                                <div class="flex flex-wrap  align-items-center justify-content-between mb-2">
+                                    <!-- Carte Total Banques -->
+                                    <div class="col-12 md:col-4 lg:col-4">
+                                        <div class="card shadow-2 mb-3">
+                                            <div class="flex justify-content-between mb-3">
+                                                <div class="text-left">
+                                                    <span class="block text-500 font-medium mb-3">Total Banques </span>
+                                                    <div class="text-900 font-medium text-xl">{{totalBanques | currency:'MAD'}}</div>
+                                                </div>
+                                                <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width:2.5rem;height:2.5rem">
+                                                    <i class="pi pi-money-bill text-blue-500 text-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Carte Total Caisses -->
+                                    <div class="col-12 md:col-4 lg:col-4">
+                                        <div class="card shadow-2 mb-3">
+                                            <div class="flex justify-content-between mb-3">
+                                                <div class="text-left">
+                                                    <span class="block text-500 font-medium mb-3">Total Caisses </span>
+                                                    <div class="text-900 font-medium text-xl">{{totalCaisses | currency:'MAD'}}</div>
+                                                </div>
+                                                <div class="flex align-items-center justify-content-center bg-green-100 border-round" style="width:2.5rem;height:2.5rem">
+                                                    <i class="pi pi-wallet text-green-500 text-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Carte Total Charges -->
+                                    <div class="col-12 md:col-4 lg:col-4">
+                                        <div class="card shadow-2 mb-3">
+                                            <div class="flex justify-content-between mb-3">
+                                                <div class="text-left">
+                                                    <span class="block text-500 font-medium mb-3">Total Charges </span>
+                                                    <div class="text-900 font-medium text-xl">{{totalCharges | currency:'MAD'}}</div>
+                                                </div>
+                                                <div class="flex align-items-center justify-content-center bg-red-100 border-round" style="width:2.5rem;height:2.5rem">
+                                                    <i class="pi pi-minus-circle text-red-500 text-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Carte Solde Net -->
+                                    <div class="col-12">
+                                        <div class="card shadow-2 bg-primary">
+                                            <div class="flex justify-content-between">
+                                                <div class="text-left">
+                                                    <span class="block text-white font-medium mb-3">Relevé Général (Banques + Caisses - Charges)</span>
+                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses - totalCharges) | currency:'MAD'}}</div>
+                                                </div>
+                                                <div class="flex align-items-center justify-content-center bg-white border-round" style="width:2.5rem;height:2.5rem">
+                                                    <i class="pi pi-calculator text-primary text-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Détails des banques -->
+                    <div class="card mb-4">
+                        <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                            <h5 class="m-0 font-medium">
+                                <i class="pi pi-money-bill mr-2"></i>
+                                Détails des Banques
+                            </h5>
+                            <div class="flex align-items-center gap-2">
+                                <p-splitButton label="Exporter" icon="pi pi-download" [model]="exportButtonsBanques" styleClass="p-button-outlined"></p-splitButton>
+                            </div>
+                        </div>
+
+                        <p-table [value]="comptsBanques" styleClass="p-datatable-sm" [paginator]="true" [rows]="5"
+                                 [showCurrentPageReport]="true" currentPageReportTemplate="{{'Affichage de {first} à {last} sur {totalRecords} éléments' | translate}}"
+                                 [rowsPerPageOptions]="[5,10,25]" responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Nom de la Banque</th>
+                                    <th>Solde</th>
+                                    <th>Débit</th>
+                                    <th>Crédit</th>
+                                    <th>Date de Création</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-banque>
+                                <tr>
+                                    <td>{{banque.code}}</td>
+                                    <td [ngClass]="{'text-green-500 font-medium': banque.solde > 0, 'text-red-500 font-medium': banque.solde < 0}">
+                                        {{banque.solde | currency:'MAD'}}
+                                    </td>
+                                    <td class="text-red-500">{{banque.debit | currency:'MAD'}}</td>
+                                    <td class="text-green-500">{{banque.credit | currency:'MAD'}}</td>
+                                    <td>{{banque.dateCreation | date: dateFormatColumn}}</td>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <tr class="font-bold bg-gray-50 text-center">
+                                    <td colspan="1" class="text-right">Total:</td>
+                                    <td [ngClass]="{'text-green-500': totalBanques > 0, 'text-red-500': totalBanques < 0}">
+                                        {{totalBanques | currency:'MAD'}}
+                                    </td>
+                                    <td class="text-red-500">{{totalDebitsBanques | currency:'MAD'}}</td>
+                                    <td class="text-green-500">{{totalCreditsBanques | currency:'MAD'}}</td>
+                                    <td colspan="1"></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="7" class="text-center p-4">
+                                        <i class="pi pi-info-circle text-primary mr-2"></i>
+                                        Aucune banque disponible
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <!-- Détails des caisses -->
+                    <div class="card mb-4">
+                        <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                            <h5 class="m-0 font-medium">
+                                <i class="pi pi-wallet mr-2"></i>
+                                Détails des Caisses
+                            </h5>
+                            <div class="flex align-items-center gap-2">
+                                <p-splitButton label="Exporter" icon="pi pi-download" [model]="exportButtonsCaisses" styleClass="p-button-outlined"></p-splitButton>
+                            </div>
+                        </div>
+
+                        <p-table [value]="comptsCaisses" styleClass="p-datatable-sm" [paginator]="true" [rows]="5"
+                                 [showCurrentPageReport]="true" currentPageReportTemplate="{{'Affichage de {first} à {last} sur {totalRecords} éléments' | translate}}"
+                                 [rowsPerPageOptions]="[5,10,25]" responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Nom de la Caisse</th>
+                                    <th>Solde</th>
+                                    <th>Débit</th>
+                                    <th>Crédit</th>
+                                    <th>Date de Création</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-caisse>
+                                <tr>
+                                    <td>{{caisse.code}}</td>
+                                    <td [ngClass]="{'text-green-500 font-medium': caisse.solde > 0, 'text-red-500 font-medium': caisse.solde < 0}">
+                                        {{caisse.solde | currency:'MAD'}}
+                                    </td>
+                                    <td class="text-red-500">{{caisse.debit | currency:'MAD'}}</td>
+                                    <td class="text-green-500">{{caisse.credit | currency:'MAD'}}</td>
+                                    <td>{{caisse.dateCreation | date: dateFormatColumn}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <tr class="font-bold bg-gray-50">
+                                    <td colspan="1" class="text-right">Total:</td>
+                                    <td [ngClass]="{'text-green-500': totalCaisses > 0, 'text-red-500': totalCaisses < 0}">
+                                        {{totalCaisses | currency:'MAD'}}
+                                    </td>
+                                    <td class="text-red-500">{{totalDebitsCaisses | currency:'MAD'}}</td>
+                                    <td class="text-green-500">{{totalCreditsCaisses | currency:'MAD'}}</td>
+                                    <td colspan="1"></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="7" class="text-center p-4">
+                                        <i class="pi pi-info-circle text-primary mr-2"></i>
+                                        Aucune caisse disponible
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <!-- Détails des charges -->
+                    <div class="card">
+                        <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
+                            <h5 class="m-0 font-medium">
+                                <i class="pi pi-minus-circle mr-2"></i>
+                                Détails des Charges
+                            </h5>
+                            <div class="flex align-items-center gap-2">
+                                <p-splitButton label="Exporter" icon="pi pi-download" [model]="exportButtonsCharges" styleClass="p-button-outlined"></p-splitButton>
+                            </div>
+                        </div>
+
+                        <p-table [value]="charges" styleClass="p-datatable-sm" [paginator]="true" [rows]="5"
+                                 [showCurrentPageReport]="true" currentPageReportTemplate="{{'Affichage de {first} à {last} sur {totalRecords} éléments' | translate}}"
+                                 [rowsPerPageOptions]="[5,10,25]" responsiveLayout="scroll">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Nom</th>
+
+                                    <th>Montant</th>
+
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Compte associé</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-charge>
+                                <tr>
+                                    <td>{{charge?.compteCharge?.nom}}</td>
+
+                                    <td class="text-red-500 font-medium">{{charge.montant | currency:'MAD'}}</td>
+                                    <td>{{charge.description}}</td>
+                                    <td>{{charge.date | date: dateFormatColumn}}</td>
+                                    <td>
+                                        <p-tag [severity]="charge.typeCharge?.style" [value]="charge.typeCharge?.label" [rounded]="true"></p-tag>
+                                    </td>
+                                    <td>{{charge.compteSource?.code}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="footer">
+                                <tr class="font-bold bg-gray-50">
+                                    <td colspan="1" class="text-right">Total:</td>
+                                    <td class="text-red-500">{{totalCharges | currency:'MAD'}}</td>
+                                    <td colspan="1"></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="7" class="text-center p-4">
+                                        <i class="pi pi-info-circle text-primary mr-2"></i>
+                                        Aucune charge disponible
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

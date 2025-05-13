@@ -11,10 +11,12 @@ export class CaisseDto extends BaseDto{
     public solde: null | number;
 
 
+    public dateCreation: Date;
 
     constructor() {
         super();
 
+        this.dateCreation = null;
         this.code = '';
         this.libelle = '';
         this.solde = null;

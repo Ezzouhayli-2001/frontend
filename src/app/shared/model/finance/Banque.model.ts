@@ -14,12 +14,15 @@ export class BanqueDto extends BaseDto{
 
     public solde: null | number;
 
+    public dateCreation: Date;
+
 
 
     constructor() {
         super();
 
         this.code = '';
+        this.dateCreation = null;
         this.label = '';
         this.nom = '';
         this.numeroCompte = '';

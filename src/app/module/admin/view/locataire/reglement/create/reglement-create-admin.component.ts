@@ -63,7 +63,7 @@ export class ReglementCreateAdminComponent  implements OnInit {
 
 	constructor(
         private compteService: CompteAdminService,
-        private compteLocataireService: CompteLocataireAdminService,
+        private CompteLocataireService: CompteLocataireAdminService,
         private service: ReglementAdminService,
         private banqueService: BanqueAdminService,
                 private modePaiementService: ModePaiementAdminService,
@@ -109,10 +109,6 @@ export class ReglementCreateAdminComponent  implements OnInit {
 
 
     onLocalChange(event: any) {
-        // Réinitialiser le locataire sélectionné
-        this.locataire = null;
-        this.locatairesFiltres = [];
-        this.locationsFiltres = [];
         if (!event.value) {
             // Si aucun local n'est sélectionné, vider la liste des locataires filtrés
             this.locationsFiltres = [];
@@ -133,9 +129,11 @@ export class ReglementCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.initCode();
-        this.item.caisse = this.compte.caisse;
-        this.item.banque = this.compte.banque;
-        this.item.location = this.locationService.items.find(e => e.local.code === this.local.code&&e.locataire.code === this.locataire.code);
+       this.item.caisse = this.item.compteDestination.caisse;
+        this.item.banque = this.item.compteDestination.banque;
+        if (this.locataire != null && this.local != null) {
+            this.item.location = this.locationService.items.find(e => e.local.code === this.local.code && e.locataire.code === this.locataire.code);
+        }
         this.validateForm();
         if (this.errorMessages.length === 0) {
             this.saveWithShowOption(false);
@@ -346,12 +344,12 @@ export class ReglementCreateAdminComponent  implements OnInit {
         this.modePaiementService.items = value;
     }
 
-    get compteLocataires(): Array<CompteLocataireDto> {
-        return this.compteLocataireService.items;
+    get CompteLocataires(): Array<CompteLocataireDto> {
+        return this.CompteLocataireService.items;
     }
 
-    set compteLocataires(value: Array<CompteLocataireDto>) {
-        this.compteLocataireService.items = value;
+    set CompteLocataires(value: Array<CompteLocataireDto>) {
+        this.CompteLocataireService.items = value;
     }
     cancel() {
         this.navigateToList();

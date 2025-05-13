@@ -21,33 +21,33 @@
 
 
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="1-1">{{'compteLocataire.soldeMin' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="1-1">{{'CompteLocataire.soldeMin' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMin" id="1-1"></p-inputNumber>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="1-2">{{'compteLocataire.soldeMax' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="1-2">{{'CompteLocataire.soldeMax' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMax" id="1-2"></p-inputNumber>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="2-1">{{'compteLocataire.debitMin' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="2-1">{{'CompteLocataire.debitMin' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.debitMin" id="2-1"></p-inputNumber>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="2-2">{{'compteLocataire.debitMax' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="2-2">{{'CompteLocataire.debitMax' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.debitMax" id="2-2"></p-inputNumber>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="3-1">{{'compteLocataire.creditMin' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="3-1">{{'CompteLocataire.creditMin' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.creditMin" id="3-1"></p-inputNumber>
                                 </div>
                                 <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="3-2">{{'compteLocataire.creditMax' | translate}}</label>
+                                    <label  class="text-sm font-semibold" for="3-2">{{'CompteLocataire.creditMax' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.creditMax" id="3-2"></p-inputNumber>
                                 </div>
                         <div class="flex flex-col gap-2">
-                            <label  class="text-sm font-semibold" for="4-2">{{'compteLocataire.locataire' | translate}}</label>
+                            <label  class="text-sm font-semibold" for="4-2">{{'CompteLocataire.locataire' | translate}}</label>
                                 <p-dropdown [options]="locataires" [(ngModel)]="criteria.locataire" id="4" [filter]="true" class="w-full"
-                                            [showClear]="true"  placeholder="{{'compteLocataire.locataire' | translate}}" optionLabel="code">
+                                            [showClear]="true"  placeholder="{{'CompteLocataire.locataire' | translate}}" optionLabel="code">
                                 </p-dropdown>
                         </div>
 
@@ -65,7 +65,7 @@
                          [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
                     <ng-template pTemplate="caption">
                         <div class="flex flex-col md:flex-row justify-between items-center p-2 gap-4">
-                            <h5 class="text-center md:text-left">{{'compteLocataire.header' | translate}}</h5>
+                            <h5 class="text-center md:text-left">{{'CompteLocataire.header' | translate}}</h5>
                             <span class="relative w-full md:w-auto">
                             <p-iconfield iconPosition="left" class="w-full md:w-auto">
 							  <p-inputicon class="pi pi-search" />
@@ -84,7 +84,7 @@
 
                         <th pSortableColumn="solde">
                             <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'compteLocataire.solde' | translate}}</span>
+                                <span class="mr-2">{{'CompteLocataire.solde' | translate}}</span>
                                 <p-sortIcon field="solde"></p-sortIcon>
                             </div>
                         </th>
@@ -92,7 +92,7 @@
 
                         <th pSortableColumn="debit">
                             <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'compteLocataire.debit' | translate}}</span>
+                                <span class="mr-2">{{'CompteLocataire.debit' | translate}}</span>
                                 <p-sortIcon field="debit"></p-sortIcon>
                             </div>
                         </th>
@@ -100,7 +100,7 @@
 
                         <th pSortableColumn="credit">
                             <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'compteLocataire.credit' | translate}}</span>
+                                <span class="mr-2">{{'CompteLocataire.credit' | translate}}</span>
                                 <p-sortIcon field="credit"></p-sortIcon>
                             </div>
                         </th>
@@ -108,13 +108,13 @@
 
                         <th pSortableColumn="locataire">
                             <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'compteLocataire.locataire' | translate}}</span>
+                                <span class="mr-2">{{'CompteLocataire.locataire' | translate}}</span>
                             </div>
                         </th>
 
                             <th >
                                 <div class="p-d-flex p-jc-between p-ai-center">
-                                    <span class="mr-2">{{'compteLocataire.local' | translate}}</span>
+                                    <span class="mr-2">{{'CompteLocataire.local' | translate}}</span>
                                 </div>
                             </th>
 

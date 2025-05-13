@@ -28,6 +28,11 @@ import {CaisseCreateAdminComponent} from "./caisse/create/caisse-create-admin.co
 import {BanqueCreateAdminComponent} from "./banque/create/banque-create-admin.component";
 import {ChargeCreateAdminComponent} from "./charge/create/charge-create-admin.component";
 import {CompteChargeCreateAdminComponent} from "./compte-charge/create/compte-charge-create-admin.component";
+import {
+    CompteInstantaneeCreateAdminComponent
+} from "./compte-instantanee/create/compte-instantanee-create-admin.component";
+import {CompteInstantaneeListAdminComponent} from "./compte-instantanee/list/compte-instantanee-list-admin.component";
+import {ReleverGeneraleComponent} from "./relever-generale/relever-generale.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -127,6 +132,11 @@ import {CompteChargeCreateAdminComponent} from "./compte-charge/create/compte-ch
                                 }
                             ]
                         },
+                        {
+                            path: 'releve-general',
+                            component: ReleverGeneraleComponent ,
+                            canActivate: [AuthGuard]
+                        },
 
                         {
 
@@ -167,6 +177,23 @@ import {CompteChargeCreateAdminComponent} from "./compte-charge/create/compte-ch
                                 }
                             ]
                         },
+                        {
+
+                            path: 'compte-instantanee',
+                            children: [
+                                {
+                                    path: 'list',
+                                    component: CompteInstantaneeListAdminComponent ,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'create',
+                                    component: CompteInstantaneeCreateAdminComponent ,
+                                    canActivate: [AuthGuard]
+                                }
+                            ]
+                        },
+
 
                         {
 

@@ -17,7 +17,7 @@ export class CompteLocataireDto extends BaseDto{
 
     public locataire: LocataireDto ;
     public location: LocationDto ;
-     public transactions: Array<TransactionDto>;
+    public transactions: Array<TransactionDto>;
 
 
     constructor() {
@@ -30,6 +30,6 @@ export class CompteLocataireDto extends BaseDto{
         this.locataire = new LocataireDto() ;
         this.transactions = new Array<TransactionDto>();
 
-        }
+    }
 
 }

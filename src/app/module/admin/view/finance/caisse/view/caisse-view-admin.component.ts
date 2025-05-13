@@ -150,7 +150,7 @@ export class CaisseViewAdminComponent implements OnInit {
             if (e.typeTransaction?.label === 'charge' || e.typeTransaction?.label === 'avoir') {
                 compteSource = e.compteSource?.code || '';
             } else if (e.typeTransaction?.label === 'reglement') {
-                compteSource = `${e.compteLocataire?.locataire?.nom || ''} ${e.compteLocataire?.locataire?.prenom || ''}`.trim();
+                compteSource = `${e.CompteInstantanee?.locataire?.nom || ''} ${e.CompteInstantanee?.locataire?.prenom || ''}`.trim();
             }
 
             // Gestion du compte destination selon le type de transaction
@@ -158,7 +158,7 @@ export class CaisseViewAdminComponent implements OnInit {
             if (e.typeTransaction?.label === 'charge' || e.typeTransaction?.label === 'reglement') {
                 compteDestination = e.compteDestination?.code || '';
             } else if (e.typeTransaction?.label === 'avoir') {
-                compteDestination = `${e.compteLocataire?.locataire?.nom || ''} ${e.compteLocataire?.locataire?.prenom || ''}`.trim();
+                compteDestination = `${e.CompteInstantanee?.locataire?.nom || ''} ${e.CompteInstantanee?.locataire?.prenom || ''}`.trim();
             }
 
             return {

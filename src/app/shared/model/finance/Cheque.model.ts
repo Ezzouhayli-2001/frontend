@@ -1,6 +1,6 @@
 import {BanqueDto} from './Banque.model';
 import {CompteDto} from './Compte.model';
-import {CompteLocataireDto} from './CompteLocataire.model';
+import {CompteInstantaneeDto} from './CompteInstantanee.model';
 import {ReglementDto} from '../locataire/Reglement.model';
 
 import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
@@ -18,7 +18,7 @@ export class ChequeDto extends BaseDto{
 
     public banque: BanqueDto ;
     public compte: CompteDto ;
-    public compteLocataire: CompteLocataireDto ;
+    public CompteInstantanee: CompteInstantaneeDto ;
     public reglement: ReglementDto ;
 
 

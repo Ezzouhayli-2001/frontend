@@ -35,6 +35,12 @@
                                     </p-inputNumber>
 
                                 </div>
+                    <div class="field flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="6">{{'Date de création' | translate}}</label>
+                        <p-calendar id="6"  class="w-full" appendTo="body"  [showTime]="true" [showSeconds]="false" placeholder="{{'banque.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                    dateFormat="{{dateFormat}}"  >
+                        </p-calendar>
+                    </div>
 
                 </div>
             </p-tabPanel>

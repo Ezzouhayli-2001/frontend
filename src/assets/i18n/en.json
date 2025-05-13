@@ -152,9 +152,9 @@
         "typeLocataire": "Type locataire",
         "typeLocatairePlaceHolder": "Select a Type locataire",
         "typeLocatairePlaceHolderFilter": "Search by Type locataire",
-        "compteLocataire": "Compte locataire",
-        "compteLocatairePlaceHolder": "Select a Compte locataire",
-        "compteLocatairePlaceHolderFilter": "Search by Compte locataire",
+        "CompteInstantanee": "Compte locataire",
+        "CompteInstantaneePlaceHolder": "Select a Compte locataire",
+        "CompteInstantaneePlaceHolderFilter": "Search by Compte locataire",
         "locations": "Locations",
         "avoirs": "Avoirs",
         "locataire": "Locataire",
@@ -441,7 +441,7 @@
     },
 
 
-    "compteLocataire":{
+    "CompteInstantanee":{
         "solde": "Solde",
         "local": "Local",
         "soldeMin": "Solde Min",
@@ -456,11 +456,11 @@
         "locatairePlaceHolder": "Select a Locataire",
         "locatairePlaceHolderFilter": "Search by Locataire",
         "transactions": "Transactions",
-        "compteLocataire": "Compte locataire",
+        "CompteInstantanee": "Compte locataire",
         "tabPan": "Compte locataire",
         "header": "Liste des compte locataires",
-        "deleteCompteLocataireConfirmationMessage": "Are you sure you want to delete compte locataire",
-        "deleteCompteLocatairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+        "deleteCompteInstantaneeConfirmationMessage": "Are you sure you want to delete compte locataire",
+        "deleteCompteInstantaneesConfirmationMessage": "Are you sure you want to delete the selected elements"
     },
 "appName": "GED"
 }

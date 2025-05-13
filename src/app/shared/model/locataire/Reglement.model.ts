@@ -4,6 +4,7 @@ import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
 import {BanqueDto} from "../finance/Banque.model";
 import {CaisseDto} from "../finance/Caisse.model";
 import {ModePaiementDto} from "./ModePaiement.model";
+import {CompteDto} from "../finance/Compte.model";
 
 
 export class ReglementDto extends BaseDto{
@@ -16,10 +17,12 @@ export class ReglementDto extends BaseDto{
 
     public motif: string;
 
-    public location: LocationDto ;
     public modePaiement: ModePaiementDto;
 
+    public location: LocationDto ;
 
+    public compteSource: CompteDto;
+    public compteDestination: CompteDto;
 
     public banque: BanqueDto;
     public caisse: CaisseDto;
@@ -31,6 +34,8 @@ export class ReglementDto extends BaseDto{
         this.montant = null;
         this.date = null;
         this.motif = '';
+        this.compteSource = new CompteDto();
+        this.compteDestination = new CompteDto();
         this.location = new LocationDto() ;
         this.banque = new BanqueDto();
         this.caisse = new CaisseDto();

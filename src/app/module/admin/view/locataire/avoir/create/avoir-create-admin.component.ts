@@ -96,7 +96,6 @@ export class AvoirCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.validateForm();
-
         this.item.location = this.locationService.items.find(e => e.local.code === this.local.code&&e.locataire.code === this.item.locataire.code);
         this.item.banque = this.compte.banque;
         this.item.caisse = this.compte.caisse;
@@ -127,11 +126,8 @@ export class AvoirCreateAdminComponent  implements OnInit {
             console.log(error);
         });
     }
+    
     onLocalChange(event: any) {
-        // Réinitialiser le locataire sélectionné
-        this.locataire = null;
-        this.locatairesFiltres = [];
-        this.locationsFiltres = [];
         if (!event.value) {
             // Si aucun local n'est sélectionné, vider la liste des locataires filtrés
             this.locationsFiltres = [];

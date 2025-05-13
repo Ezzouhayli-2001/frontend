@@ -36,7 +36,7 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <label  class="text-sm font-semibold" for="4-2">{{'location.locataire' | translate}}</label>
-                                <p-dropdown [options]="compteLocataires" [(ngModel)]="criteria.locataire" id="4" [filter]="true" class="w-full"
+                                <p-dropdown [options]="CompteInstantanees" [(ngModel)]="criteria.locataire" id="4" [filter]="true" class="w-full"
                                             [showClear]="true"  placeholder="{{'location.locataire' | translate}}" optionLabel="id">
                                 </p-dropdown>
                         </div>
@@ -80,7 +80,7 @@
             </div>
 
                 <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
-                         [globalFilterFields]="['code', 'locatairelibelle', 'compteid', 'compteLocataireid', 'transactionid', 'typeLocatairelabel', 'typePaiementlabel', 'dateCreation']" [(selection)]="selections"
+                         [globalFilterFields]="['code', 'locatairelibelle', 'compteid', 'CompteInstantaneeid', 'transactionid', 'typeLocatairelabel', 'typePaiementlabel', 'dateCreation']" [(selection)]="selections"
                          [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
                          currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
                          [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">

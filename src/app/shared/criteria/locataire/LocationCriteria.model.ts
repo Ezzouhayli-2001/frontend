@@ -1,7 +1,7 @@
 import {TransactionCriteria} from './TransactionCriteria.model';
 import {TypePaiementCriteria} from './TypePaiementCriteria.model';
 import {CompteCriteria} from '../finance/CompteCriteria.model';
-import {CompteLocataireCriteria} from '../finance/CompteLocataireCriteria.model';
+import {CompteInstantaneeCriteria} from '../finance/CompteInstantaneeCriteria.model';
 import {TypeLocataireCriteria} from './TypeLocataireCriteria.model';
 import {LocataireCriteria} from './LocataireCriteria.model';
 

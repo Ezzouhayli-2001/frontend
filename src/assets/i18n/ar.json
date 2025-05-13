@@ -158,9 +158,9 @@
         "compte": "Compte",
         "comptePlaceHolder": "Select a Compte",
         "comptePlaceHolderFilter": "Search by Compte",
-        "compteLocataire": "Compte locataire",
-        "compteLocatairePlaceHolder": "Select a Compte locataire",
-        "compteLocatairePlaceHolderFilter": "Search by Compte locataire",
+        "CompteInstantanee": "Compte locataire",
+        "CompteInstantaneePlaceHolder": "Select a Compte locataire",
+        "CompteInstantaneePlaceHolderFilter": "Search by Compte locataire",
         "transaction": "Transaction",
         "transactionPlaceHolder": "Select a Transaction",
         "transactionPlaceHolderFilter": "Search by Transaction",
@@ -334,7 +334,7 @@
     },
 
 
-    "compteLocataire":{
+    "CompteInstantanee":{
         "rib": "Rib",
         "banque": "Banque",
         "banquePlaceHolder": "Select a Banque",
@@ -345,11 +345,11 @@
         "locataire": "Locataire",
         "locatairePlaceHolder": "Select a Locataire",
         "locatairePlaceHolderFilter": "Search by Locataire",
-        "compteLocataire": "Compte locataire",
+        "CompteInstantanee": "Compte locataire",
         "tabPan": "Compte locataire",
         "header": "Liste des compte locataires",
-        "deleteCompteLocataireConfirmationMessage": "Are you sure you want to delete compte locataire",
-        "deleteCompteLocatairesConfirmationMessage": "Are you sure you want to delete the selected elements"
+        "deleteCompteInstantaneeConfirmationMessage": "Are you sure you want to delete compte locataire",
+        "deleteCompteInstantaneesConfirmationMessage": "Are you sure you want to delete the selected elements"
     },
 
 "appName": "GED"

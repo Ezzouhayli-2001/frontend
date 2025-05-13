@@ -1,5 +1,5 @@
 import {AvoirDto} from './Avoir.model';
-import {CompteLocataireDto} from '../finance/CompteLocataire.model';
+import {CompteInstantaneeDto} from '../finance/CompteInstantanee.model';
 import {TypeLocataireDto} from './TypeLocataire.model';
 import {LocationDto} from './Location.model';
 
@@ -19,7 +19,7 @@ export class LocataireDto extends BaseDto{
     public dateCreation: Date;
 
     public typeLocataire: TypeLocataireDto ;
-    public compteLocataire: CompteLocataireDto ;
+    public CompteInstantanee: CompteInstantaneeDto ;
     public locations: Array<LocationDto>;
     public avoirs: Array<AvoirDto>;
 

@@ -1,0 +1,231 @@
+
+
+// Main layout styles
+.container {
+    max-width: 1400px;
+
+    .shadow-md {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .rounded-lg {
+        border-radius: 0.5rem;
+    }
+}
+
+// Header styles
+.bg-blue-200 {
+    background-color: #90CAF9;
+    color: #1565C0 !important;
+    border-radius: 0.5rem 0.5rem 0 0;
+
+    h2 {
+        color: #1565C0;
+    }
+
+    button {
+        background-color: #1565C0;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: #0D47A1;
+        }
+    }
+}
+
+// Card styles
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background-color: #fff;
+
+    h5 {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+
+        i {
+            margin-right: 0.5rem;
+            color: #007BFFFF;
+        }
+    }
+
+    &.shadow-2 {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: translateY(-3px);
+        }
+    }
+
+    &.bg-primary {
+        background-color: #007BFFFF;
+        color: white;
+    }
+}
+
+// Summary cards
+.text-500 {
+    color: #6c757d;
+}
+
+.text-900 {
+    color: #212529;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+// Icon containers
+.bg-blue-100 {
+    background-color: #BBDEFB;
+}
+
+.bg-green-100 {
+    background-color: #C8E6C9;
+}
+
+.bg-red-100 {
+    background-color: #FFCDD2;
+}
+
+.text-blue-500 {
+    color: #2196F3;
+}
+
+.text-green-500 {
+    color: #4CAF50;
+}
+
+.text-red-500 {
+    color: #F44336;
+}
+
+// Table styles
+:host ::ng-deep {
+    .p-datatable {
+        .p-datatable-thead > tr > th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 600;
+            padding: 0.75rem;
+            border-width: 0 0 1px 0;
+            border-color: #e9ecef;
+        }
+
+        .p-datatable-tbody > tr > td {
+            padding: 0.75rem;
+            border-width: 0 0 1px 0;
+            border-color: #e9ecef;
+        }
+
+        .p-datatable-footer {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-width: 0 0 1px 0;
+            border-color: #e9ecef;
+        }
+    }
+
+    .p-button {
+        &.p-button-sm {
+            font-size: 0.875rem;
+            padding: 0.4rem;
+        }
+
+        &.p-button-info {
+            background-color: #2196F3;
+            border-color: #2196F3;
+
+            &:hover {
+                background-color: #1976D2;
+                border-color: #1976D2;
+            }
+        }
+    }
+
+    .p-tag {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+
+        &.p-tag-success {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        &.p-tag-warning {
+            background-color: #FF9800;
+            color: #fff;
+        }
+
+        &.p-tag-danger {
+            background-color: #F44336;
+            color: #fff;
+        }
+
+        &.p-tag-info {
+            background-color: #2196F3;
+            color: #fff;
+        }
+    }
+
+    .p-splitbutton {
+        .p-button {
+            background-color: transparent;
+            border-color: #007BFFFF;
+            color: #007BFFFF;
+
+            &:hover {
+                background-color: rgba(#007BFFFF, 0.1);
+            }
+        }
+    }
+}
+
+// Chart container
+.doughnut-chart-container {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+    .col-md-5, .col-md-7 {
+        width: 100%;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+}
+
+// Footer totals styles
+.font-bold {
+    font-weight: bold;
+}
+
+.bg-gray-50 {
+    background-color: #f9fafb;
+}
+
+// Make sure the action buttons align nicely
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}

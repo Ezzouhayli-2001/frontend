@@ -85,7 +85,7 @@ export class LocalEditAdminComponent implements OnInit {
         this.statutLocalService.findAll().subscribe((data) => this.statutLocals = data);
     }
 
-    
+
     public prepareEdit() {
     }
 
@@ -107,6 +107,7 @@ export class LocalEditAdminComponent implements OnInit {
     }
 
     public editWithShowOption(showList: boolean) {
+        this.item.dateCreation = new Date(this.item.dateCreation);
         this.service.edit().subscribe(religion=>{
             const myIndex = this.items.findIndex(e => e.id === this.item.id);
             this.items[myIndex] = religion;

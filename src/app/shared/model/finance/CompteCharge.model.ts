@@ -16,6 +16,7 @@ export class CompteChargeDto extends BaseDto{
     public solde: null | number;
 
     public local: LocalDto;
+    public dateCreation: Date;
 
     public typeCharges: Array<TypeChargeDto>;
 
@@ -27,6 +28,7 @@ export class CompteChargeDto extends BaseDto{
         super();
 
         this.local = new LocalDto() ;
+        this.dateCreation = null;
         this.code = '';
         this.label = '';
         this.nom = '';

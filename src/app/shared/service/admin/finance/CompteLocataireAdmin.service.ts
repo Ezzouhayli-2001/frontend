@@ -11,7 +11,7 @@ import {CompteLocataireCriteria} from 'src/app/shared/criteria/finance/CompteLoc
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class CompteLocataireAdminService {
     protected _API = '';

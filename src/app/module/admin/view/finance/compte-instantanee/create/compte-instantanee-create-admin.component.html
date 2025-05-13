@@ -1,0 +1,87 @@
+<div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded-lg">
+        <div class="border-b p-4 flex justify-between items-center bg-blue-200 text-white">
+            <h2 class="text-xl font-semibold">{{'Compte Instantanée' | translate}}</h2>
+            <button (click)="cancel()" class="text-white hover:bg-blue-600 p-2 rounded-md">
+                <i class="pi pi-times"></i>
+            </button>
+        </div>
+
+
+
+        <div class="p-4">
+            <p-tabView>
+                <p-tabPanel header="{{'Compte Instantanée' | translate}}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+
+                        <!-- Nom du compte -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="3">{{'compteCharge.nom' | translate}}</label>
+                            <input type="text" pInputText placeholder="{{'compteCharge.nom' | translate}}" id="3" [(ngModel)]="item.nom"
+                            />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="1">{{'compte.solde' | translate}}</label>
+                            <p-inputNumber  id="1" placeholder="{{'compte.solde' | translate}}" [(ngModel)]="item.solde"  >
+                            </p-inputNumber>
+
+                        </div>
+                        <!-- Locale -->
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="locale">{{ 'Locale' | translate }}</label>
+                            <p-dropdown class="w-full"
+                                        id="locale"
+                                        appendTo="body"
+                                        [options]="locals"
+                                        [(ngModel)]="item.locale"
+                                        [filter]="true"
+                                        filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="label"
+                                        placeholder="{{ 'Sélectionner une locale' | translate }}">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="locale">{{ 'Locataire' | translate }}</label>
+                            <p-dropdown class="w-full"
+                                        id="locataire"
+                                        appendTo="body"
+                                        [options]="locataires"
+                                        [(ngModel)]="item.locataire"
+                                        [filter]="true"
+                                        filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="nom"
+                                        placeholder="{{ 'Sélectionner une locataire' | translate }}">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="field flex flex-col gap-2">
+                        <label class="text-sm font-semibold" for="6">{{'Date de création' | translate}}</label>
+                        <p-calendar id="6"  class="w-full" appendTo="body"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date de création' | translate}}"  [(ngModel)]="item.dateCreation"
+                                    dateFormat="{{dateFormat}}"  >
+                        </p-calendar>
+                    </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="8">{{'charge.description' | translate}}</label>
+                            <textarea [ngModel]="item.description" rows="8" type="text" pInputText placeholder="{{'charge.description' | translate}}" id="8" ></textarea>
+                        </div>
+                    </div>
+
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div class="flex justify-end space-x-3 p-4 border-t">
+            <p-button (click)="save()" icon="pi pi-check"
+                      label="{{'validate' | translate}}"
+                      styleClass="p-button-primary">
+            </p-button>
+
+            <p-button (click)="cancel()" icon="pi pi-times"
+                      label="{{'cancel' | translate}}"
+                      styleClass="p-button-secondary">
+            </p-button>
+        </div>
+    </div>
+</div>

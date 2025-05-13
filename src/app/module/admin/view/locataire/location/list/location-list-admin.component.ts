@@ -29,8 +29,8 @@ import {TypePaiementDto} from 'src/app/shared/model/locataire/TypePaiement.model
 import {TypePaiementAdminService} from 'src/app/shared/service/admin/locataire/TypePaiementAdmin.service';
 import {CompteDto} from 'src/app/shared/model/finance/Compte.model';
 import {CompteAdminService} from 'src/app/shared/service/admin/finance/CompteAdmin.service';
-import {CompteLocataireDto} from 'src/app/shared/model/finance/CompteLocataire.model';
-import {CompteLocataireAdminService} from 'src/app/shared/service/admin/finance/CompteLocataireAdmin.service';
+import {CompteInstantaneeDto} from 'src/app/shared/model/finance/CompteInstantanee.model';
+import {CompteInstantaneeAdminService} from 'src/app/shared/service/admin/finance/CompteInstantaneeAdmin.service';
 import {TypeLocataireDto} from 'src/app/shared/model/locataire/TypeLocataire.model';
 import {TypeLocataireAdminService} from 'src/app/shared/service/admin/locataire/TypeLocataireAdmin.service';
 import {LocataireDto} from 'src/app/shared/model/locataire/Locataire.model';
@@ -69,13 +69,13 @@ export class LocationListAdminComponent implements OnInit {
 
     locataires: Array<LocataireDto>;
     comptes: Array<CompteDto>;
-    compteLocataires: Array<CompteLocataireDto>;
+    CompteInstantanees: Array<CompteInstantaneeDto>;
     transactions: Array<TransactionDto>;
     typeLocataires: Array<TypeLocataireDto>;
     typePaiements: Array<TypePaiementDto>;
 
 
-    constructor( private service: LocationAdminService  , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private compteLocataireService: CompteLocataireAdminService, private typeLocataireService: TypeLocataireAdminService, private locataireService: LocataireAdminService, @Inject(PLATFORM_ID) private platformId?) {
+    constructor( private service: LocationAdminService  , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private CompteInstantaneeService: CompteInstantaneeAdminService, private typeLocataireService: TypeLocataireAdminService, private locataireService: LocataireAdminService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -91,7 +91,7 @@ export class LocationListAdminComponent implements OnInit {
         this.initCol();
         this.loadLocataire();
         this.loadCompte();
-        this.loadCompteLocataire();
+        this.loadCompteInstantanee();
         this.loadTransaction();
         this.loadTypeLocataire();
         this.loadTypePaiement();
@@ -327,7 +327,7 @@ export class LocationListAdminComponent implements OnInit {
             {field: 'code', header: 'Code'},
             {field: 'locataire?.libelle', header: 'Locataire'},
             {field: 'compte?.id', header: 'Compte'},
-            {field: 'compteLocataire?.id', header: 'Compte locataire'},
+            {field: 'CompteInstantanee?.id', header: 'Compte locataire'},
             {field: 'transaction?.id', header: 'Transaction'},
             {field: 'typeLocataire?.label', header: 'Type locataire'},
             {field: 'typePaiement?.label', header: 'Type paiement'},
@@ -342,8 +342,8 @@ export class LocationListAdminComponent implements OnInit {
     public async loadCompte(){
         this.compteService.findAll().subscribe(comptes => this.comptes = comptes, error => console.log(error))
     }
-    public async loadCompteLocataire(){
-        this.compteLocataireService.findAll().subscribe(compteLocataires => this.compteLocataires = compteLocataires, error => console.log(error))
+    public async loadCompteInstantanee(){
+        this.CompteInstantaneeService.findAll().subscribe(CompteInstantanees => this.CompteInstantanees = CompteInstantanees, error => console.log(error))
     }
     public async loadTransaction(){
         this.transactionService.findAll().subscribe(transactions => this.transactions = transactions, error => console.log(error))
@@ -368,7 +368,7 @@ export class LocationListAdminComponent implements OnInit {
 						'Code': e.code ,
 						'Locataire': e.locataire?.nom ,
 			/*			'Compte': e.compte?.id ,
-						'Compte locataire': e.compteLocataire?.id ,
+						'Compte locataire': e.CompteInstantanee?.id ,
 						'Transaction': e.transaction?.id ,
 						'Type locataire': e.typeLocataire?.label ,
 						'Type paiement': e.typePaiement?.label ,*/
@@ -380,7 +380,7 @@ export class LocationListAdminComponent implements OnInit {
                 'Code': this.criteria.code ? this.criteria.code : environment.emptyForExport ,
             //'Locataire': this.criteria.locataire?.libelle ? this.criteria.locataire?.libelle : environment.emptyForExport ,
             //'Compte': this.criteria.compte?.id ? this.criteria.compte?.id : environment.emptyForExport ,
-            //'Compte locataire': this.criteria.compteLocataire?.id ? this.criteria.compteLocataire?.id : environment.emptyForExport ,
+            //'Compte locataire': this.criteria.CompteInstantanee?.id ? this.criteria.CompteInstantanee?.id : environment.emptyForExport ,
             //'Transaction': this.criteria.transaction?.id ? this.criteria.transaction?.id : environment.emptyForExport ,
             //'Type locataire': this.criteria.typeLocataire?.label ? this.criteria.typeLocataire?.label : environment.emptyForExport ,
             //'Type paiement': this.criteria.typePaiement?.label ? this.criteria.typePaiement?.label : environment.emptyForExport ,

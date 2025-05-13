@@ -1,6 +1,6 @@
 import {BanqueCriteria} from './BanqueCriteria.model';
 import {CompteCriteria} from './CompteCriteria.model';
-import {CompteLocataireCriteria} from './CompteLocataireCriteria.model';
+import {CompteInstantaneeCriteria} from './CompteInstantaneeCriteria.model';
 import {ReglementCriteria} from '../locataire/ReglementCriteria.model';
 
 import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';

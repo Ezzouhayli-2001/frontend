@@ -144,7 +144,7 @@
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
                                             </ng-container>
                                         </td>
                                         <td>
@@ -152,7 +152,7 @@
                                                 {{transaction.compteDestination?.code}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
-                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
                                                 {{transaction.compteDestination?.code}}

@@ -151,7 +151,6 @@ export class LocalCreateAdminComponent  implements OnInit {
     }
 
     public saveWithShowOption(showList: boolean) {
-        this.item.dateCreation = new Date();
         this.item.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
         this.service.save().subscribe(item => {
             if (item != null) {

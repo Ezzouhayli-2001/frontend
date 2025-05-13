@@ -34,7 +34,7 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                       icon: 'pi pi-fw pi-building',
                       items: [
                           {
-                              label: 'Saisie',
+                              label: 'Creation',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/locaux/local/create']
                           },/*
@@ -55,7 +55,7 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                       icon: 'pi pi-fw pi-users',
                       items: [
                           {
-                              label: 'Saisie',
+                              label: 'Creation',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/locataire/locataire/create']
                           },
@@ -73,7 +73,7 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                       icon: 'pi pi-fw pi-wallet',
                       items: [
                           {
-                              label: 'Saisie',
+                                  label: 'Creation',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/finance/banque/create']
                           },
@@ -89,7 +89,7 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                       icon: 'pi pi-fw pi-box',
                       items: [
                           {
-                              label: 'Saisie',
+                              label: 'Creation',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/finance/caisse/create']
                           },
@@ -149,6 +149,23 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                           }
                       ]
                   },
+
+                  {
+                      label: 'Comptes Instantanés',
+                      icon: 'pi pi-fw pi-wallet',
+                      items: [
+                          {
+                              label: 'Consultation',
+                              icon: 'pi pi-fw pi-list',
+                              routerLink: ['/app/admin/finance/compte-instantanee/list']
+                          },
+                          {
+                              label: 'Création',
+                              icon: 'pi pi-fw pi-plus',
+                              routerLink: ['/app/admin/finance/compte-instantanee/create']
+                          }
+                      ]
+                  },
                    {
                        label: 'Comptes Charge',
                         icon: 'pi pi-fw pi-wallet',
@@ -173,6 +190,17 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                               label: 'Consultation',
                               icon: 'pi pi-fw pi-list',
                               routerLink: ['/app/admin/finance/compte-locataire/list']
+                          }
+                      ]
+                  },
+                  {
+                      label: 'Relevé General',
+                      icon: 'pi pi-fw pi-wallet',
+                      items: [
+                          {
+                              label: 'Consultation',
+                              icon: 'pi pi-fw pi-list',
+                              routerLink: ['/app/admin/finance/releve-general']
                           }
                       ]
                   },

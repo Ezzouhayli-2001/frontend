@@ -25,8 +25,8 @@ import {TypePaiementDto} from 'src/app/shared/model/locataire/TypePaiement.model
 import {TypePaiementAdminService} from 'src/app/shared/service/admin/locataire/TypePaiementAdmin.service';
 import {CompteDto} from 'src/app/shared/model/finance/Compte.model';
 import {CompteAdminService} from 'src/app/shared/service/admin/finance/CompteAdmin.service';
-import {CompteLocataireDto} from 'src/app/shared/model/finance/CompteLocataire.model';
-import {CompteLocataireAdminService} from 'src/app/shared/service/admin/finance/CompteLocataireAdmin.service';
+import {CompteInstantaneeDto} from 'src/app/shared/model/finance/CompteInstantanee.model';
+import {CompteInstantaneeAdminService} from 'src/app/shared/service/admin/finance/CompteInstantaneeAdmin.service';
 import {TypeLocataireDto} from 'src/app/shared/model/locataire/TypeLocataire.model';
 import {TypeLocataireAdminService} from 'src/app/shared/service/admin/locataire/TypeLocataireAdmin.service';
 import {LocataireDto} from 'src/app/shared/model/locataire/Locataire.model';
@@ -70,7 +70,7 @@ export class LocationEditAdminComponent implements OnInit {
 
 
 
-    constructor(private service: LocationAdminService , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private compteLocataireService: CompteLocataireAdminService, private typeLocataireService: TypeLocataireAdminService, private locataireService: LocataireAdminService, @Inject(PLATFORM_ID) private platformId?) {
+    constructor(private service: LocationAdminService , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private CompteInstantaneeService: CompteInstantaneeAdminService, private typeLocataireService: TypeLocataireAdminService, private locataireService: LocataireAdminService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -82,7 +82,7 @@ export class LocationEditAdminComponent implements OnInit {
     ngOnInit(): void {
         this.locataireService.findAll().subscribe((data) => this.locataires = data);
         this.compteService.findAll().subscribe((data) => this.comptes = data);
-        this.compteLocataireService.findAll().subscribe((data) => this.compteLocataires = data);
+        this.CompteInstantaneeService.findAll().subscribe((data) => this.CompteInstantanees = data);
         this.transactionService.findAll().subscribe((data) => this.transactions = data);
         this.typeLocataireService.findAll().subscribe((data) => this.typeLocataires = data);
         this.typePaiementService.findAll().subscribe((data) => this.typePaiements = data);
@@ -197,23 +197,23 @@ export class LocationEditAdminComponent implements OnInit {
         }
     }
 
-    get compteLocataire(): CompteLocataireDto {
-        return this.compteLocataireService.item;
+    get CompteInstantanee(): CompteInstantaneeDto {
+        return this.CompteInstantaneeService.item;
     }
-    set compteLocataire(value: CompteLocataireDto) {
-        this.compteLocataireService.item = value;
+    set CompteInstantanee(value: CompteInstantaneeDto) {
+        this.CompteInstantaneeService.item = value;
     }
-    get compteLocataires(): Array<CompteLocataireDto> {
-        return this.compteLocataireService.items;
+    get CompteInstantanees(): Array<CompteInstantaneeDto> {
+        return this.CompteInstantaneeService.items;
     }
-    set compteLocataires(value: Array<CompteLocataireDto>) {
-        this.compteLocataireService.items = value;
+    set CompteInstantanees(value: Array<CompteInstantaneeDto>) {
+        this.CompteInstantaneeService.items = value;
     }
-    get createCompteLocataireDialog(): boolean {
-        return this.compteLocataireService.createDialog;
+    get createCompteInstantaneeDialog(): boolean {
+        return this.CompteInstantaneeService.createDialog;
     }
-    set createCompteLocataireDialog(value: boolean) {
-        this.compteLocataireService.createDialog= value;
+    set createCompteInstantaneeDialog(value: boolean) {
+        this.CompteInstantaneeService.createDialog= value;
     }
     get transaction(): TransactionDto {
         return this.transactionService.item;

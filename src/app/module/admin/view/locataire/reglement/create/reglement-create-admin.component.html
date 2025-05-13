@@ -26,7 +26,34 @@
                             </p-calendar>
 
                         </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="source">{{ 'Compte Source' | translate }}</label>
+                            <p-dropdown class="w-full" appendTo="body" [options]="comptes"
+                                        [(ngModel)]="item.compteSource" id="source" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="code"
+                                        placeholder="{{ 'Compte Source' | translate }}">
+                            </p-dropdown>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="source">{{ 'Compte Destination' | translate }}</label>
+                            <p-dropdown class="w-full"
+                                        appendTo="body"
+                                        [options]="comptes"
+                                        [(ngModel)]="item.compteDestination"
+                                        [filter]="true"
+                                        filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="code"
+                                        placeholder="{{ 'Compte Destination' | translate }}">
+                            </p-dropdown>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="4">{{'reglement.modepaiement' | translate}}</label>
+                            <p-dropdown class="w-full"  appendTo="body"  [options]="modePaiements" [(ngModel)]="item.modePaiement" id="4" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="label" placeholder="{{'reglement.modepaiement' | translate}}"  >
+                            </p-dropdown>
 
+                        </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="4">{{'reglement.local' | translate}}</label>
                             <p-dropdown class="w-full"  appendTo="body"  [options]="locals" [(ngModel)]="local" id="4" [filter]="true" filterMatchMode="contains"
@@ -44,27 +71,7 @@
 
                         </div>
 
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-semibold" for="4">{{'reglement.modepaiement' | translate}}</label>
-                            <p-dropdown class="w-full"  appendTo="body"  [options]="modePaiements" [(ngModel)]="item.modePaiement" id="4" [filter]="true" filterMatchMode="contains"
-                                        [showClear]="true" optionLabel="label" placeholder="{{'reglement.modepaiement' | translate}}"  >
-                            </p-dropdown>
 
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-semibold" for="source">{{ 'Compte Destination' | translate }}</label>
-                            <p-dropdown class="w-full"
-                                        appendTo="body"
-                                        [options]="comptes"
-                                        [(ngModel)]="compte"
-                                        [filter]="true"
-                                        filterMatchMode="contains"
-                                        [showClear]="true"
-                                        optionLabel="code"
-                                        placeholder="{{ 'Compte Destination' | translate }}">
-                            </p-dropdown>
-                        </div>
                         <div class="field flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="7">{{'local.description' | translate}}</label>
                             <textarea id="7" pTextarea rows="5" cols="30" placeholder="{{'local.description' | translate}}"

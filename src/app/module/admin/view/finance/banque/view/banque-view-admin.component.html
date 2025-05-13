@@ -152,19 +152,24 @@
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.compteSource !== null">
+                                                {{transaction.compteSource?.code}}
                                             </ng-container>
                                         </td>
                                         <td>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
                                                 {{transaction.compteDestination?.code}}
                                             </ng-container>
+
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
-                                                {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
                                                 {{transaction.compteDestination?.code}}
                                             </ng-container>
+
                                         </td>
                                     </tr>
                                 </ng-template>

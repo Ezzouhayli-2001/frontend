@@ -4,6 +4,7 @@ import {BanqueDto} from './Banque.model';
 import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
 import {CompteChargeDto} from "./CompteCharge.model";
 import { CaisseDto } from './Caisse.model';
+import {CompteInstantaneeDto} from "./CompteInstantanee.model";
 
 
 export class CompteDto extends BaseDto{
@@ -11,6 +12,8 @@ export class CompteDto extends BaseDto{
     public code: string ;
 
     public compteCharge: CompteChargeDto;
+
+    public compteInstantanee: CompteInstantaneeDto;
 
     public solde: null | number;
 
@@ -33,6 +36,7 @@ export class CompteDto extends BaseDto{
         super();
 
         this.soldeInitial = null;
+        this.compteInstantanee = new CompteInstantaneeDto();
         this.solde = null;
         this.debit = null;
         this.credit = null;
