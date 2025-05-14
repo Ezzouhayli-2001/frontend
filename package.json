@@ -3,8 +3,8 @@
     "version": "19.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build --configuration production",
+        "start": "node --max_old_space_size=512 ./node_modules/@angular/cli/bin/ng serve",
+        "build": "node --max_old_space_size=512 ./node_modules/@angular/cli/bin/ng build --configuration production",
         "watch": "ng build --watch --configuration development",
         "format": "prettier --write \"**/*.{js,mjs,ts,mts,d.ts,html}\" --cache",
         "test": "ng test",
