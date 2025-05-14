@@ -13,6 +13,7 @@ export class LocataireDto extends BaseDto{
     public nom: string;
 
     public prenom: string;
+    public fullName: string;
 
     public telephone: string;
 
@@ -28,6 +29,7 @@ export class LocataireDto extends BaseDto{
         super();
 
         this.code = '';
+        this.fullName = '';
         this.nom = '';
         this.prenom = '';
         this.telephone = '';

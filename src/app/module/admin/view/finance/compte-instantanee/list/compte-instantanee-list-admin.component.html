@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-                <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                <p-table #dt [value]="comptes" [columns]="cols" [rows]="8" [paginator]="false"
                          [globalFilterFields]="['solde', 'debit', 'credit', 'locatairecode']" [(selection)]="selections"
                          [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
                          currentPageReportTemplate="{{'les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
@@ -92,28 +92,24 @@
                         <th pSortableColumn="solde">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span class="mr-2">{{'CompteInstantanee.solde' | translate}}</span>
-                                <p-sortIcon field="solde"></p-sortIcon>
                             </div>
                         </th>
 
 
-                <!--        <th pSortableColumn="debit">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'CompteInstantanee.debit' | translate}}</span>
-                                <p-sortIcon field="debit"></p-sortIcon>
-                            </div>
-                        </th>
+                            <th pSortableColumn="debit">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    <span class="mr-2">{{'C I D' | translate}}</span>
+                                </div>
+                            </th>
 
 
-                        <th pSortableColumn="credit">
-                            <div class="p-d-flex p-jc-between p-ai-center">
-                                <span class="mr-2">{{'CompteInstantanee.credit' | translate}}</span>
-                                <p-sortIcon field="credit"></p-sortIcon>
-                            </div>
-                        </th>-->
+                            <th pSortableColumn="credit">
+                                <div class="p-d-flex p-jc-between p-ai-center">
+                                    <span class="mr-2">{{'C I E' | translate}}</span>
+                                </div>
+                            </th>
 
-
-                        <th pSortableColumn="locataire">
+                 <!--       <th pSortableColumn="locataire">
                             <div class="p-d-flex p-jc-between p-ai-center">
                                 <span class="mr-2">{{'CompteInstantanee.locataire' | translate}}</span>
                             </div>
@@ -123,7 +119,7 @@
                                 <div class="p-d-flex p-jc-between p-ai-center">
                                     <span class="mr-2">{{'CompteInstantanee.local' | translate}}</span>
                                 </div>
-                            </th>
+                            </th>-->
 
                             <th >
                                 <div class="p-d-flex p-jc-between p-ai-center">
@@ -140,19 +136,19 @@
                                 <p-tableCheckbox [value]="element"></p-tableCheckbox>
                             </td>
 
-                            <td>{{element.nom}}</td>
+                            <td>{{element.code}}</td>
                         <td>{{element.solde}}</td>
 
 
-                        <!--<td>{{element.debit}}</td>
+                            <td>{{element.debit}}</td>
 
 
-                        <td>{{element.credit}}</td>-->
+                            <td>{{element.credit}}</td>
 
 
-                        <td>{{element.locataire?.nom}} {{element.locataire?.prenom}}</td>
+                   <!--     <td>{{element?.compteInstantanee?.locataire?.nom}} {{element?.compteInstantanee?.locataire?.prenom}}</td>
 
-                            <td>{{element?.locale?.label}}</td>
+                            <td>{{element?.compteInstantanee?.locale?.label}}</td>-->
 
                             <td>{{element?.dateCreation | date: 'dd/MM/yyyy'}}</td>
 

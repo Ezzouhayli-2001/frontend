@@ -65,6 +65,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
 
                                     <!-- Carte Solde Net -->
@@ -81,12 +82,29 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Carte Solde Net -->
+                                    <div class="col-12">
+                                        <div class="card shadow-2 bg-blue-500">
+                                            <div class="flex justify-content-between">
+                                                <div class="text-left">
+                                                    <span class="block text-white font-medium mb-3">Relevé Général Provisoire </span>
+                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses - totalCharges - totalInstantanees) | currency:'MAD'}}</div>
+                                                </div>
+                                                <div class="flex align-items-center justify-content-center bg-white border-round" style="width:2.5rem;height:2.5rem">
+                                                    <i class="pi pi-calculator text-primary text-xl"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Détails des banques -->
+
+
+            <!--        &lt;!&ndash; Détails des banques &ndash;&gt;
                     <div class="card mb-4">
                         <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
                             <h5 class="m-0 font-medium">
@@ -144,7 +162,7 @@
                         </p-table>
                     </div>
 
-                    <!-- Détails des caisses -->
+                    &lt;!&ndash; Détails des caisses &ndash;&gt;
                     <div class="card mb-4">
                         <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
                             <h5 class="m-0 font-medium">
@@ -201,7 +219,7 @@
                         </p-table>
                     </div>
 
-                    <!-- Détails des charges -->
+                    &lt;!&ndash; Détails des charges &ndash;&gt;
                     <div class="card">
                         <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-2">
                             <h5 class="m-0 font-medium">
@@ -257,7 +275,7 @@
                                 </tr>
                             </ng-template>
                         </p-table>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

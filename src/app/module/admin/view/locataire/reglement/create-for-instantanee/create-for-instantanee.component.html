@@ -1,7 +1,7 @@
 <div class="container mx-auto p-4">
     <div class="bg-white shadow-md rounded-lg">
         <div class="border-b p-4 flex justify-between items-center bg-blue-200 text-white">
-            <h2 class="text-xl font-semibold">{{'Reglement Compte Locataire' | translate}}</h2>
+            <h2 class="text-xl font-semibold">{{'Reglement Compte Instantanée' | translate}}</h2>
             <button (click)="cancel()" class="text-white hover:bg-blue-600 p-2 rounded-md">
                 <i class="pi pi-times"></i>
             </button>
@@ -27,18 +27,12 @@
 
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-sm font-semibold" for="4">{{'reglement.local' | translate}}</label>
-                            <p-dropdown class="w-full"  appendTo="body"  [options]="locals" [(ngModel)]="local" id="4" [filter]="true" filterMatchMode="contains"
-                                        [showClear]="true" optionLabel="label" placeholder="{{'reglement.local' | translate}}" (onChange)="onLocalChange($event)"  >
+                            <label class="text-sm font-semibold" for="source">{{ 'Compte Source' | translate }}</label>
+                            <p-dropdown class="w-full" appendTo="body" [options]="comptes"
+                                        [(ngModel)]="item.compteSource" id="source" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true" optionLabel="code"
+                                        placeholder="{{ 'Compte Source' | translate }}">
                             </p-dropdown>
-
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-semibold" for="4">{{'reglement.locataire' | translate}}</label>
-                            <p-dropdown class="w-full"  appendTo="body"  [options]="locatairesFiltres" [(ngModel)]="locataire" id="4" [filter]="true" filterMatchMode="contains"
-                                        [showClear]="true" optionLabel="nom" placeholder="{{'reglement.locataire' | translate}}"  >
-                            </p-dropdown>
-
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="source">{{ 'Compte Destination' | translate }}</label>
@@ -60,8 +54,6 @@
                             </p-dropdown>
 
                         </div>
-
-
 
                         <div class="field flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="7">{{'local.description' | translate}}</label>

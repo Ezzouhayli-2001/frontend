@@ -110,13 +110,12 @@ export class CaisseListAdminComponent implements OnInit {
     public findPaginatedByCriteria() {
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
             this.items = paginatedItems.list;
-            this.totalRecords = paginatedItems.dataSize;
-            this.selections = new Array<CaisseDto>();
-            this.compteService.findAll().subscribe((data) => {
-                this.comptes = data.filter(compte => compte?.caisse?.libelle != null);
-                console.log(data);
-            });
         }, error => console.log(error));
+        this.compteService.findAllByCaisseNotNull().subscribe((data) => {
+            this.comptes = data;
+            this.totalRecords = data.length;
+            this.selections = new Array<CaisseDto>();
+        });
     }
 
     public onPage(event: any) {

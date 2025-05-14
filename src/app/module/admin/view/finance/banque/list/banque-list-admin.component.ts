@@ -109,12 +109,13 @@ export class BanqueListAdminComponent implements OnInit {
     public findPaginatedByCriteria() {
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
             this.items = paginatedItems.list;
-            this.compteService.findPaginatedByCriteria(this.compteService.criteria).subscribe((data) => {
-                this.comptes = data.list.filter(compte => compte?.banque?.nom != null);
-            });
-            this.totalRecords = paginatedItems.dataSize;
-            this.selections = new Array<BanqueDto>();
         }, error => console.log(error));
+
+        this.compteService.findAllByBanqueNotNull().subscribe((data) => {
+            this.comptes = data;
+            this.totalRecords = data.length;
+            this.selections = new Array<BanqueDto>();
+        });
     }
 
     public onPage(event: any) {

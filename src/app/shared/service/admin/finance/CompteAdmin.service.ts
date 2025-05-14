@@ -53,6 +53,22 @@ export class CompteAdminService {
         return this.http.get<Array<CompteDto>>(this.API);
     }
 
+    public findAllByCompteInstantaneeNotNull() {
+        return this.http.get<Array<CompteDto>>(this.API + 'compte-instantanee');
+    }
+
+    public findAllByCompteLocataireNotNull() {
+        return this.http.get<Array<CompteDto>>(this.API + 'compte-locataire');
+    }
+
+    public findAllByBanqueNotNull() {
+        return this.http.get<Array<CompteDto>>(this.API + 'banque');
+    }
+
+    public findAllByCaisseNotNull() {
+        return this.http.get<Array<CompteDto>>(this.API + 'caisse');
+    }
+
     public findAllOptimized() {
         return this.http.get<Array<CompteDto>>(this.API + 'optimized');
     }

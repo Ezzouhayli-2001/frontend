@@ -72,6 +72,7 @@ import {ReglementListAdminComponent} from "./reglement/list/reglement-list-admin
 import {ReglementCreateAdminComponent} from "./reglement/create/reglement-create-admin.component";
 import {ReglementEditAdminComponent} from "./reglement/edit/reglement-edit-admin.component";
 import {ReglementViewAdminComponent} from "./reglement/view/reglement-view-admin.component";
+import {CreateForInstantaneeComponent} from "./reglement/create-for-instantanee/create-for-instantanee.component";
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import {ReglementViewAdminComponent} from "./reglement/view/reglement-view-admin
         ReglementCreateAdminComponent,
         ReglementEditAdminComponent,
         ReglementViewAdminComponent,
-        ReglementListAdminComponent
+        ReglementListAdminComponent,
+        CreateForInstantaneeComponent
     ],
     imports: [
         CommonModule,

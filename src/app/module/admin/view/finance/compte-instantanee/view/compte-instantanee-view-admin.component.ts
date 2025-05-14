@@ -313,6 +313,7 @@ export class CompteInstantaneeViewAdminComponent implements OnInit {
     }
 
     public hideViewDialog() {
+        this.compte = new CompteDto();
         this.item = new CompteInstantaneeDto();
         this.viewDialog = false;
     }
@@ -372,4 +373,6 @@ export class CompteInstantaneeViewAdminComponent implements OnInit {
     set transactions(value: Array<TransactionDto>) {
         this.transactionService.items = value;
     }
+
+
 }

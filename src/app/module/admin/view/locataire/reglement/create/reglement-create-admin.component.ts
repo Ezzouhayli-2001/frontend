@@ -34,6 +34,7 @@ import {ModePaiementAdminService} from "../../../../../../shared/service/admin/f
 import {ModePaiementDto} from "../../../../../../shared/model/finance/ModePaiement.model";
 import {CompteLocataireAdminService} from "../../../../../../shared/service/admin/finance/CompteLocataireAdmin.service";
 import {CompteLocataireDto} from "../../../../../../shared/model/finance/CompteLocataire.model";
+
 @Component({
   selector: 'app-reglement-create-admin',
   standalone: false,
@@ -80,8 +81,8 @@ export class ReglementCreateAdminComponent  implements OnInit {
     }
 
     ngOnInit(): void {
-        this.compteService.findPaginatedByCriteria(this.compteService.criteria).subscribe((data) => {
-            this.comptes = data.list.filter(c => c.code !== 'CHARGE');
+        this.compteService.findAll().subscribe((data) => {
+            this.comptes = data.filter(c => c.code !== 'CHARGE');
         });
         this.locationService.findPaginatedByCriteria(this.locationService.criteria).subscribe((data) => {
             this.locations = data.list;
@@ -129,10 +130,11 @@ export class ReglementCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.initCode();
-       this.item.caisse = this.item.compteDestination.caisse;
+        this.item.compteSource = null;
+        this.item.caisse = this.item.compteDestination.caisse;
         this.item.banque = this.item.compteDestination.banque;
         if (this.locataire != null && this.local != null) {
-            this.item.location = this.locationService.items.find(e => e.local.code === this.local.code && e.locataire.code === this.locataire.code);
+            this.item.location = this.locationService.items.find(e => e.local.code === this.local?.code && e.locataire.code === this.locataire?.code);
         }
         this.validateForm();
         if (this.errorMessages.length === 0) {
@@ -143,14 +145,14 @@ export class ReglementCreateAdminComponent  implements OnInit {
     }
 
     public saveWithShowOption(showList: boolean) {
-        console.log(this.item);
         this.service.save().subscribe(item => {
-
             if (item != null) {
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
                 this.submitted = false;
                 this.item = new ReglementDto();
+                this.item.caisse = null;
+                this.item.banque = null;
                 this.local = new LocalDto();
                 this.locataire = new LocataireDto()
                 this.location = new LocationDto()
@@ -328,6 +330,7 @@ export class ReglementCreateAdminComponent  implements OnInit {
             this.items = paginatedItems.list;
         }, error => console.log(error));
     }
+
     get comptes(): Array<CompteDto> {
         return this.compteService.items;
     }
@@ -352,6 +355,13 @@ export class ReglementCreateAdminComponent  implements OnInit {
         this.CompteLocataireService.items = value;
     }
     cancel() {
+        this.item = new ReglementDto();
+        this.item.caisse = null;
+        this.item.banque = null;
+        this.local = new LocalDto();
+        this.locataire = new LocataireDto()
+        this.location = new LocationDto()
+        this.compte = new CompteDto()
         this.navigateToList();
     }
 

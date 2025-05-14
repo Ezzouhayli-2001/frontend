@@ -29,6 +29,7 @@ import {ReglementListAdminComponent} from "./reglement/list/reglement-list-admin
 import {LocataireCreateAdminComponent} from "./locataire/create/locataire-create-admin.component";
 import {AvoirCreateAdminComponent} from "./avoir/create/avoir-create-admin.component";
 import {ReglementCreateAdminComponent} from "./reglement/create/reglement-create-admin.component";
+import {CreateForInstantaneeComponent} from "./reglement/create-for-instantanee/create-for-instantanee.component";
 @NgModule({
     imports: [
         RouterModule.forChild(
@@ -93,6 +94,11 @@ import {ReglementCreateAdminComponent} from "./reglement/create/reglement-create
                                 {
                                     path: 'create',
                                     component: ReglementCreateAdminComponent ,
+                                    canActivate: [AuthGuard]
+                                },
+                                {
+                                    path: 'create-for-instantanee',
+                                    component: CreateForInstantaneeComponent ,
                                     canActivate: [AuthGuard]
                                 },
                             ]

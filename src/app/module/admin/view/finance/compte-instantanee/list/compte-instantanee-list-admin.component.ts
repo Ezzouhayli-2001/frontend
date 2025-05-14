@@ -23,6 +23,7 @@ import {ModePaiementAdminService} from 'src/app/shared/service/admin/finance/Mod
 import {LocataireDto} from 'src/app/shared/model/locataire/Locataire.model';
 import {LocataireAdminService} from 'src/app/shared/service/admin/locataire/LocataireAdmin.service';
 import {TypeTransactiontAdminService} from 'src/app/shared/service/admin/locataire/TypeTransactiontAdmin.service';
+import {CompteDto} from "../../../../../../shared/model/finance/Compte.model";
 
 
 @Component({
@@ -59,7 +60,7 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
     protected totalCredits = 0;
     protected totalDebits = 0;
 
-    constructor( private service: CompteInstantaneeAdminService  , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private modePaiementService: ModePaiementAdminService, private locataireService: LocataireAdminService, private typeTransactiontService: TypeTransactiontAdminService, @Inject(PLATFORM_ID) private platformId?) {
+    constructor(private service: CompteInstantaneeAdminService  , private transactionService: TransactionAdminService, private typePaiementService: TypePaiementAdminService, private compteService: CompteAdminService, private modePaiementService: ModePaiementAdminService, private locataireService: LocataireAdminService, private typeTransactiontService: TypeTransactiontAdminService, @Inject(PLATFORM_ID) private platformId?) {
         this.datePipe = ServiceLocator.injector.get(DatePipe);
         this.messageService = ServiceLocator.injector.get(MessageService);
         this.confirmationService = ServiceLocator.injector.get(ConfirmationService);
@@ -112,9 +113,10 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
     }
 
     public findPaginatedByCriteria() {
-        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
-            this.items = paginatedItems.list;
-            this.totalRecords = paginatedItems.dataSize;
+
+        this.compteService.findAllByCompteInstantaneeNotNull().subscribe(paginatedItems => {
+            this.comptes = paginatedItems;
+            this.totalRecords = paginatedItems.length;
             this.selections = new Array<CompteInstantaneeDto>();
         }, error => console.log(error));
     }
@@ -134,26 +136,27 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
 
     }
 
-    public async view(dto: CompteInstantaneeDto) {
-        this.service.findByIdWithAssociatedList(dto).subscribe(res => {
-            this.item = res;
-            this.viewDialog = true;
-            this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
-                this.transactionService.items = data.list.filter(transaction => transaction?.CompteInstantanee?.id == res?.id);
-                this.totalCredits = 0;
-                this.totalDebits = 0;
+    public async view(dto: CompteDto) {
+        this.compte = dto;
+        this.viewDialog = true;
+        this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
+            this.transactionService.items = data.list.filter(transaction => transaction?.compteSource?.id == dto?.id || transaction?.compteDestination?.id == dto?.id);
+            console.log(this.transactionService.items);
+            this.totalCredits = 0;
+            this.totalDebits = 0;
 
-                if (this.transactionService.items && this.transactionService.items.length > 0) {
-                    this.transactionService.items.forEach(transaction => {
-                        if (transaction.typePaiement?.label === 'Credit') {
-                            this.totalCredits += Number(transaction.montant || 0);
-                        } else if (transaction.typePaiement?.label === 'Debit') {
-                            this.totalDebits += Number(transaction.montant || 0);
-                        }
-                    });
-                }
-            });
+            if (this.transactionService.items && this.transactionService.items.length > 0) {
+                this.transactionService.items.forEach(transaction => {
+                    if (transaction.typePaiement?.label === 'Credit') {
+                        this.totalCredits += Number(transaction.montant || 0);
+                    } else if (transaction.typePaiement?.label === 'Debit') {
+                        this.totalDebits += Number(transaction.montant || 0);
+                    }
+                });
+            }
         });
+
+
     }
 
     public async openCreate() {
@@ -546,5 +549,21 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
 
     set entityName(value: string) {
         this.service.entityName = value;
+    }
+
+    get comptes(): Array<CompteDto> {
+        return this.compteService.items;
+    }
+
+    set comptes(value: Array<CompteDto>) {
+        this.compteService.items = value;
+    }
+
+    get compte(): CompteDto {
+        return this.compteService.item;
+    }
+
+    set compte(value: CompteDto) {
+        this.compteService.item = value;
     }
 }

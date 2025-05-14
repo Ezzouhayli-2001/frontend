@@ -38,7 +38,7 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="5">{{'avoir.locataire' | translate}}</label>
                             <p-dropdown class="w-full" appendTo="body"
-                                        [options]="locatairesFiltres" [(ngModel)]="item.locataire" id="5"
+                                        [options]="locatairesFiltres" [(ngModel)]="locataire" id="5"
                                         [filter]="true" filterMatchMode="contains" [showClear]="true"
                                         optionLabel="nom" placeholder="{{'avoir.locataire' | translate}}">
                             </p-dropdown>

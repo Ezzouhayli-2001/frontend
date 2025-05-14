@@ -20,40 +20,40 @@
                                 <div class="flex flex-col gap-2">
                                     <div class="field">
                                         <label class="text-sm font-semibold" for="4">{{'Nom de Compte' | translate}}</label>
-                                        <input type="text" pInputText [disabled]="true" placeholder="{{'Nom de Compte' | translate}}" id="4" [ngModel]="item.nom" class="w-full">
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'Nom de Compte' | translate}}" id="4" [ngModel]="compte.code" class="w-full">
                                     </div>
                                 </div>
 
                                 <div class="field flex flex-col gap-2">
                                     <div class="field">
                                         <label class="text-sm font-semibold" for="4">{{'Locale' | translate}}</label>
-                                        <input type="text" pInputText [disabled]="true" placeholder="{{'Locale' | translate}}" id="4" [ngModel]="item.locale?.label" class="w-full">
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'Locale' | translate}}" id="4" [ngModel]="compte.compteInstantanee?.locale?.label" class="w-full">
                                     </div>
                                 </div>
 
                                 <div class="field flex flex-col gap-2">
                                     <div class="field">
                                         <label class="text-sm font-semibold" for="4">{{'CompteInstantanee.locataire' | translate}}</label>
-                                        <input type="text" pInputText [disabled]="true" placeholder="{{'CompteInstantanee.locataire' | translate}}" id="4" [ngModel]="item.locataire?.nom + ' ' + item.locataire?.prenom" class="w-full">
+                                        <input type="text" pInputText [disabled]="true" placeholder="{{'CompteInstantanee.locataire' | translate}}" id="4" [ngModel]="compte.compteInstantanee?.locataire?.nom + ' ' + compte.compteInstantanee?.locataire?.prenom" class="w-full">
                                     </div>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="1">{{'compte.solde' | translate}}</label>
-                                    <p-inputNumber id="1" [disabled]="true" placeholder="{{'compte.solde' | translate}}" [ngModel]="item.solde"></p-inputNumber>
+                                    <p-inputNumber id="1" [disabled]="true" placeholder="{{'compte.solde' | translate}}" [ngModel]="compte.solde"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="2">{{'compte.debit' | translate}}</label>
-                                    <p-inputNumber id="2" [disabled]="true" placeholder="{{'compte.debit' | translate}}" [ngModel]="item.debit"></p-inputNumber>
+                                    <p-inputNumber id="2" [disabled]="true" placeholder="{{'compte.debit' | translate}}" [ngModel]="compte.debit"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="3">{{'compte.credit' | translate}}</label>
-                                    <p-inputNumber id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="item.credit"></p-inputNumber>
+                                    <p-inputNumber id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="compte.credit"></p-inputNumber>
                                 </div>
 
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="4">{{'Date de création' | translate}}</label>
-                                    <p-calendar class="w-full" appendTo="body" id="4"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date de création' | translate}}"  [(ngModel)]="item.dateCreation"
-                                                dateFormat="{{dateFormat}}"  >
+                                    <p-calendar class="w-full" appendTo="body" id="4"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date de création' | translate}}"  [(ngModel)]="compte.dateCreation"
+                                                dateFormat="{{dateFormatColumn}}"  >
                                     </p-calendar>
                                 </div>
 
@@ -172,8 +172,14 @@
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
+                                                {{transaction.compteSource?.code}} {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
                                             </ng-container>
+
+                                            <ng-container *ngIf="transaction.compteLocataire !== null">
+                                               {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
+                                            </ng-container>
+
+
                                         </td>
                                         <td>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">

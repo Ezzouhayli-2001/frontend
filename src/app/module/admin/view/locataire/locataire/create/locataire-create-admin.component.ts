@@ -51,10 +51,7 @@ export class LocataireCreateAdminComponent  implements OnInit {
     private _validTypeLocataireCode = true;
     private _validTypeLocataireLabel = true;
     private _validTypeLocataireStyle = true;
-    location: LocationDto = new LocationDto();
-    availabilityList: { start: Date, end: Date | null }[] = [];
 
-    minDate: Date = new Date();
 
     // Propriétés pour la gestion des dates de location
     disabledDates: Date[] = [];
@@ -123,15 +120,9 @@ export class LocataireCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.validateForm();
-        const exitingone = this.items.find(e => e.nom === this.item.nom && e.prenom !== this.item.prenom && e.telephone !== this.item.telephone)
-        if(exitingone!=null){
-            console.log(exitingone)
-            this.location.code = exitingone.code;
-            this.item.code = exitingone.code;
-        }else {
-            this.location.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
-            this.item.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
-        }
+        this.location.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
+        this.item.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
+        this.item.locations.push(this.location);
         if (this.errorMessages.length === 0 && !this.dateConflictError) {
             this.saveWithShowOption(false);
         } else {
@@ -141,15 +132,11 @@ export class LocataireCreateAdminComponent  implements OnInit {
 
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
-            if(item==null){
-                this.locationService.item.locataire = this.item;
-            }else {
-                this.locationService.item.locataire = item;
-            }
+            this.item = new LocataireDto();
             this.findPaginatedByCriteria();
             this.createDialog = false;
             this.submitted = false;
-            this.locationService.item.dateCreation = new Date();
+            /*this.locationService.item.dateCreation = new Date();
             this.locationService.item.loyer = this.locationService.item.local.prix;
             this.locationService.item.actif = new Date(this.locationService.item.dateDebut).getTime() > new Date().getTime();
             this.locationService.save().subscribe(local => {
@@ -161,7 +148,7 @@ export class LocataireCreateAdminComponent  implements OnInit {
                     this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
                 }
 
-            });
+            });*/
 
         }, error => {
             console.log(error);
@@ -454,6 +441,13 @@ export class LocataireCreateAdminComponent  implements OnInit {
 
     set activeTab(value: number) {
         this._activeTab = value;
+    }
+
+    get location(): LocationDto {
+        return this.locationService.item;
+    }
+    set location(value: LocationDto) {
+        this.locationService.item = value;
     }
 
     get local(): LocalDto {

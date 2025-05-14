@@ -42,9 +42,11 @@ export class ReleverGeneraleComponent implements OnInit {
     private _totalCreditsBanques: number = 0;
     private _totalDebitsCaisses: number = 0;
     private _totalCreditsCaisses: number = 0;
+    private _totalInstantanees: number = 0;
 
     protected comptsBanques: Array<CompteDto> = [];
     protected comptsCaisses: Array<CompteDto> = [];
+    protected comptesInstantanees: Array<CompteDto> = [];
 
     // UI related properties
     dateFormatColumn: string = 'dd/MM/yyyy';
@@ -114,11 +116,17 @@ export class ReleverGeneraleComponent implements OnInit {
     }
 
     private loadComptes(): void {
-        this.compteService.findAll().subscribe((data) => {
-            this.comptes = data;
-            this.comptsBanques = this.comptes.filter(e => e.banque !== null&&e.caisse==null);
-            this.comptsCaisses = this.comptes.filter(e => e.caisse !== null&&e.banque==null);
+        this.compteService.findAllByCompteInstantaneeNotNull().subscribe((data) => {
+            this.comptesInstantanees = data;
+            this.calculateInstantaneeTotals();
+        }
+        );
+        this.compteService.findAllByBanqueNotNull().subscribe((data) => {
+            this.comptsBanques = data;
             this.calculateBanqueTotals();
+        });
+        this.compteService.findAllByCaisseNotNull().subscribe((data) => {
+            this.comptsCaisses = data;
             this.calculateCaisseTotals();
         });
     }
@@ -310,6 +318,10 @@ export class ReleverGeneraleComponent implements OnInit {
         return this._totalCharges;
     }
 
+    get totalInstantanees(): number {
+        return this._totalInstantanees;
+    }
+
     get totalDebitsBanques(): number {
         return this._totalDebitsBanques;
     }
@@ -324,5 +336,9 @@ export class ReleverGeneraleComponent implements OnInit {
 
     get totalCreditsCaisses(): number {
         return this._totalCreditsCaisses;
+    }
+
+    private calculateInstantaneeTotals() {
+        this._totalInstantanees = this.comptesInstantanees.reduce((sum, compte) => sum + (compte.solde || 0), 0);
     }
 }
