@@ -10,13 +10,13 @@ export const environment = {
 
 
 
-    apiUrlRentalmanagementms1: 'https://bank-ms.onrender.com/api/',
-    loginUrl: 'https://bank-ms.onrender.com/',
-    registerUrl: 'https://bank-ms.onrender.com/register',
-    apiUrl: 'https://bank-ms.onrender.com/',
+    apiUrlRentalmanagementms1: 'https://rentalback.railway.internal/api/',
+    loginUrl: 'https://rentalback.railway.internal/',
+    registerUrl: 'https://rentalback.railway.internal/register',
+    apiUrl: 'https://rentalback.railway.internal/',
 
 
-    stripeUrl: "https://bank-ms.onrender.com/api/payment/create-payment-intent/",
+    stripeUrl: "https://rentalback.railway.internal/api/payment/create-payment-intent/",
     stripePublicKey: "pk_test_51PVbvFRxVNBDrAcwfSz21b6EtPSpl6Fw3gUoKpIGWZN5whhSfS67W4hbtk95OMF1JSpxgYPyp9AmkNOAPLNFR7St00tDXFRjuV",
 
 
