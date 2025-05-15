@@ -120,6 +120,9 @@ export class LocataireCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.validateForm();
+        this.item.fullName = this.item.nom + " " + this.item.prenom;
+        this.location.loyer = this.location.local.prix;
+        this.location.dateCreation = new Date();
         this.location.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
         this.item.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
         this.item.locations.push(this.location);
@@ -136,6 +139,9 @@ export class LocataireCreateAdminComponent  implements OnInit {
             this.findPaginatedByCriteria();
             this.createDialog = false;
             this.submitted = false;
+            this.location = new LocationDto();
+            this.item = new LocataireDto();
+            this.messageService.add({severity: 'success', summary: '', detail: 'Locataire a été créé avec succès'});
             /*this.locationService.item.dateCreation = new Date();
             this.locationService.item.loyer = this.locationService.item.local.prix;
             this.locationService.item.actif = new Date(this.locationService.item.dateDebut).getTime() > new Date().getTime();

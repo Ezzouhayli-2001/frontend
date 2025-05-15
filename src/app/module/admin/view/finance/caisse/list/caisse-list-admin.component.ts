@@ -19,6 +19,7 @@ import {ExportService} from 'src/app/zynerator/util/Export.service';
 import {CompteAdminService} from "../../../../../../shared/service/admin/finance/CompteAdmin.service";
 import {CompteDto} from "../../../../../../shared/model/finance/Compte.model";
 import {TransactionAdminService} from "../../../../../../shared/service/admin/locataire/TransactionAdmin.service";
+import {CompteCriteria} from "../../../../../../shared/criteria/finance/CompteCriteria.model";
 
 
 @Component({
@@ -28,7 +29,7 @@ import {TransactionAdminService} from "../../../../../../shared/service/admin/lo
 })
 export class CaisseListAdminComponent implements OnInit {
 
-    protected fileName = 'Caisse';
+    protected fileName = `List de Caisses ${new Date().toLocaleDateString()}`;
 
     protected findByCriteriaShow = false;
     protected cols: any[] = [];
@@ -51,7 +52,9 @@ export class CaisseListAdminComponent implements OnInit {
     protected enableSecurity = false;
     protected totalCredits = 0;
     protected totalDebits = 0;
-
+    protected totalSoldes: number = 0;
+    protected totalCredits_transactions: number = 0;
+    protected totalDebits_transactions: number = 0;
     constructor(
 
         private service: CaisseAdminService,
@@ -73,7 +76,12 @@ export class CaisseListAdminComponent implements OnInit {
 
     }
 
-
+    calculateTotals() {
+        // Calcul des totaux à partir du tableau comptes
+        this.totalSoldes = this.comptes.reduce((sum, compte) => sum + (compte.solde || 0), 0);
+        this.totalDebits = this.comptes.reduce((sum, compte) => sum + (compte.debit || 0), 0);
+        this.totalCredits = this.comptes.reduce((sum, compte) => sum + (compte.credit || 0), 0);
+    }
 
 
     public onExcelFileSelected(event: any): void {
@@ -108,15 +116,25 @@ export class CaisseListAdminComponent implements OnInit {
     }
 
     public findPaginatedByCriteria() {
-        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
-            this.items = paginatedItems.list;
-        }, error => console.log(error));
         this.compteService.findAllByCaisseNotNull().subscribe((data) => {
             this.comptes = data;
             this.totalRecords = data.length;
             this.selections = new Array<CaisseDto>();
+            this.calculateTotals();
         });
     }
+
+    public findPaginatedByCriteria1() {
+        this.compteService.findByCriteria(this.criteria).subscribe(paginatedItems => {
+            this.comptes = paginatedItems.filter(compte => compte?.caisse != null);
+            this.totalRecords = this.comptes.length;
+            this.selections = new Array<CaisseDto>();
+            this.calculateTotals();
+            console.log(this.comptes);
+
+        }, error => console.log(error));
+    }
+
 
     public onPage(event: any) {
         this.criteria.page = event.page;
@@ -139,15 +157,15 @@ export class CaisseListAdminComponent implements OnInit {
             this.viewDialog = true;
             this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
                 this.transactionService.items = data.list.filter(transaction => transaction?.compteSource?.id == res?.id || transaction?.compteDestination?.id == res?.id);
-                this.totalCredits = 0;
-                this.totalDebits = 0;
+                this.totalCredits_transactions = 0;
+                this.totalDebits_transactions = 0;
 
                 if (this.transactionService.items && this.transactionService.items.length > 0) {
                     this.transactionService.items.forEach(transaction => {
                         if (transaction.typePaiement?.label === 'Credit') {
-                            this.totalCredits += Number(transaction.montant || 0);
+                            this.totalCredits_transactions += Number(transaction.montant || 0);
                         } else if (transaction.typePaiement?.label === 'Debit') {
-                            this.totalDebits += Number(transaction.montant || 0);
+                            this.totalDebits_transactions += Number(transaction.montant || 0);
                         }
                     });
                 }});
@@ -329,25 +347,34 @@ export class CaisseListAdminComponent implements OnInit {
 
 
     public prepareColumnExport(): void {
-        this.service.findByCriteria(this.criteria).subscribe(
-            (allItems) =>{
-                this.exportData = allItems.map(e => {
-					return {
-						'Code': e.code ,
-						'Libelle': e.libelle ,
-						'Solde': e.solde ,
-					}
-				});
+        this.exportData = this.comptes.map(e => {
+            return {
+                'Nom De Compte': e.caisse?.libelle ,
+                'Solde': e.solde ,
+                'Debit': e.debit ,
+                'Credit': e.credit ,
+                'Date De Creation': this.datePipe.transform(e.dateCreation , 'dd/MM/yyyy hh:mm'),
+            }
+        });
 
-            this.criteriaData = [{
-                'Code': this.criteria.code ? this.criteria.code : environment.emptyForExport ,
-                'Libelle': this.criteria.libelle ? this.criteria.libelle : environment.emptyForExport ,
-                'Solde Min': this.criteria.soldeMin ? this.criteria.soldeMin : environment.emptyForExport ,
-                'Solde Max': this.criteria.soldeMax ? this.criteria.soldeMax : environment.emptyForExport ,
-            }];
-			}
+        this.exportData.push({
+            'Nom De Compte': 'TOTAL',
+            'Solde': this.totalSoldes,
+            'Debit': this.totalDebits,
+            'Credit': this.totalCredits,
+        });
 
-        )
+        this.criteriaData = [{
+            'Nom De Compte': this.criteria.banque?.nom ? this.criteria.banque?.nom : environment.emptyForExport ,
+            'Debit Min': this.criteria.debitMin ? this.criteria.debitMin : environment.emptyForExport ,
+            'Debit Max': this.criteria.debitMax ? this.criteria.debitMax : environment.emptyForExport ,
+            'Credit Min': this.criteria.creditMin ? this.criteria.creditMin : environment.emptyForExport ,
+            'Credit Max': this.criteria.creditMax ? this.criteria.creditMax : environment.emptyForExport ,
+            'Solde Min': this.criteria.soldeMin ? this.criteria.soldeMin : environment.emptyForExport ,
+            'Solde Max': this.criteria.soldeMax ? this.criteria.soldeMax : environment.emptyForExport ,
+            'Date De Creation Min': this.criteria.dateCreationFrom ? this.datePipe.transform(this.criteria.dateCreationFrom , 'dd/MM/yyyy hh:mm') : environment.emptyForExport ,
+            'Date De Creation Max': this.criteria.dateCreationTo ? this.datePipe.transform(this.criteria.dateCreationTo , 'dd/MM/yyyy hh:mm') : environment.emptyForExport ,
+        }];
     }
 
 
@@ -399,12 +426,12 @@ export class CaisseListAdminComponent implements OnInit {
         this.service.viewDialog = value;
     }
 
-    get criteria(): CaisseCriteria {
-        return this.service.criteria;
+    get criteria(): CompteCriteria {
+        return this.compteService.criteria;
     }
 
-    set criteria(value: CaisseCriteria) {
-        this.service.criteria = value;
+    set criteria(value: CompteCriteria) {
+        this.compteService.criteria = value;
     }
 
     get dateFormat() {
@@ -546,5 +573,10 @@ export class CaisseListAdminComponent implements OnInit {
 
     set compte(value: CompteDto) {
         this.compteService.item = value;
+    }
+
+    resetCriteria() {
+        this.criteria = new CompteCriteria();
+        this.findPaginatedByCriteria();
     }
 }

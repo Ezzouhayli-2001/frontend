@@ -20,14 +20,14 @@
             <div *ngIf="findByCriteriaShow" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-surface rounded-lg">
 
 
-                            <div class="flex flex-col gap-2">
+         <!--                   <div class="flex flex-col gap-2">
                                 <label  class="text-sm font-semibold" for="1">{{'charge.code' | translate}}</label>
                                 <input  pInputText id="1" type="text"  [(ngModel)]="criteria.codeLike">
                             </div>
                             <div class="flex flex-col gap-2">
                                 <label  class="text-sm font-semibold" for="2">{{'charge.label' | translate}}</label>
                                 <input  pInputText id="2" type="text"  [(ngModel)]="criteria.labelLike">
-                            </div>
+                            </div>-->
                                 <div class="flex flex-col gap-2">
                                     <label  class="text-sm font-semibold" for="3-1">{{'charge.montantMin' | translate}}</label>
                                     <p-inputNumber  mode="decimal" [(ngModel)]="criteria.montantMin" id="3-1"></p-inputNumber>
@@ -50,9 +50,9 @@
                             </div>
 
                         <div class="flex flex-col gap-2">
-                            <label  class="text-sm font-semibold" for="5-2">{{'charge.typeCharges' | translate}}</label>
+                            <label  class="text-sm font-semibold" for="5-2">{{'Type De Charge' | translate}}</label>
                                 <p-dropdown [options]="typeCharges" [(ngModel)]="criteria.typeCharges" id="5" [filter]="true" class="w-full"
-                                            [showClear]="true"  placeholder="{{'charge.typeCharges' | translate}}" optionLabel="label">
+                                            [showClear]="true"  placeholder="{{'Type De Charge' | translate}}" optionLabel="label">
                                 </p-dropdown>
                         </div>
                         <div class="flex flex-col gap-2">
@@ -60,21 +60,24 @@
                                 <p-dropdown [options]="locals" [(ngModel)]="criteria.local" id="6" [filter]="true" class="w-full"
                                             [showClear]="true"  placeholder="{{'charge.local' | translate}}" optionLabel="code">
                                 </p-dropdown>
-                        </div>
+                        </div><!--
                             <div class="flex flex-col gap-2">
                                 <label  class="text-sm font-semibold" for="7">{{'charge.isPaid' | translate}}</label>
                                 <p-dropdown id="7" [options]="yesOrNoIsPaid" [(ngModel)]="criteria.isPaid" class="w-full"
                                             [filter]="false" [showClear]="true"  placeholder="{{'charge.isPaid' | translate}}" optionLabel="label" optionValue="value">
                                 </p-dropdown>
-                            </div>
-                            <div class="flex flex-col gap-2">
+                            </div>-->
+                           <!-- <div class="flex flex-col gap-2">
                                 <label  class="text-sm font-semibold" for="8">{{'charge.description' | translate}}</label>
                                 <input  pInputText id="8" type="text"  [(ngModel)]="criteria.descriptionLike">
-                            </div>
+                            </div>-->
 
                 <div class="col-span-full flex justify-end mt-4">
+                        <button pButton pRipple label="{{'Reset' | translate}}" class="px-4 py-2 mx-4 rounded-md bg-red-500" (click)="resetCriteria()">
+                            <i class="pi pi-sort-amount-down"></i>
+                        </button>
                     <button pButton pRipple label="{{'validate' | translate}}" class="px-4 py-2 rounded-md" (click)="findPaginatedByCriteria()">
-                        <i class="pi pi-sort-amount-down"></i> {{'validate' | translate}}
+                        <i class="pi pi-sort-amount-down"></i>
                     </button>
                 </div>
             </div>
@@ -170,15 +173,25 @@
                         <td>{{element.description}}</td>
 
                             <td>
+<!--
                                 <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
+-->
+<!--
                                 <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
+-->
                                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
 <!--
                                 <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
 -->                            </td>
                         </tr>
                     </ng-template>
-
+                    <ng-template pTemplate="footer">
+                        <tr class="font-semibold bg-gray-100">
+                            <td colspan="1" class="text-right text-blue-600">Total</td>
+                            <td class="text-blue-600">{{totalSoldes | number:'1.2-2'}}</td>
+                            <td colspan="6"></td>
+                        </tr>
+                    </ng-template>
                     <ng-template pTemplate="summary">
                         <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
                         <div class="p-d-flex p-ai-center p-jc-between">

@@ -24,4 +24,5 @@ export class ChargeCriteria extends BaseCriteria {
   public local: LocalCriteria ;
   public locals: Array<LocalCriteria> ;
 
+
 }

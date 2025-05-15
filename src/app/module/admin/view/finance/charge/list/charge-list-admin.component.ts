@@ -1,21 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {ChargeAdminService} from 'src/app/shared/service/admin/finance/ChargeAdmin.service';
 import {ChargeDto} from 'src/app/shared/model/finance/Charge.model';
 import {ChargeCriteria} from 'src/app/shared/criteria/finance/ChargeCriteria.model';
 
 
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 
@@ -36,7 +31,7 @@ import {TypeChargeAdminService} from 'src/app/shared/service/admin/finance/TypeC
 })
 export class ChargeListAdminComponent implements OnInit {
 
-    protected fileName = 'Charge';
+    protected fileName = `List de Charges ${new Date().toLocaleDateString()}`;
 
     protected findByCriteriaShow = false;
     protected cols: any[] = [];
@@ -58,8 +53,9 @@ export class ChargeListAdminComponent implements OnInit {
     protected excelFile: File | undefined;
     protected enableSecurity = false;
 
+    protected totalSoldes: number = 0;
 
-     yesOrNoIsPaid: any[] = [];
+    yesOrNoIsPaid: any[] = [];
     typeCharges: Array<TypeChargeDto>;
     locals: Array<LocalDto>;
 
@@ -85,7 +81,10 @@ export class ChargeListAdminComponent implements OnInit {
     }
 
 
-
+    calculateTotals() {
+        // Calcul des totaux à partir du tableau comptes
+        this.totalSoldes = this.items.reduce((sum, charge) => sum + (charge.montant || 0), 0);
+    }
 
     public onExcelFileSelected(event: any): void {
         const input = event.target as HTMLInputElement;
@@ -123,6 +122,7 @@ export class ChargeListAdminComponent implements OnInit {
             this.items = paginatedItems.list;
             this.totalRecords = paginatedItems.dataSize;
             this.selections = new Array<ChargeDto>();
+            this.calculateTotals();
         }, error => console.log(error));
     }
 
@@ -310,13 +310,12 @@ export class ChargeListAdminComponent implements OnInit {
 
     public initCol() {
         this.cols = [
-            {field: 'code', header: 'Code'},
-            {field: 'label', header: 'Label'},
+      /*      {field: 'code', header: 'Code'},
+            {field: 'label', header: 'Label'},*/
             {field: 'montant', header: 'Montant'},
             {field: 'date', header: 'Date'},
             {field: 'typeCharge?.label', header: 'Type charge'},
-            {field: 'local?.code', header: 'Local'},
-            {field: 'isPaid', header: 'Is paid'},
+            {field: 'local?.label', header: 'Local'},
             {field: 'description', header: 'Description'},
         ];
     }
@@ -335,36 +334,42 @@ export class ChargeListAdminComponent implements OnInit {
 
 
     public prepareColumnExport(): void {
-        this.service.findByCriteria(this.criteria).subscribe(
-            (allItems) =>{
-                this.exportData = allItems.map(e => {
-					return {
-						'Code': e.code ,
-						'Label': e.label ,
-						'Montant': e.montant ,
-						'Date': this.datePipe.transform(e.date , 'dd/MM/yyyy hh:mm'),
-						'Type charge': e.typeCharge?.label ,
-						'Local': e.local?.code ,
-						'Is paid': e.isPaid? 'Vrai' : 'Faux' ,
-						'Description': e.description ,
-					}
-				});
+        this.exportData = this.items.map(e => {
+            return {
+                /*	'Code': e.code ,
+                    'Label': e.label ,*/
+                'Date': this.datePipe.transform(e.date , 'dd/MM/yyyy hh:mm'),
+                'Montant': e.montant ,
+                'Type charge': e.typeCharge?.label ,
+                'Local': e.local?.label ,
+                'Description': e.description ,
+            }
+        });
 
-            this.criteriaData = [{
-                'Code': this.criteria.code ? this.criteria.code : environment.emptyForExport ,
-                'Label': this.criteria.label ? this.criteria.label : environment.emptyForExport ,
-                'Montant Min': this.criteria.montantMin ? this.criteria.montantMin : environment.emptyForExport ,
-                'Montant Max': this.criteria.montantMax ? this.criteria.montantMax : environment.emptyForExport ,
-                'Date Min': this.criteria.dateFrom ? this.datePipe.transform(this.criteria.dateFrom , this.dateFormat) : environment.emptyForExport ,
-                'Date Max': this.criteria.dateTo ? this.datePipe.transform(this.criteria.dateTo , this.dateFormat) : environment.emptyForExport ,
-            //'Type charge': this.criteria.typeCharge?.label ? this.criteria.typeCharge?.label : environment.emptyForExport ,
-            //'Local': this.criteria.local?.code ? this.criteria.local?.code : environment.emptyForExport ,
-                'Is paid': this.criteria.isPaid ? (this.criteria.isPaid ? environment.trueValue : environment.falseValue) : environment.emptyForExport ,
-                'Description': this.criteria.description ? this.criteria.description : environment.emptyForExport ,
-            }];
-			}
+        // Ajout d'une ligne pour les totaux
+        this.exportData.push({
+            'Date': 'TOTAL',
+            'Montant': this.totalSoldes,
+            'Description': '',
+            'Type transaction': '',
+            'Mode paiement': '',
+            'Compte source': '',
+            'Compte destination': ''
+        });
 
-        )
+
+        this.criteriaData = [{
+            /*        'Code': this.criteria.code ? this.criteria.code : environment.emptyForExport ,
+                    'Label': this.criteria.label ? this.criteria.label : environment.emptyForExport ,*/
+            /*                'Montant Min': this.criteria.montantMin ? this.criteria.montantMin : environment.emptyForExport ,
+                            'Montant Max': this.criteria.montantMax ? this.criteria.montantMax : environment.emptyForExport ,
+                            'Date Min': this.criteria.dateFrom ? this.datePipe.transform(this.criteria.dateFrom , this.dateFormat) : environment.emptyForExport ,
+                            'Date Max': this.criteria.dateTo ? this.datePipe.transform(this.criteria.dateTo , this.dateFormat) : environment.emptyForExport ,
+                        //'Type charge': this.criteria.typeCharge?.label ? this.criteria.typeCharge?.label : environment.emptyForExport ,
+                        //'Local': this.criteria.local?.code ? this.criteria.local?.code : environment.emptyForExport ,
+                            'Is paid': this.criteria.isPaid ? (this.criteria.isPaid ? environment.trueValue : environment.falseValue) : environment.emptyForExport ,
+                            'Description': this.criteria.description ? this.criteria.description : environment.emptyForExport ,*/
+        }];
     }
 
 
@@ -552,4 +557,8 @@ export class ChargeListAdminComponent implements OnInit {
     }
 
 
+    resetCriteria() {
+        this.criteria = new ChargeCriteria();
+        this.findPaginatedByCriteria();
+    }
 }

@@ -4,10 +4,10 @@
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
-<!--
-                                            <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate()" *ngIf="createActionIsValid"></button>
--->
-<!--                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>-->
+                    <!--
+                                                                <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-info mr-2 mb-2" (click)="openCreate()" *ngIf="createActionIsValid"></button>
+                    -->
+                    <!--                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()  *ngIf="deleteActionIsValid"></button>-->
                     <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-secondary mr-2 mb-2" (click)="this.showSearch()"></button>
                 </ng-template>
                 <ng-template pTemplate="right">
@@ -20,34 +20,32 @@
             <div *ngIf="findByCriteriaShow" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 border border-surface rounded-lg">
 
 
-                            <div class="flex flex-col gap-2">
-                                <label  class="text-sm font-semibold" for="1">{{'banque.code' | translate}}</label>
-                                <input  pInputText id="1" type="text"  [(ngModel)]="criteria.codeLike">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label  class="text-sm font-semibold" for="2">{{'banque.label' | translate}}</label>
-                                <input  pInputText id="2" type="text"  [(ngModel)]="criteria.labelLike">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label  class="text-sm font-semibold" for="3">{{'banque.nom' | translate}}</label>
-                                <input  pInputText id="3" type="text"  [(ngModel)]="criteria.nomLike">
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label  class="text-sm font-semibold" for="4">{{'banque.numeroCompte' | translate}}</label>
-                                <input  pInputText id="4" type="text"  [(ngModel)]="criteria.numeroCompteLike">
-                            </div>
-                                <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="5-1">{{'banque.soldeMin' | translate}}</label>
-                                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMin" id="5-1"></p-inputNumber>
-                                </div>
-                                <div class="flex flex-col gap-2">
-                                    <label  class="text-sm font-semibold" for="5-2">{{'banque.soldeMax' | translate}}</label>
-                                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMax" id="5-2"></p-inputNumber>
-                                </div>
+                <div class="flex flex-col gap-2">
+                    <label  class="text-sm font-semibold" for="5-1">{{'banque.soldeMin' | translate}}</label>
+                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMin" id="5-1"></p-inputNumber>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label  class="text-sm font-semibold" for="5-2">{{'banque.soldeMax' | translate}}</label>
+                    <p-inputNumber  mode="decimal" [(ngModel)]="criteria.soldeMax" id="5-2"></p-inputNumber>
+                </div>
 
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold" for="4-1">{{'charge.dateMin' | translate}}</label>
+                    <p-calendar [(ngModel)]="criteria.dateCreationFrom"
+                                id="4-1" dateFormat="dd-MM-yy"  [showIcon]="true"  class="p-fluid"></p-calendar>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label  class="text-sm font-semibold" for="4-2">{{'charge.dateMax' | translate}}</label>
+                    <p-calendar  [(ngModel)]="criteria.dateCreationTo"
+                                id="4-2" dateFormat="dd-MM-yy"  [showIcon]="true" class="p-fluid"></p-calendar>
+                </div>
                 <div class="col-span-full flex justify-end mt-4">
-                    <button pButton pRipple label="{{'validate' | translate}}" class="px-4 py-2 rounded-md" (click)="findPaginatedByCriteria()">
-                        <i class="pi pi-sort-amount-down"></i> {{'validate' | translate}}
+                    <button pButton pRipple label="{{'Reset' | translate}}" class="px-4 py-2 mx-4 rounded-md bg-red-500" (click)="resetCriteria()">
+                        <i class="pi pi-sort-amount-down"></i>
+                    </button>
+                    <button pButton pRipple label="{{'validate' | translate}}" class="px-4 py-2 rounded-md" (click)="findPaginatedByCriteria1()">
+                        <i class="pi pi-sort-amount-down"></i>
                     </button>
                 </div>
             </div>
@@ -131,7 +129,7 @@
                         <td>{{element.credit}}</td>
 
 
-                  <!--      <td>{{element.numeroCompte}}</td>-->
+                        <!--      <td>{{element.numeroCompte}}</td>-->
 
 
                         <td>{{element.dateCreation | date :'dd/MM/yyyy HH:mm' }}</td>
@@ -143,17 +141,29 @@
                             <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>
                             <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-secondary mr-2" (click)="view(element)"  *ngIf="viewActionIsValid"></button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"  *ngIf="deleteActionIsValid"></button>
-<!--
-                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
--->
+                            <!--
+                                                        <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning mr-2" (click)="duplicate(element)"  *ngIf="duplicateActionIsValid"></button>
+                            -->
                         </td>
                     </tr>
                 </ng-template>
 
+                <ng-template pTemplate="footer">
+                    <tr class="font-semibold bg-gray-100">
+                        <td colspan="1" class="text-right text-blue-600">Total</td>
+                        <td class="text-blue-600">{{totalSoldes | number:'1.2-2'}}</td>
+                        <td class="text-blue-600">{{totalDebits | number:'1.2-2'}}</td>
+                        <td class="text-blue-600">{{totalCredits | number:'1.2-2'}}</td>
+                        <td colspan="4"></td>
+                    </tr>
+                </ng-template>
+
                 <ng-template pTemplate="summary">
-                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
-                    <div class="p-d-flex p-ai-center p-jc-between">
-                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'compte' : 'comptes' : 0 }}.
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p-paginator [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                        <div class="p-d-flex p-ai-center p-jc-between">
+                            En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'compte' : 'comptes' : 0 }}.
+                        </div>
                     </div>
                 </ng-template>
             </p-table>
@@ -161,9 +171,9 @@
 
         </div>
 
-            <app-banque-create-admin  *ngIf="createDialog  && createActionIsValid"></app-banque-create-admin>
-            <app-banque-edit-admin  *ngIf="editDialog  && editActionIsValid"></app-banque-edit-admin>
-        <app-banque-view-admin [totalCredits]="totalCredits" [totalDebits]="totalDebits"  *ngIf="viewDialog  && viewActionIsValid"></app-banque-view-admin>
+        <app-banque-create-admin  *ngIf="createDialog  && createActionIsValid"></app-banque-create-admin>
+        <app-banque-edit-admin  *ngIf="editDialog  && editActionIsValid"></app-banque-edit-admin>
+        <app-banque-view-admin [totalCredits]="totalCredits_transactions" [totalDebits]="totalDebits_transactions"  *ngIf="viewDialog  && viewActionIsValid"></app-banque-view-admin>
         <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
     </div>
 </div>

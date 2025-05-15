@@ -12,8 +12,12 @@ export class BanqueCriteria extends BaseCriteria {
     public nomLike: string;
     public numeroCompte: string;
     public numeroCompteLike: string;
+    public dateFrom: Date;
+    public dateTo: Date;
      public solde: number;
      public soldeMin: number;
      public soldeMax: number;
-
+    public dateCreation: Date;
+    public dateCreationMin: Date;
+    public dateCreationMax: Date;
 }

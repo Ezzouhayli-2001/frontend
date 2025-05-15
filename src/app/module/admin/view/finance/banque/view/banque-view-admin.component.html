@@ -34,8 +34,8 @@
                                     <p-inputNumber id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="compte.credit"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
-                                    <label class="text-sm font-semibold" for="6">{{'compte.dateCreation' | translate}}</label>
-                                    <p-calendar class="w-full" id="6" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'compte.dateCreation' | translate}}"  [ngModel]="compte.dateCreation" dateFormat="{{dateFormat}}"></p-calendar>
+                                    <label class="text-sm font-semibold" for="4">{{'Date de création' | translate}}</label>
+                                    <input type="text" pInputText [disabled]="true" placeholder="{{'Date de création' | translate}}" id="4" [ngModel]="compte.dateCreation" class="w-full">
                                 </div>
                             </div>
                         </div>
@@ -145,17 +145,11 @@
                                                    [value]="transaction.modePaiement?.label" [rounded]="true"></p-tag>
                                         </td>
                                         <td>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
-                                                {{transaction.compteSource?.code}}
-                                            </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
+                                            <ng-container *ngIf="transaction.compteSource != null ">
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
                                             <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
                                                 {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
-                                            </ng-container>
-                                            <ng-container *ngIf="transaction.compteSource !== null">
-                                                {{transaction.compteSource?.code}}
                                             </ng-container>
                                         </td>
                                         <td>

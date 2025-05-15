@@ -52,9 +52,7 @@
 
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="4">{{'Date de création' | translate}}</label>
-                                    <p-calendar class="w-full" appendTo="body" id="4"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date de création' | translate}}"  [(ngModel)]="compte.dateCreation"
-                                                dateFormat="{{dateFormatColumn}}"  >
-                                    </p-calendar>
+                                    <input type="text" pInputText [disabled]="true" placeholder="{{'Date de création' | translate}}" id="4" [ngModel]="compte.dateCreation" class="w-full">
                                 </div>
 
                             </div>

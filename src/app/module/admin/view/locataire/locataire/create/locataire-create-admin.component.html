@@ -79,6 +79,13 @@
                         </div>
 
                         <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="dateCreation">{{'local.dateCreation' | translate}}</label>
+                            <p-calendar id="dateCreation"  class="w-full" appendTo="body"  [showTime]="true" [showSeconds]="false" placeholder="{{'local.dateCreation' | translate}}"  [(ngModel)]="item.dateCreation"
+                                        dateFormat="{{dateFormat}}"  >
+                            </p-calendar>
+
+                        </div>
+                        <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="5">{{'location.loyer' | translate}}</label>
                             <p-inputNumber  id="5" placeholder="{{'location.loyer' | translate}}" [(ngModel)]="location.local.prix">
                             </p-inputNumber>

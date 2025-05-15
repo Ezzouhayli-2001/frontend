@@ -19,6 +19,7 @@ import {ExportService} from 'src/app/zynerator/util/Export.service';
 import {CompteDto} from "../../../../../../shared/model/finance/Compte.model";
 import {CompteAdminService} from "../../../../../../shared/service/admin/finance/CompteAdmin.service";
 import {TransactionAdminService} from "../../../../../../shared/service/admin/locataire/TransactionAdmin.service";
+import {CompteCriteria} from "../../../../../../shared/criteria/finance/CompteCriteria.model";
 
 
 @Component({
@@ -28,7 +29,7 @@ import {TransactionAdminService} from "../../../../../../shared/service/admin/lo
 })
 export class BanqueListAdminComponent implements OnInit {
 
-    protected fileName = 'Banque';
+    protected fileName = `List de Banques ${new Date().toLocaleDateString()}`;
 
     protected findByCriteriaShow = false;
     protected cols: any[] = [];
@@ -50,10 +51,11 @@ export class BanqueListAdminComponent implements OnInit {
     protected excelFile: File | undefined;
     protected enableSecurity = false;
 
-    protected totalCredits = 0;
-    protected totalDebits = 0;
-
-
+    protected totalCredits: number = 0;
+    protected totalDebits: number = 0;
+    protected totalSoldes: number = 0;
+    protected totalCredits_transactions: number = 0;
+    protected totalDebits_transactions: number = 0;
     constructor( private service: BanqueAdminService,
                  private transactionService: TransactionAdminService,
                  private compteService: CompteAdminService, @Inject(PLATFORM_ID) private platformId?) {
@@ -107,16 +109,26 @@ export class BanqueListAdminComponent implements OnInit {
     }
 
     public findPaginatedByCriteria() {
-        this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
-            this.items = paginatedItems.list;
-        }, error => console.log(error));
-
         this.compteService.findAllByBanqueNotNull().subscribe((data) => {
             this.comptes = data;
             this.totalRecords = data.length;
             this.selections = new Array<BanqueDto>();
+            this.calculateTotals();
         });
+
     }
+
+    public findPaginatedByCriteria1() {
+        this.compteService.findByCriteria(this.criteria).subscribe((data) => {
+            this.comptes = data.filter(compte => compte?.banque != null);
+            this.totalRecords = data.length;
+            this.selections = new Array<BanqueDto>();
+            this.calculateTotals();
+        });
+
+    }
+
+
 
     public onPage(event: any) {
         this.criteria.page = event.page;
@@ -132,6 +144,12 @@ export class BanqueListAdminComponent implements OnInit {
         });
 
     }
+    calculateTotals() {
+        // Calcul des totaux à partir du tableau comptes
+        this.totalSoldes = this.comptes.reduce((sum, compte) => sum + (compte.solde || 0), 0);
+        this.totalDebits = this.comptes.reduce((sum, compte) => sum + (compte.debit || 0), 0);
+        this.totalCredits = this.comptes.reduce((sum, compte) => sum + (compte.credit || 0), 0);
+    }
 
     public async view(dto: CompteDto) {
         this.compteService.findByIdWithAssociatedList(dto).subscribe(res => {
@@ -139,15 +157,15 @@ export class BanqueListAdminComponent implements OnInit {
             this.viewDialog = true;
             this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
                 this.transactionService.items = data.list.filter(transaction => transaction?.compteSource?.id == res?.id || transaction?.compteDestination?.id == res?.id);
-                this.totalCredits = 0;
-                this.totalDebits = 0;
+                this.totalCredits_transactions = 0;
+                this.totalDebits_transactions = 0;
 
                 if (this.transactionService.items && this.transactionService.items.length > 0) {
                     this.transactionService.items.forEach(transaction => {
                         if (transaction.typePaiement?.label === 'Credit') {
-                            this.totalCredits += Number(transaction.montant || 0);
+                            this.totalCredits_transactions += Number(transaction.montant || 0);
                         } else if (transaction.typePaiement?.label === 'Debit') {
-                            this.totalDebits += Number(transaction.montant || 0);
+                            this.totalDebits_transactions += Number(transaction.montant || 0);
                         }
                     });
                 }
@@ -334,29 +352,34 @@ export class BanqueListAdminComponent implements OnInit {
 
 
     public prepareColumnExport(): void {
-        this.service.findByCriteria(this.criteria).subscribe(
-            (allItems) =>{
-                this.exportData = allItems.map(e => {
-					return {
-						'Code': e.code ,
-						'Label': e.label ,
-						'Nom': e.nom ,
-						'Numero compte': e.numeroCompte ,
-						'Solde': e.solde ,
-					}
-				});
+        this.exportData = this.comptes.map(e => {
+            return {
+                'Nom De Compte': e.banque?.nom ,
+                'Solde': e.solde ,
+                'Debit': e.debit ,
+                'Credit': e.credit ,
+                'Date De Creation': this.datePipe.transform(e.dateCreation , 'dd/MM/yyyy hh:mm'),
+            }
+        });
 
-            this.criteriaData = [{
-                'Code': this.criteria.code ? this.criteria.code : environment.emptyForExport ,
-                'Label': this.criteria.label ? this.criteria.label : environment.emptyForExport ,
-                'Nom': this.criteria.nom ? this.criteria.nom : environment.emptyForExport ,
-                'Numero compte': this.criteria.numeroCompte ? this.criteria.numeroCompte : environment.emptyForExport ,
-                'Solde Min': this.criteria.soldeMin ? this.criteria.soldeMin : environment.emptyForExport ,
-                'Solde Max': this.criteria.soldeMax ? this.criteria.soldeMax : environment.emptyForExport ,
-            }];
-			}
+        this.exportData.push({
+            'Nom De Compte': 'TOTAL',
+            'Solde': this.totalSoldes,
+            'Debit': this.totalDebits,
+            'Credit': this.totalCredits,
+        });
 
-        )
+        this.criteriaData = [{
+            'Nom De Compte': this.criteria.banque?.nom ? this.criteria.banque?.nom : environment.emptyForExport ,
+            'Debit Min': this.criteria.debitMin ? this.criteria.debitMin : environment.emptyForExport ,
+            'Debit Max': this.criteria.debitMax ? this.criteria.debitMax : environment.emptyForExport ,
+            'Credit Min': this.criteria.creditMin ? this.criteria.creditMin : environment.emptyForExport ,
+            'Credit Max': this.criteria.creditMax ? this.criteria.creditMax : environment.emptyForExport ,
+            'Solde Min': this.criteria.soldeMin ? this.criteria.soldeMin : environment.emptyForExport ,
+            'Solde Max': this.criteria.soldeMax ? this.criteria.soldeMax : environment.emptyForExport ,
+            'Date De Creation Min': this.criteria.dateCreationFrom ? this.datePipe.transform(this.criteria.dateCreationFrom , 'dd/MM/yyyy hh:mm') : environment.emptyForExport ,
+            'Date De Creation Max': this.criteria.dateCreationTo ? this.datePipe.transform(this.criteria.dateCreationTo , 'dd/MM/yyyy hh:mm') : environment.emptyForExport ,
+        }];
     }
 
 
@@ -408,12 +431,12 @@ export class BanqueListAdminComponent implements OnInit {
         this.service.viewDialog = value;
     }
 
-    get criteria(): BanqueCriteria {
-        return this.service.criteria;
+    get criteria(): CompteCriteria {
+        return this.compteService.criteria;
     }
 
-    set criteria(value: BanqueCriteria) {
-        this.service.criteria = value;
+    set criteria(value: CompteCriteria) {
+        this.compteService.criteria = value;
     }
 
     get dateFormat() {
@@ -557,5 +580,10 @@ export class BanqueListAdminComponent implements OnInit {
 
     set compte(value: CompteDto) {
         this.compteService.item = value;
+    }
+
+    resetCriteria() {
+        this.criteria = new CompteCriteria();
+        this.findPaginatedByCriteria();
     }
 }

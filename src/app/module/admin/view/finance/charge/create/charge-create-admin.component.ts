@@ -101,6 +101,7 @@ export class ChargeCreateAdminComponent  implements OnInit {
 
     public save(): void {
         this.submitted = true;
+        this.item.typeCharge = this.item.compteCharge.typeCharges.at(0);
         this.item.local = this.item.compteCharge.local;
         this.validateForm();
         if (this.errorMessages.length === 0) {

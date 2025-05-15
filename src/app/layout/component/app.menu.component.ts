@@ -122,12 +122,12 @@ constructor(public layoutService: LayoutService, public app: AppComponent, publi
                       icon: 'pi pi-fw pi-wallet',
                       items: [
                           {
-                              label: 'Saisie pour Locataire',
+                              label: 'Saisie Locataire',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/locataire/reglement/create']
                           },
                           {
-                              label: 'Saisie pour Instantanée',
+                              label: 'Saisie Instantanée',
                               icon: 'pi pi-fw pi-plus',
                               routerLink: ['/app/admin/locataire/reglement/create-for-instantanee']
                           },

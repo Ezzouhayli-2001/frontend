@@ -11,5 +11,8 @@ export class CaisseCriteria extends BaseCriteria {
      public solde: number;
      public soldeMin: number;
      public soldeMax: number;
+     public dateCreation: Date;
+     public dateCreationMin: Date;
+     public dateCreationMax: Date;
 
 }
