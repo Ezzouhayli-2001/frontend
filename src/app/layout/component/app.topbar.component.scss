@@ -1,0 +1,81 @@
+/* Styles for the password dialog */
+.p-inputgroup {
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+.p-inputgroup input {
+    flex: 1 1 auto !important;
+    width: 1% !important; /* This is needed for flex layout */
+}
+
+.password-input-group {
+    margin-bottom: 0.5rem;
+}
+
+/* Ensure the eye icon buttons are properly styled */
+.p-button-icon-only {
+    width: 2.357rem !important;
+    padding: 0.5rem 0 !important;
+}
+
+/* Label styling */
+.field-icon {
+    margin-right: 0.5rem;
+}
+
+.required-indicator {
+    color: #ff5757;
+    margin-left: 0.25rem;
+}
+
+/* Make sure dialog content is properly spaced */
+.p-dialog-content {
+    padding: 1.5rem !important;
+}
+
+/* Error message styling */
+.p-error {
+    color: #ff5757;
+}
+
+/* Ensure inputs have proper width */
+.w-full {
+    width: 100% !important;
+}
+
+/* Fix button alignment in footer */
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+/* Custom styling for the password dialog footer */
+.password-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Add this to your component's CSS or global styles */
+.p-button-label {
+    font-weight: 400;
+}
+
+.p-button .p-button-icon {
+    font-size: 1rem;
+}
+
+/* Make sure messages display correctly */
+p-message .p-message {
+    width: 100%;
+}
+
+/* Fix button spinner alignment */
+.p-button .pi-spinner {
+    vertical-align: middle;
+}

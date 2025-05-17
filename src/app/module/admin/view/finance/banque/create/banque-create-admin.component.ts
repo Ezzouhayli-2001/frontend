@@ -74,11 +74,11 @@ export class BanqueCreateAdminComponent  implements OnInit {
                 this.submitted = false;
                 this.item = new BanqueDto();
             } else {
-                this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
+                this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Une Banque existe déjà'});
             }
 
         }, error => {
-            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: error.error});
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Une Banque existe déjà'});
         });
     }
 

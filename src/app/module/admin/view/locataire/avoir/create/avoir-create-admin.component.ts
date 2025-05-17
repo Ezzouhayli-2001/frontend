@@ -139,6 +139,7 @@ export class AvoirCreateAdminComponent  implements OnInit {
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.messageService.add({severity: 'success', summary: '', detail: 'Avoir créé avec Success'})
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
                 this.submitted = false;
@@ -154,7 +155,7 @@ export class AvoirCreateAdminComponent  implements OnInit {
             }
 
         }, error => {
-            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Erreur lors de la création de l\'avoir'});
         });
     }
 

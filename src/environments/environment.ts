@@ -10,13 +10,13 @@ export const environment = {
 
 
 
-    apiUrlRentalmanagementms1: 'https://rentalback-production.up.railway.app/api/',
-    loginUrl: 'https://rentalback-production.up.railway.app/',
-    registerUrl: 'https://rentalback-production.up.railway.app/register',
-    apiUrl: 'https://rentalback-production.up.railway.app/',
+    apiUrlRentalmanagementms1: 'https://rentalback-production-99c3.up.railway.app/api/',
+    loginUrl: 'https://rentalback-production-99c3.up.railway.app/',
+    registerUrl: 'https://rentalback-production-99c3.up.railway.app/register',
+    apiUrl: 'https://rentalback-production-99c3.up.railway.app/',
 
 
-    stripeUrl: "https://rentalback-production.up.railway.app/api/payment/create-payment-intent/",
+    stripeUrl: "https://rentalback-production-99c3.up.railway.app/api/payment/create-payment-intent/",
     stripePublicKey: "pk_test_51PVbvFRxVNBDrAcwfSz21b6EtPSpl6Fw3gUoKpIGWZN5whhSfS67W4hbtk95OMF1JSpxgYPyp9AmkNOAPLNFR7St00tDXFRjuV",
 
 

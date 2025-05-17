@@ -114,6 +114,7 @@ export class ChargeCreateAdminComponent  implements OnInit {
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.messageService.add({severity: 'success', summary: '', detail: 'Charge Cree avec Success'})
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
                 this.submitted = false;
@@ -124,7 +125,7 @@ export class ChargeCreateAdminComponent  implements OnInit {
             }
 
         }, error => {
-            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Erreur lors de la création de la charge'});
         });
     }
 

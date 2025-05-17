@@ -73,8 +73,8 @@
                                         <div class="card shadow-2 bg-primary">
                                             <div class="flex justify-content-between">
                                                 <div class="text-left">
-                                                    <span class="block text-white font-medium mb-3">Relevé Général ( Banques + Caisses - Charges )</span>
-                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses - totalCharges) | currency:'MAD'}}</div>
+                                                    <span class="block text-white font-medium mb-3">Relevé Général ( Banques + Caisses )</span>
+                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses) | currency:'MAD'}}</div>
                                                 </div>
                                                 <div class="flex align-items-center justify-content-center bg-white border-round" style="width:2.5rem;height:2.5rem">
                                                     <i class="pi pi-calculator text-primary text-xl"></i>
@@ -89,7 +89,7 @@
                                             <div class="flex justify-content-between">
                                                 <div class="text-left">
                                                     <span class="block text-white font-medium mb-3">Relevé Général Provisoire ( RG + C I E - C I D )</span>
-                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses - totalCharges - totalInstantanees) | currency:'MAD'}}</div>
+                                                    <div class="text-white font-medium text-2xl">{{(totalBanques + totalCaisses - totalInstantanees) | currency:'MAD'}}</div>
                                                 </div>
                                                 <div class="flex align-items-center justify-content-center bg-white border-round" style="width:2.5rem;height:2.5rem">
                                                     <i class="pi pi-calculator text-primary text-xl"></i>

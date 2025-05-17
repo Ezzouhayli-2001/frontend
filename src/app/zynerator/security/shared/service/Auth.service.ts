@@ -78,7 +78,7 @@ export class AuthService {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error ' + errorException.status,
-                            detail: 'Invalid credentials'
+                            detail: 'Le UserName ou le Mot de Passe est incorrect'
                         });
                     }
                 } else if (errorException.status === 423) {

@@ -8,6 +8,7 @@ import {UserDto} from 'src/app/zynerator/security/shared/model/User.model';
 import {UserCriteria} from 'src/app/zynerator/security/shared/criteria/UserCriteria.model';
 import {AbstractService} from 'src/app/zynerator/service/AbstractService';
 import {RoleService} from './Role.service';
+import {ChangePasswordRequestDto} from "../../../../shared/model/ChangePasswordRequestDto";
 
 
 @Injectable({
@@ -31,5 +32,9 @@ export class UserService extends AbstractService<UserDto, UserCriteria> {
     }
     get API() {
         return environment.apiUrl + 'api/user/';
+    }
+
+    changePassword(changePasswordRequestDto: ChangePasswordRequestDto) {
+        return this.http.post<any>(this.API + 'changePassword', changePasswordRequestDto);
     }
 }

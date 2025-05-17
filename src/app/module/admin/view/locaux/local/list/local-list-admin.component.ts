@@ -210,6 +210,7 @@ export class LocalListAdminComponent implements OnInit {
                     if (status > 0) {
                         const position = this.items.indexOf(dto);
                         position > -1 ? this.items.splice(position, 1) : false;
+                        this.item = new LocalDto();
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Succès',

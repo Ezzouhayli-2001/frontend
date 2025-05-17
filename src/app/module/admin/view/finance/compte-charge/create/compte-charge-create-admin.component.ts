@@ -113,6 +113,7 @@ export class CompteChargeCreateAdminComponent  implements OnInit {
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.messageService.add({severity: 'success', summary: '', detail: 'Compte chargé créé'})
                 this.compte.code = item.code;
                 this.compte.compteCharge = item;
                 this.findPaginatedByCriteria();
@@ -134,7 +135,7 @@ export class CompteChargeCreateAdminComponent  implements OnInit {
             }
 
         }, error => {
-            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Ce compte chargé existe déjà'});
         });
     }
 

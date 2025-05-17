@@ -129,6 +129,7 @@ export class CreateForInstantaneeComponent implements OnInit {
     public saveWithShowOption(showList: boolean) {
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.messageService.add({severity: 'success', summary: '', detail: 'Reglement créé avec Success'})
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
                 this.submitted = false;
@@ -144,7 +145,7 @@ export class CreateForInstantaneeComponent implements OnInit {
             }
 
         }, error => {
-            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Erreur lors de la création de la reglement'});
         });
     }
 

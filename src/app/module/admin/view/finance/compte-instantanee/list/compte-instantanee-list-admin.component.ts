@@ -202,7 +202,7 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
     }
 
 
-    public async delete(dto: CompteInstantaneeDto) {
+    public async delete(dto: CompteDto) {
 
         this.confirmationService.confirm({
             message: 'Voulez-vous supprimer cet élément ?',
@@ -217,10 +217,9 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
                 label: 'Ok',
             },
             accept: () => {
-                this.service.delete(dto).subscribe(status => {
+                this.compteService.delete(dto).subscribe(status => {
                     if (status > 0) {
-                        const position = this.items.indexOf(dto);
-                        position > -1 ? this.items.splice(position, 1) : false;
+                        this.findPaginatedByCriteria();
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Succès',

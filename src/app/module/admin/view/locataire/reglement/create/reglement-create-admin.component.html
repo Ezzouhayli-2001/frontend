@@ -6,7 +6,7 @@
                 <i class="pi pi-times"></i>
             </button>
         </div>
-
+        <p-toast></p-toast>
         <div class="p-4">
             <p-tabView>
                 <p-tabPanel header="{{'reglement.tabPan' | translate}}">
@@ -36,7 +36,7 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="4">{{'reglement.locataire' | translate}}</label>
                             <p-dropdown class="w-full"  appendTo="body"  [options]="locatairesFiltres" [(ngModel)]="locataire" id="4" [filter]="true" filterMatchMode="contains"
-                                        [showClear]="true" optionLabel="nom" placeholder="{{'reglement.locataire' | translate}}"  >
+                                        [showClear]="true" optionLabel="fullName" placeholder="{{'reglement.locataire' | translate}}"  >
                             </p-dropdown>
 
                         </div>

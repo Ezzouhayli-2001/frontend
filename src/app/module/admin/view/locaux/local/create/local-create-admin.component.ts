@@ -154,18 +154,18 @@ export class LocalCreateAdminComponent  implements OnInit {
         this.item.code = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 6);
         this.service.save().subscribe(item => {
             if (item != null) {
+                this.item = new LocalDto();
+                this.messageService.add({severity: 'success', summary: '', detail: 'Local a été créé avec succès'});
                 this.findPaginatedByCriteria();
                 this.createDialog = false;
                 this.submitted = false;
                 this.saving = false
                 this.goBack()
-                this.item = new LocalDto();
             } else {
                 this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
             }
-            this.messageService.add({severity: 'success', summary: '', detail: 'Local a été créé avec succès'});
         }, error => {
-            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Erreur lors de la création du local'});
         });
     }
 

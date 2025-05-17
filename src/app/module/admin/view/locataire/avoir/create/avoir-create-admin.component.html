@@ -7,6 +7,7 @@
             </button>
         </div>
 
+        <p-toast></p-toast>
         <div class="p-4">
             <p-tabView>
                 <p-tabPanel header="{{'avoir.tabPan' | translate}}">
@@ -40,7 +41,7 @@
                             <p-dropdown class="w-full" appendTo="body"
                                         [options]="locatairesFiltres" [(ngModel)]="locataire" id="5"
                                         [filter]="true" filterMatchMode="contains" [showClear]="true"
-                                        optionLabel="nom" placeholder="{{'avoir.locataire' | translate}}">
+                                        optionLabel="fullName" placeholder="{{'avoir.locataire' | translate}}">
                             </p-dropdown>
                         </div>
                         <div class="flex flex-col gap-2">

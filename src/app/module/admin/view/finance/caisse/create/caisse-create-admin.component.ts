@@ -73,12 +73,14 @@ export class CaisseCreateAdminComponent  implements OnInit {
                 this.createDialog = false;
                 this.submitted = false;
                 this.item = new CaisseDto();
+                this.messageService.add({severity: 'success', summary: '', detail: 'Caisse Cree avec Success'})
             } else {
                 this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Element existant'});
             }
 
         }, error => {
             console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Erreurs', detail: 'Une caisse existe déjà'});
         });
     }
 
