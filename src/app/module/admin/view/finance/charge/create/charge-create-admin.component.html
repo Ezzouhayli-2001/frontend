@@ -13,7 +13,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
                     <div class="flex flex-col gap-2">
                         <label class="text-sm font-semibold" for="3">{{'charge.montant' | translate}}</label>
-                        <p-inputNumber  id="3" placeholder="{{'charge.montant' | translate}}" [(ngModel)]="item.montant"  >
+                        <p-inputNumber  [minFractionDigits]="2"
+                                        [maxFractionDigits]="4"
+                                        mode="decimal"
+                                        locale="fr-FR"
+                                        currency="MAD"
+                                        [prefix]="''"
+                                        [suffix]="' MAD'"
+                                        [min]="0"
+                                        [step]="0.01"  id="3" placeholder="{{'charge.montant' | translate}}" [(ngModel)]="item.montant"  >
                         </p-inputNumber>
 
                     </div>

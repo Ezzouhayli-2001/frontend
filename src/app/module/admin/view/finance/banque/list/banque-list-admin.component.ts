@@ -113,17 +113,17 @@ export class BanqueListAdminComponent implements OnInit {
             this.comptes = data;
             this.totalRecords = data.length;
             this.selections = new Array<BanqueDto>();
-            this.calculateTotals();
+            this.calculateTotals(data);
         });
 
     }
 
     public findPaginatedByCriteria1() {
-        this.compteService.findByCriteria(this.criteria).subscribe((data) => {
-            this.comptes = data.filter(compte => compte?.banque != null);
+        this.compteService.findAllByBanqueNotNull().subscribe((data) => {
+            this.comptes = data;
             this.totalRecords = data.length;
             this.selections = new Array<BanqueDto>();
-            this.calculateTotals();
+            this.calculateTotals(data);
         });
 
     }
@@ -144,35 +144,51 @@ export class BanqueListAdminComponent implements OnInit {
         });
 
     }
-    calculateTotals() {
+    calculateTotals(data: Array<CompteDto>) {
         // Calcul des totaux à partir du tableau comptes
-        this.totalSoldes = this.comptes.reduce((sum, compte) => sum + (compte.solde || 0), 0);
-        this.totalDebits = this.comptes.reduce((sum, compte) => sum + (compte.debit || 0), 0);
-        this.totalCredits = this.comptes.reduce((sum, compte) => sum + (compte.credit || 0), 0);
+        this.totalSoldes = data.reduce((sum, compte) => sum + (compte.solde || 0), 0);
+        this.totalDebits = data.reduce((sum, compte) => sum + (compte.debit || 0), 0);
+        this.totalCredits = data.reduce((sum, compte) => sum + (compte.credit || 0), 0);
     }
 
     public async view(dto: CompteDto) {
         this.compteService.findByIdWithAssociatedList(dto).subscribe(res => {
             this.compte = res;
             this.viewDialog = true;
-            this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
-                this.transactionService.items = data.list.filter(transaction => transaction?.compteSource?.id == res?.id || transaction?.compteDestination?.id == res?.id);
-                this.totalCredits_transactions = 0;
-                this.totalDebits_transactions = 0;
 
-                if (this.transactionService.items && this.transactionService.items.length > 0) {
-                    this.transactionService.items.forEach(transaction => {
-                        if (transaction.typePaiement?.label === 'Credit') {
-                            this.totalCredits_transactions += Number(transaction.montant || 0);
-                        } else if (transaction.typePaiement?.label === 'Debit') {
-                            this.totalDebits_transactions += Number(transaction.montant || 0);
-                        }
-                    });
-                }
+            // On récupère d’abord TOUTES les transactions liées à CE compte
+            this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe(data => {
+                const all = data.list;
+                // Garder seulement celles où ce compte est source (débit) ou destination (crédit)
+                const linked = all.filter(tx =>
+                    tx.compteSource?.id === res.id ||
+                    tx.compteDestination?.id === res.id
+                );
+
+                // Initialisation
+                let totalCredits = 0;
+                let totalDebits  = 0;
+
+                // Sommes
+                linked.forEach(tx => {
+                    const m = Number(tx.montant || 0);
+                    if (tx.compteDestination?.id === res.id) {
+                        // c’est un crédit pour CE compte
+                        totalCredits += m;
+                    } else if (tx.compteSource?.id === res.id) {
+                        // c’est un débit pour CE compte
+                        totalDebits += m;
+                    }
+                });
+
+                // Affectation aux variables d’affichage
+                this.transactionService.items = linked;
+                this.totalCredits_transactions =  totalCredits;
+                this.totalDebits_transactions  = totalDebits;
             });
         });
-
     }
+
 
     public async openCreate() {
         this.item = new BanqueDto();

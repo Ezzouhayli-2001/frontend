@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
 import {CompteChargeAdminService} from 'src/app/shared/service/admin/finance/CompteChargeAdmin.service';
 import {CompteChargeDto} from 'src/app/shared/model/finance/CompteCharge.model';
 import {CompteChargeCriteria} from 'src/app/shared/criteria/finance/CompteChargeCriteria.model';
@@ -25,6 +25,8 @@ import {
 import {TransactionAdminService} from "../../../../../../shared/service/admin/locataire/TransactionAdmin.service";
 import {ModePaiementAdminService} from "../../../../../../shared/service/admin/finance/ModePaiementAdmin.service";
 import { ChargeDto } from 'src/app/shared/model/finance/Charge.model';
+import {CompteAdminService} from "../../../../../../shared/service/admin/finance/CompteAdmin.service";
+import {CompteDto} from "../../../../../../shared/model/finance/Compte.model";
 
 
 @Component({
@@ -56,14 +58,16 @@ export class CompteChargeListAdminComponent implements OnInit {
     protected excelFile: File | undefined;
     protected enableSecurity = false;
     chargesGroupedByLocal: any = {};
-    filteredItems = new Array<CompteChargeDto>();
+    filteredItems = new Array<CompteDto>();
     chargesFilteredByLocal = new Array<ChargeDto>();
     protected totalCredits = 0;
     protected totalDebits = 0;
     viewSousComptes: boolean = false;
     protected fileName = this.viewSousComptes? `Sous-Comptes-Charge-${this.item.local.label}` : 'Compte-Charge';
+    protected totalCharges: number = 0;
     constructor( private service: CompteChargeAdminService ,
                  private chargeService: ChargeAdminService,
+                 private compteService: CompteAdminService,
                  private localService: LocalAdminService,
                  private typeChargeService: TypeChargeAdminService,
                  private modePaiementService: ModePaiementAdminService,
@@ -80,9 +84,14 @@ export class CompteChargeListAdminComponent implements OnInit {
 
     ngOnInit(): void {
         this.findPaginatedByCriteria();
+        this.loadCharges();
         this.initExport();
         this.initCol();
 
+    }
+
+    public async loadCharges(){
+        this.chargeService.findAll().subscribe(charges => this.charges = charges, error => console.log(error))
     }
 
 
@@ -120,47 +129,31 @@ export class CompteChargeListAdminComponent implements OnInit {
     }
 
     public findPaginatedByCriteria() {
-        this.service.findPaginatedByCriteria(this.criteria).subscribe(data =>
-        {
-            var items1 = data.list.filter(e => e.code !== "CHARGE");
+        this.compteService.findAllByCompteChargeNotNull().subscribe(
+            data =>
+            {
+                this.comptes = data;
+                for (const charge of data) {
+                    const localId = charge.compteCharge?.local?.id;
+                    if (!localId) continue;
 
-            for (const charge of items1) {
-                const localId = charge.local?.id;
-                if (!localId) continue;
-
-                if (!this.chargesGroupedByLocal[localId]) {
-                    this.chargesGroupedByLocal[localId] = {
-                        ...charge,
-                        solde: charge.solde || 0,
-                        nom: `compte charge ${charge.local?.label}`,
-                    };
-                } else {
-                    this.chargesGroupedByLocal[localId].solde += charge.solde || 0;
+                    if (!this.chargesGroupedByLocal[localId]) {
+                        this.chargesGroupedByLocal[localId] = {
+                            ...charge,
+                            solde: charge.solde || 0,
+                            local: charge.compteCharge?.local,
+                            nom: `compte charge ${charge.compteCharge?.local?.label}`,
+                        };
+                    } else {
+                        this.chargesGroupedByLocal[localId].solde += charge.solde || 0;
+                    }
+                    this.items = Object.values(this.chargesGroupedByLocal);
                 }
-                this.items = Object.values(this.chargesGroupedByLocal);
+                this.totalRecords = this.items.length;
+                this.selections = new Array<CompteChargeDto>();
             }
-            this.totalRecords = this.items.length;
-            this.selections = new Array<CompteChargeDto>();
-        })
-
-       /* this.chargeService.findPaginatedByCriteria(this.chargeService.criteria).subscribe(paginatedItems => {
-            for (const charge of paginatedItems.list) {
-                const localId = charge.local?.id;
-                if (!localId) continue;
-
-                if (!this.chargesGroupedByLocal[localId]) {
-                    this.chargesGroupedByLocal[localId] = {
-                        ...charge,
-                        solde: charge.montant || 0,
-                    };
-                } else {
-                    this.chargesGroupedByLocal[localId].solde += charge.montant || 0;
-                }
-                this.charges = Object.values(this.chargesGroupedByLocal);
-            }
-
-        }, error => console.log(error));
-    */}
+        );
+    }
 
     public onPage(event: any) {
         this.criteria.page = event.page;
@@ -178,14 +171,11 @@ export class CompteChargeListAdminComponent implements OnInit {
     }*/
 
     public async view(dto: CompteChargeDto) {
-        this.service.findPaginatedByCriteria(this.service.criteria).subscribe(data =>
-        {
-            this.filteredItems = data.list.filter(e => e.code !== "CHARGE"&&e.local.id===dto.local.id);
-            this.totalRecords = this.filteredItems.length;
-            this.selections = new Array<CompteChargeDto>();
-            this.viewSousComptes = true;
-        });
- }
+        this.filteredItems = this.comptes.filter(e => e.compteCharge.local?.code === dto.local?.code);
+        this.totalRecords = this.filteredItems.length;
+        this.selections = new Array<CompteChargeDto>();
+        this.viewSousComptes = true;
+    }
 
     /*public async openCreate() {
         this.item = new CompteChargeDto();
@@ -231,36 +221,23 @@ export class CompteChargeListAdminComponent implements OnInit {
 
 
     public async delete(dto: CompteChargeDto) {
-
-        this.confirmationService.confirm({
-            message: 'Voulez-vous supprimer cet élément ?',
-            header: 'Confirmation',
-            icon: 'pi pi-exclamation-triangle',
-			rejectButtonProps: {
-                label: 'Cancel',
-                severity: 'secondary',
-                outlined: true,
-            },
-            acceptButtonProps: {
-                label: 'Ok',
-            },
-            accept: () => {
-                this.service.delete(dto).subscribe(status => {
+        this.filteredItems = this.comptes.filter(e => e.compteCharge.local?.code === dto.local?.code);
+        this.filteredItems.map(
+            e => {
+                this.compteService.delete(e).subscribe(status => {
                     if (status > 0) {
-                        const position = this.items.indexOf(dto);
-                        position > -1 ? this.items.splice(position, 1) : false;
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Succès',
                             detail: 'Element Supprimé',
                             life: 3000
                         });
+                        this.items = [];
                     }
 
                 }, error => console.log(error));
             }
-        });
-
+        )
     }
 
     public async duplicate(dto: CompteChargeDto) {
@@ -368,11 +345,11 @@ export class CompteChargeListAdminComponent implements OnInit {
 
 
     public prepareColumnExportDetails(): void {
-        this.fileName = this.viewSousComptes? `Sous-Comptes-Charge-${this.filteredItems[0].local?.label}` : 'Compte-Charge';
+        this.fileName = this.viewSousComptes? `Sous-Comptes-Charge-${this.filteredItems[0].compteCharge?.local?.label}` : 'Compte-Charge';
         this.exportData = this.filteredItems.map(e => {
             return {
-                'Nom': e.nom ,
-                'Local': e.local?.label ,
+                'Nom': e.compteCharge?.nom ,
+                'Local': e.compteCharge?.local?.label ,
                 'Solde': e.solde ,
             }
         });
@@ -400,6 +377,15 @@ export class CompteChargeListAdminComponent implements OnInit {
         }];
     }
 
+
+
+    get comptes(): Array<CompteDto> {
+        return this.compteService.items;
+    }
+
+    set comptes(value: Array<CompteDto>) {
+        this.compteService.items = value;
+    }
 
     get items(): Array<CompteChargeDto> {
         return this.service.items;
@@ -602,10 +588,42 @@ export class CompteChargeListAdminComponent implements OnInit {
         this.service.item = value;
     }
 
-    viewCharges(dto: CompteChargeDto) {
-        this.charges = dto.charges;
-        this.compteCharge = dto;
+    viewCharges(dto: CompteDto) {
+        this.chargesFilteredByLocal = this.charges.filter(e => e.compteCharge?.id === dto.compteCharge?.id);
+        this.totalCharges = this.chargesFilteredByLocal.reduce((sum, charge) => sum + (charge.montant ), 0);
+        this.compteCharge = dto.compteCharge;
         this.viewDialog = true;
+    }
+
+    deleteSousCpomteCharges(dto: CompteDto) {
+        this.confirmationService.confirm({
+            message: 'Voulez-vous supprimer cet élément ?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Ok',
+            },
+            accept: () => {
+                this.compteService.delete(dto).subscribe(status => {
+                    if (status > 0) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Succès',
+                            detail: 'Element Supprimé',
+                            life: 3000
+                        });
+                        this.findPaginatedByCriteria();
+                        this.viewSousComptes = false;
+                    }
+
+                }, error => console.log(error));
+            }
+        });
     }
 
     edit(element: CompteChargeDto) {

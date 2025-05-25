@@ -138,18 +138,18 @@
                                     <tr>
                                         <td>{{transaction.date | date: dateFormatColumn}}</td>
                                         <td class="text-green-500 font-medium">
-                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Credit'">
+                                            <ng-container *ngIf="transaction.compteDestination?.id === compte.id">
                                                 {{transaction.montant }}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Credit'">
+                                            <ng-container *ngIf="transaction.compteDestination?.id !== compte.id">
                                                 ---
                                             </ng-container>
                                         </td>
                                         <td class="text-red-500 font-medium">
-                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Debit'">
+                                            <ng-container *ngIf="transaction.compteSource?.id === compte.id">
                                                 {{transaction.montant }}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Debit'">
+                                            <ng-container *ngIf="transaction.compteSource?.id !== compte.id">
                                                 ---
                                             </ng-container>
                                         </td>
@@ -163,32 +163,22 @@
                                                     [value]="transaction.modePaiement?.label" [rounded]="true"></p-tag>
                                         </td>
                                         <td>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
+                                            <ng-container *ngIf="transaction.compteSource?.id !== null">
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
-                                                {{transaction.compteSource?.code}}
+                                            <ng-container *ngIf="transaction.compteLocataire !== null && transaction.compteSource?.id === null">
+                                                {{transaction.compteLocataire?.locataire?.fullName}}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.compteSource?.code}} {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
-                                            </ng-container>
-
-                                            <ng-container *ngIf="transaction.compteLocataire !== null">
-                                               {{transaction.compteLocataire?.locataire?.nom}} {{transaction.compteLocataire?.locataire?.prenom}}
-                                            </ng-container>
-
 
                                         </td>
                                         <td>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
+                                            <ng-container *ngIf="transaction.compteDestination?.id !== null">
                                                 {{transaction.compteDestination?.code}}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
-                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
+                                            <ng-container *ngIf="transaction.compteLocataire !== null && transaction.compteDestination?.id === null">
+                                                {{transaction.compteLocataire?.locataire?.fullName}}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.compteDestination?.code}}
-                                            </ng-container>
+
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -202,7 +192,7 @@
 
                                     <tr class="text-center bg-gray-400">
                                         <td colspan="1" class="text-left font-bold">Solde :</td>
-                                        <td class="text-orange-500 font-bold w-2">{{totalCredits - totalDebits }}</td>
+                                        <td class="text-orange-500 font-bold w-2">{{compte.soldeInitial + (totalCredits - totalDebits) }}</td>
                                         <td colspan="6"></td>
                                     </tr>
                                 </ng-template>

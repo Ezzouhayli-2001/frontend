@@ -1,21 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {AvoirAdminService} from 'src/app/shared/service/admin/locataire/AvoirAdmin.service';
 import {AvoirDto} from 'src/app/shared/model/locataire/Avoir.model';
 import {AvoirCriteria} from 'src/app/shared/criteria/locataire/AvoirCriteria.model';
 
 
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
 

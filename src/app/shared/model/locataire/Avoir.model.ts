@@ -11,6 +11,8 @@ export class AvoirDto extends BaseDto{
 
     public montant: null | number;
 
+    public compteSource: string;
+
     public modePaiement: ModePaiementDto;
 
    public date: Date;
@@ -30,6 +32,7 @@ export class AvoirDto extends BaseDto{
         this.code = '';
         this.modePaiement = new ModePaiementDto() ;
         this.location = new LocationDto();
+        this.compteSource = '';
         this.montant = null;
         this.date = null;
         this.motif = '';

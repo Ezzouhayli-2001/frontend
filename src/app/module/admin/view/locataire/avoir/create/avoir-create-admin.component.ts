@@ -99,6 +99,7 @@ export class AvoirCreateAdminComponent  implements OnInit {
         this.validateForm();
         this.item.banque = this.compte.banque;
         this.item.caisse = this.compte.caisse;
+        this.item.compteSource = this.compte.code;
 
         if (this.locataire != null && this.local != null) {
             this.item.locataire = this.locataire;

@@ -98,8 +98,6 @@ export class CompteChargeCreateAdminComponent  implements OnInit {
     public save(): void {
         this.submitted = true;
         this.item.typeCharges.push(this.typeCharge);
-        this.item.code = `CHARGE-${this.item.nom}`;
-        this.item.solde = this.compte.solde;
         this.compte.banque = this.compteElement.banque;
         this.compte.caisse = this.compteElement.caisse;
         this.validateForm();

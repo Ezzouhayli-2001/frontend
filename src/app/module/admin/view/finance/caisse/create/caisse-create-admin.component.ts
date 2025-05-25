@@ -104,7 +104,7 @@ export class CaisseCreateAdminComponent  implements OnInit {
 
     public  validateForm(): void{
         this.errorMessages = new Array<string>();
-        this.validateCaisseCode();
+        //this.validateCaisseCode();
         this.validateCaisseLibelle();
     }
 

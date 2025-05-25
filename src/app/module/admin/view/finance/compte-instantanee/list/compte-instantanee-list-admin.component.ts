@@ -139,21 +139,34 @@ export class CompteInstantaneeListAdminComponent implements OnInit {
     public async view(dto: CompteDto) {
         this.compte = dto;
         this.viewDialog = true;
-        this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe((data) => {
-            this.transactionService.items = data.list.filter(transaction => transaction?.compteSource?.id == dto?.id || transaction?.compteDestination?.id == dto?.id);
-            console.log(this.transactionService.items);
-            this.totalCredits = 0;
-            this.totalDebits = 0;
+        this.transactionService.findPaginatedByCriteria(this.transactionService.criteria).subscribe(data => {
+            const all = data.list;
+            // Garder seulement celles où ce compte est source (débit) ou destination (crédit)
+            const linked = all.filter(tx =>
+                tx.compteSource?.id === dto.id ||
+                tx.compteDestination?.id === dto.id
+            );
 
-            if (this.transactionService.items && this.transactionService.items.length > 0) {
-                this.transactionService.items.forEach(transaction => {
-                    if (transaction.typePaiement?.label === 'Credit') {
-                        this.totalCredits += Number(transaction.montant || 0);
-                    } else if (transaction.typePaiement?.label === 'Debit') {
-                        this.totalDebits += Number(transaction.montant || 0);
-                    }
-                });
-            }
+            // Initialisation
+            let totalCredits = 0;
+            let totalDebits  = 0;
+
+            // Sommes
+            linked.forEach(tx => {
+                const m = Number(tx.montant || 0);
+                if (tx.compteDestination?.id === dto.id) {
+                    // c’est un crédit pour CE compte
+                    totalCredits += m;
+                } else if (tx.compteSource?.id === dto.id) {
+                    // c’est un débit pour CE compte
+                    totalDebits += m;
+                }
+            });
+
+            // Affectation aux variables d’affichage
+            this.transactionService.items = linked;
+            this.totalCredits =  totalCredits;
+            this.totalDebits  = totalDebits;
         });
 
 

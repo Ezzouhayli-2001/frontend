@@ -112,11 +112,7 @@
                             </div>
                         </th>
 
-                            <th >
-                                <div class="p-d-flex p-jc-between p-ai-center">
-                                    <span class="mr-2">{{'CompteLocataire.local' | translate}}</span>
-                                </div>
-                            </th>
+
 
                             <th>Actions</th>
                         </tr>
@@ -136,9 +132,9 @@
                         <td>{{element.credit}}</td>
 
 
-                        <td>{{element.locataire?.nom}} {{element.locataire?.prenom}}</td>
+                        <td>{{element.locataire?.fullName}}</td>
 
-                            <td>{{element.location?.local?.label}}</td>
+                            <!--<td>{{element.location?.local?.label}}</td>-->
 
                             <td>
 <!--

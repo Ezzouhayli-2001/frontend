@@ -114,6 +114,7 @@ export class CompteLocataireListAdminComponent implements OnInit {
     public findPaginatedByCriteria() {
         this.service.findPaginatedByCriteria(this.criteria).subscribe(paginatedItems => {
             this.items = paginatedItems.list;
+            console.log(paginatedItems.list);
             this.totalRecords = paginatedItems.dataSize;
             this.selections = new Array<CompteLocataireDto>();
         }, error => console.log(error));
@@ -145,9 +146,9 @@ export class CompteLocataireListAdminComponent implements OnInit {
 
                 if (this.transactionService.items && this.transactionService.items.length > 0) {
                     this.transactionService.items.forEach(transaction => {
-                        if (transaction.typePaiement?.label === 'Credit') {
+                        if (transaction.typePaiement?.label === 'Debit') {
                             this.totalCredits += Number(transaction.montant || 0);
-                        } else if (transaction.typePaiement?.label === 'Debit') {
+                        } else if (transaction.typePaiement?.label === 'Credit') {
                             this.totalDebits += Number(transaction.montant || 0);
                         }
                     });

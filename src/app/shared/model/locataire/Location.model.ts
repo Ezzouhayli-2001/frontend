@@ -8,6 +8,8 @@ export class LocationDto extends BaseDto{
 
     public code: string;
 
+    public solde: number;
+
     public reference: string;
 
     public dateCreation: Date;
@@ -29,6 +31,7 @@ export class LocationDto extends BaseDto{
         super();
 
         this.code = '';
+        this.solde = null;
         this.reference = '';
         this.actif = false;
         this.dateCreation = null;

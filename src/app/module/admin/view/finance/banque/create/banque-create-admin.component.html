@@ -48,7 +48,15 @@
 
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="5">{{'banque.solde' | translate}}</label>
-                            <p-inputNumber  id="5" placeholder="{{'banque.solde' | translate}}" [(ngModel)]="item.solde"  >
+                            <p-inputNumber  [minFractionDigits]="2"
+                                            [maxFractionDigits]="4"
+                                            mode="decimal"
+                                            locale="fr-FR"
+                                            currency="MAD"
+                                            [prefix]="''"
+                                            [suffix]="' MAD'"
+                                            [min]="0"
+                                            [step]="0.01"  id="5" placeholder="{{'banque.solde' | translate}}" [(ngModel)]="item.solde"  >
                             </p-inputNumber>
 
                         </div>

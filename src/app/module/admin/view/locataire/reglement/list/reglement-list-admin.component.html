@@ -128,8 +128,7 @@
 
 
                         <td>{{element.location?.local?.label}}</td>
-                        <td>{{element.location?.locataire?.nom}} {{element.location?.locataire?.prenom}}</td>
-
+                        <td>{{element.location?.locataire?.fullName}}</td>
                             <td>
 <!--
                                 <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-info mr-2" (click)="edit(element)"  *ngIf="editActionIsValid"></button>

@@ -63,6 +63,7 @@ export class CompteChargeViewAdminComponent implements OnInit {
     @Input() totalDebits = 0;
 
     @Input() chargesFilteredByLocal = new Array<ChargeDto>();
+    @Input() totalCharges = this.chargesFilteredByLocal.reduce((sum, charge) => sum + (charge.montant ), 0);
 
     constructor(private service: CompteChargeAdminService,
                 private transactionService: TransactionAdminService,
@@ -145,7 +146,7 @@ export class CompteChargeViewAdminComponent implements OnInit {
 
     public prepareTransactionColumnExport(): void {
 
-        this.transactionExportData = this.charges.map(e => {
+        this.transactionExportData = this.chargesFilteredByLocal.map(e => {
             return {
                 'Date': this.datePipe.transform(e.date, this.dateFormatColumn) || '',
                 'Montant': e.montant,
@@ -154,8 +155,19 @@ export class CompteChargeViewAdminComponent implements OnInit {
                 'Local': e.local?.label || '',
                 'Mode paiement': e.modePaiement?.label || '',
                 'Compte source': (e.compteSource?.code || '') ,
-                'Compte destination': 'Compte ' + (this.compteCharge?.nom || '')
+                'Compte destination':  (this.compteCharge?.nom || '')
             };
+        });
+
+        this.transactionCriteriaData.push({
+            'Date': 'TOTAL',
+            'Montant': this.totalCharges,
+            'Description':  '',
+            'Type de Charge': '',
+            'Local': '',
+            'Mode paiement': '',
+            'Compte source': '' ,
+            'Compte destination':  ''
         });
 
         this.transactionCriteriaData = [{

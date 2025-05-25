@@ -87,13 +87,43 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="5">{{'location.loyer' | translate}}</label>
-                            <p-inputNumber  id="5" placeholder="{{'location.loyer' | translate}}" [(ngModel)]="location.local.prix">
+                            <p-inputNumber  [minFractionDigits]="2"
+                                            [maxFractionDigits]="4"
+                                            mode="decimal"
+                                            locale="fr-FR"
+                                            currency="MAD"
+                                            [prefix]="''"
+                                            [suffix]="' MAD'"
+                                            [min]="0"
+                                            [step]="0.01"  id="5" placeholder="{{'location.loyer' | translate}}" [(ngModel)]="location.local.prix">
+                            </p-inputNumber>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label class="text-sm font-semibold" for="solde">{{'Solde' | translate}}</label>
+                            <p-inputNumber  [minFractionDigits]="2"
+                                            [maxFractionDigits]="4"
+                                            mode="decimal"
+                                            locale="fr-FR"
+                                            currency="MAD"
+                                            [prefix]="''"
+                                            [suffix]="' MAD'"
+                                            [min]="0"
+                                            [step]="0.01"  id="solde" placeholder="{{'Solde' | translate}}" [(ngModel)]="location.solde">
                             </p-inputNumber>
                         </div>
 
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-semibold" for="6">{{'location.caution' | translate}}</label>
-                            <p-inputNumber id="6" placeholder="{{'location.caution' | translate}}" [(ngModel)]="location.caution">
+                            <p-inputNumber  [minFractionDigits]="2"
+                                            [maxFractionDigits]="4"
+                                            mode="decimal"
+                                            locale="fr-FR"
+                                            currency="MAD"
+                                            [prefix]="''"
+                                            [suffix]="' MAD'"
+                                            [min]="0"
+                                            [step]="0.01" id="6" placeholder="{{'location.caution' | translate}}" [(ngModel)]="location.caution">
                             </p-inputNumber>
                         </div>
                     </div>

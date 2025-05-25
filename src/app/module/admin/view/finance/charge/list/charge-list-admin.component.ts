@@ -208,8 +208,7 @@ export class ChargeListAdminComponent implements OnInit {
             accept: () => {
                 this.service.delete(dto).subscribe(status => {
                     if (status > 0) {
-                        const position = this.items.indexOf(dto);
-                        position > -1 ? this.items.splice(position, 1) : false;
+                        this.findPaginatedByCriteria();
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Succès',

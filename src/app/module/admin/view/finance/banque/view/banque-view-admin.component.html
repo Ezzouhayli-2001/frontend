@@ -23,15 +23,39 @@
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="1">{{'compte.solde' | translate}}</label>
-                                    <p-inputNumber id="1" [disabled]="true" placeholder="{{'compte.solde' | translate}}" [ngModel]="compte.solde"></p-inputNumber>
+                                    <p-inputNumber  [minFractionDigits]="2"
+                                                    [maxFractionDigits]="4"
+                                                    mode="decimal"
+                                                    locale="fr-FR"
+                                                    currency="MAD"
+                                                    [prefix]="''"
+                                                    [suffix]="' MAD'"
+                                                    [min]="0"
+                                                    [step]="0.01" id="1" [disabled]="true" placeholder="{{'compte.solde' | translate}}" [ngModel]="compte.solde"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="2">{{'compte.debit' | translate}}</label>
-                                    <p-inputNumber id="2" [disabled]="true" placeholder="{{'compte.debit' | translate}}" [ngModel]="compte.debit"></p-inputNumber>
+                                    <p-inputNumber  [minFractionDigits]="2"
+                                                    [maxFractionDigits]="4"
+                                                    mode="decimal"
+                                                    locale="fr-FR"
+                                                    currency="MAD"
+                                                    [prefix]="''"
+                                                    [suffix]="' MAD'"
+                                                    [min]="0"
+                                                    [step]="0.01" id="2" [disabled]="true" placeholder="{{'compte.debit' | translate}}" [ngModel]="compte.debit"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="3">{{'compte.credit' | translate}}</label>
-                                    <p-inputNumber id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="compte.credit"></p-inputNumber>
+                                    <p-inputNumber  [minFractionDigits]="2"
+                                                    [maxFractionDigits]="4"
+                                                    mode="decimal"
+                                                    locale="fr-FR"
+                                                    currency="MAD"
+                                                    [prefix]="''"
+                                                    [suffix]="' MAD'"
+                                                    [min]="0"
+                                                    [step]="0.01" id="3" [disabled]="true" placeholder="{{'compte.credit' | translate}}" [ngModel]="compte.credit"></p-inputNumber>
                                 </div>
                                 <div class="field flex flex-col gap-2">
                                     <label class="text-sm font-semibold" for="4">{{'Date de création' | translate}}</label>
@@ -145,6 +169,9 @@
                                                    [value]="transaction.modePaiement?.label" [rounded]="true"></p-tag>
                                         </td>
                                         <td>
+                                            <ng-container *ngIf="transaction.compteLocataire != null && transaction.typeTransaction?.label !== 'avoir' ">
+                                                {{transaction.compteLocataire?.locataire?.fullName}}
+                                            </ng-container>
                                             <ng-container *ngIf="transaction.compteSource != null ">
                                                 {{transaction.compteSource?.code}}
                                             </ng-container>
@@ -153,17 +180,15 @@
                                             </ng-container>
                                         </td>
                                         <td>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'charge'">
+                                            <ng-container *ngIf="transaction.compteLocataire != null && transaction.typeTransaction?.label === 'avoir'">
+                                                {{transaction.compteLocataire?.locataire?.fullName}}
+                                            </ng-container>
+                                            <ng-container *ngIf="transaction.compteDestination !== null">
                                                 {{transaction.compteDestination?.code}}
                                             </ng-container>
-
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'avoir'">
-                                                {{transaction.CompteInstantanee?.locataire?.nom}} {{transaction.CompteInstantanee?.locataire?.prenom}}
+                                            <ng-container *ngIf="transaction.CompteInstantanee !== null">
+                                                {{transaction.CompteInstantanee?.locataire?.fullName}}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typeTransaction?.label === 'reglement'">
-                                                {{transaction.compteDestination?.code}}
-                                            </ng-container>
-
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -177,7 +202,7 @@
 
                                     <tr class="text-center bg-gray-400">
                                         <td colspan="1" class="text-left font-bold">Solde :</td>
-                                        <td class="text-orange-500 font-bold w-2">{{totalCredits - totalDebits }}</td>
+                                        <td class="text-orange-500 font-bold w-2">{{ compte.soldeInitial + (totalCredits - totalDebits) }}</td>
                                         <td colspan="5"></td>
                                     </tr>
                                 </ng-template>

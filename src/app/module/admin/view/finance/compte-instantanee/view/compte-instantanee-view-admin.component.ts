@@ -57,7 +57,7 @@ export class CompteInstantaneeViewAdminComponent implements OnInit {
     protected transactionExcelPdfButons: MenuItem[];
     protected transactionExportData: any[] = [];
     protected transactionCriteriaData: any[] = [];
-    protected _transactionFileName = `Compte Locataire de ${this.item.locataire?.nom} ${this.item.locataire?.prenom}`;
+    protected _transactionFileName = `Compte Instantanees ${new Date().toLocaleDateString()}`;
     @Input() totalCredits = 0;
     @Input() totalDebits = 0;
 
@@ -142,28 +142,32 @@ export class CompteInstantaneeViewAdminComponent implements OnInit {
             let credit = 0 ;
             let debit = 0;
 
-            if (e.typePaiement?.label === 'Credit') {
+            if (e.compteDestination?.id === this.compte.id) {
                 credit = e.montant ;
             }
 
-            if (e.typePaiement?.label === 'Debit') {
+            if (e.compteSource?.id === this.compte.id) {
                 debit = e.montant;
             }
 
             // Gestion du compte source selon le type de transaction
             let compteSource = '';
-            if (e.typeTransaction?.label === 'charge' || e.typeTransaction?.label === 'avoir') {
+            if (e.compteSource?.id !== null) {
                 compteSource = e.compteSource?.code || '';
-            } else if (e.typeTransaction?.label === 'reglement') {
-                compteSource = `${e.CompteInstantanee?.locataire?.nom || ''} ${e.CompteInstantanee?.locataire?.prenom || ''}`.trim();
+            }
+            if (e.compteLocataire?.id !== null && e.compteSource?.id === null) {
+                compteSource = `${e.compteLocataire?.locataire?.fullName || ''} `.trim();
             }
 
             // Gestion du compte destination selon le type de transaction
             let compteDestination = '';
-            if (e.typeTransaction?.label === 'charge' || e.typeTransaction?.label === 'reglement') {
+            if (e.compteDestination?.id !== null) {
                 compteDestination = e.compteDestination?.code || '';
-            } else if (e.typeTransaction?.label === 'avoir') {
-                compteDestination = `${e.CompteInstantanee?.locataire?.nom || ''} ${e.CompteInstantanee?.locataire?.prenom || ''}`.trim();
+            }
+            console.log(e.compteLocataire);
+            if (e.compteLocataire?.id !== null && e.compteDestination?.id === null) {
+                console.log(e.compteLocataire);
+                compteDestination = `${e.compteLocataire?.locataire?.fullName || ''} `.trim();
             }
 
             return {
@@ -191,7 +195,7 @@ export class CompteInstantaneeViewAdminComponent implements OnInit {
         });
 
         // Ajout d'une ligne pour le solde
-        const solde = this.totalCredits - this.totalDebits;
+        const solde = this.compte.soldeInitial + (this.totalCredits - this.totalDebits) ;
         this.transactionExportData.push({
             'Date': 'SOLDE',
             'Crédit': solde ,

@@ -65,6 +65,10 @@ export class CompteAdminService {
         return this.http.get<Array<CompteDto>>(this.API + 'banque');
     }
 
+    public findAllByCompteChargeNotNull() {
+        return this.http.get<Array<CompteDto>>(this.API + 'compteCharge');
+    }
+
     public findAllByCaisseNotNull() {
         return this.http.get<Array<CompteDto>>(this.API + 'caisse');
     }

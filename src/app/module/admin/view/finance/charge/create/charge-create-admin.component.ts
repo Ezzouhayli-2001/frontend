@@ -80,8 +80,11 @@ export class ChargeCreateAdminComponent  implements OnInit {
         this.caisseService.findPaginatedByCriteria(this.caisseService.criteria).subscribe((data) => {
             this.caisseService.items = data.list;
         });
-        this.compteService.findPaginatedByCriteria(this.compteService.criteria).subscribe((data) => {
-            this.comptes = data.list.filter(e=>e.code!="CHARGE");
+        this.compteService.findAllByBanqueNotNull().subscribe((data) => {
+            this.comptes = data;
+        });
+        this.compteService.findAllByCaisseNotNull().subscribe((data) => {
+            this.comptes.push(...data);
         });
         this.modePaiementService.findPaginatedByCriteria(this.modePaiementService.criteria).subscribe((data) => {
             this.modePaiementService.items = data.list;

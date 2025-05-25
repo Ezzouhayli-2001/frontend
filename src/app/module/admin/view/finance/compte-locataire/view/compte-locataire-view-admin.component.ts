@@ -3,19 +3,14 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 
 
 import {environment} from 'src/environments/environment';
 
 import {RoleService} from 'src/app/zynerator/security/shared/service/Role.service';
-import {AbstractService} from 'src/app/zynerator/service/AbstractService';
-import {BaseDto} from 'src/app/zynerator/dto/BaseDto.model';
-import {BaseCriteria} from 'src/app/zynerator/criteria/BaseCriteria.model';
 import {StringUtilService} from 'src/app/zynerator/util/StringUtil.service';
 import {ServiceLocator} from 'src/app/zynerator/service/ServiceLocator';
-import {ConfirmationService, MessageService,MenuItem} from 'primeng/api';
-import {FileTempDto} from 'src/app/zynerator/dto/FileTempDto.model';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 
 
 import {CompteLocataireAdminService} from 'src/app/shared/service/admin/finance/CompteLocataireAdmin.service';
@@ -36,6 +31,7 @@ import {TypeTransactiontDto} from 'src/app/shared/model/locataire/TypeTransactio
 import {TypeTransactiontAdminService} from 'src/app/shared/service/admin/locataire/TypeTransactiontAdmin.service';
 import {TransactionCriteria} from "../../../../../../shared/criteria/locataire/TransactionCriteria.model";
 import {ExportService} from "../../../../../../zynerator/util/Export.service";
+
 @Component({
   selector: 'app-compte-locataire-view-admin',
   standalone: false,
@@ -61,7 +57,7 @@ export class CompteLocataireViewAdminComponent implements OnInit {
     protected transactionExcelPdfButons: MenuItem[];
     protected transactionExportData: any[] = [];
     protected transactionCriteriaData: any[] = [];
-    protected _transactionFileName = `Compte Locataire de ${this.item.locataire?.nom} ${this.item.locataire?.prenom}`;
+    protected _transactionFileName = `Compte Locataire - ${new Date().toLocaleDateString()}`;
     @Input() totalCredits = 0;
     @Input() totalDebits = 0;
 

@@ -120,18 +120,18 @@
                                     <tr>
                                         <td>{{transaction.date | date: dateFormatColumn}}</td>
                                         <td class="text-green-500 font-medium">
-                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Credit'">
+                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Credit'">
                                                 {{transaction.montant }}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Credit'">
+                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Credit'">
                                                 ---
                                             </ng-container>
                                         </td>
                                         <td class="text-red-500 font-medium">
-                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Debit'">
+                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Debit'">
                                                 {{transaction.montant }}
                                             </ng-container>
-                                            <ng-container *ngIf="transaction.typePaiement?.label !== 'Debit'">
+                                            <ng-container *ngIf="transaction.typePaiement?.label === 'Debit'">
                                                 ---
                                             </ng-container>
                                         </td>
@@ -173,13 +173,13 @@
                                         <td colspan="1" class="text-left font-bold">Total:</td>
                                         <td class="text-green-500 font-bold">{{totalCredits }}</td>
                                         <td class="text-orange-500 font-bold">{{totalDebits }}</td>
-                                        <td colspan="5"></td>
+                                        <td colspan="6"></td>
                                     </tr>
 
                                     <tr class="text-center bg-gray-400">
                                         <td colspan="1" class="text-left font-bold">Solde :</td>
-                                        <td class="text-orange-500 font-bold w-2">{{totalCredits - totalDebits }}</td>
-                                        <td colspan="5"></td>
+                                        <td class="text-orange-500 font-bold w-2">{{ item.soldeInitial +(totalCredits - totalDebits) }}</td>
+                                        <td colspan="6"></td>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="emptymessage">
